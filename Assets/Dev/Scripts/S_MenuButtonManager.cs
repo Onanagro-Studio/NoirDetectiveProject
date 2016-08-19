@@ -5,7 +5,7 @@ public class S_MenuButtonManager : MonoBehaviour {
 
     public void Menu_Start()
     {
-        // S_SceneManager.Load_Demo();
+        S_SceneManager.Load_Demo();
         Debug.Log( "Click Start" );
     }
 
@@ -29,7 +29,8 @@ public class S_MenuButtonManager : MonoBehaviour {
 
     public void Menu_Quit()
     {
-        Debug.Log( "Click Quit" ); 
+        Debug.Log( "Click Quit" );
+        Application.Quit();
     }
 
 	
