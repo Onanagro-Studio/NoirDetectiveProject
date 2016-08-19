@@ -16,15 +16,29 @@ class S_SceneManager
         Load_Scene( 1 );
     }
 
-    public static void Load_Demo()
+    public static void Load_Settings()
     {
         Load_Scene( 2 );
     }
 
+    public static void Load_Credits()
+    {
+        Load_Scene( 3 );
+    }
+
     public static void Load_GameOver()
     {
-        Load_Scene( 30 );
+        Load_Scene( 4 );
     }
+
+    public static void Load_Demo()
+    {
+        Load_Scene( 5 );
+    }
+
+   
+
+
 
     public static void Load_Next()
     {
