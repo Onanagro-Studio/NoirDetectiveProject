@@ -29,7 +29,7 @@ public class S_MenuButtonManager {
 
     public static void Menu_Quit()
     {
-        Debug.Log( "Click Continue" );
+        Debug.Log( "Click Continue" ); 
     }
 
 	
