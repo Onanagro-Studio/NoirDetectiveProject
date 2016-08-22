@@ -5,14 +5,24 @@ public class S_MenuButtonManager : MonoBehaviour {
 
     public void Menu_Start()
     {
-        // S_SceneManager.Load_Demo();
+        S_SceneManager.Load_Demo();
         Debug.Log( "Click Start" );
+    }
+
+    public void Menu_Restart()
+    {
+        Debug.Log( "Click Restart" );
     }
 
     public void Menu_Continue()
     {
         // S_SceneManager.Load_Demo();
         Debug.Log( "Click Continue" );
+    }
+    public void Menu_MainMenu()
+    {
+        S_SceneManager.Load_Menu();
+        Debug.Log( "Click Menu" );
     }
 
     public void Menu_Settings()
@@ -29,7 +39,8 @@ public class S_MenuButtonManager : MonoBehaviour {
 
     public void Menu_Quit()
     {
-        Debug.Log( "Click Quit" ); 
+        Debug.Log( "Click Quit" );
+        Application.Quit();
     }
 
 	

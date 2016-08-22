@@ -52,7 +52,8 @@ public class S_SplashCanvas : MonoBehaviour
                     m_Up = true;
                 }
                 else
-                    Debug.Log( "End" );
+                    S_SceneManager.Load_Menu();
+            
             }
         }
     }
