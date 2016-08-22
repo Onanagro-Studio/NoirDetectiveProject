@@ -9,10 +9,20 @@ public class S_MenuButtonManager : MonoBehaviour {
         Debug.Log( "Click Start" );
     }
 
+    public void Menu_Restart()
+    {
+        Debug.Log( "Click Restart" );
+    }
+
     public void Menu_Continue()
     {
         // S_SceneManager.Load_Demo();
         Debug.Log( "Click Continue" );
+    }
+    public void Menu_MainMenu()
+    {
+        S_SceneManager.Load_Menu();
+        Debug.Log( "Click Menu" );
     }
 
     public void Menu_Settings()
