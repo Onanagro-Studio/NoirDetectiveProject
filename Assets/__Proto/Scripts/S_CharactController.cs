@@ -47,11 +47,6 @@ public class S_CharactController : MonoBehaviour
         }
     }
     
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log( "Collision" );
-    }
-
     private bool m_dir_R;
     private bool m_dir_L;
 
