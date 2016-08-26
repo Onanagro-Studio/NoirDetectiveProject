@@ -11,6 +11,7 @@ public class S_MenuButtonManager : MonoBehaviour {
 
     public void Menu_Restart()
     {
+        S_SceneManager.Load_Demo();
         Debug.Log( "Click Restart" );
     }
 
