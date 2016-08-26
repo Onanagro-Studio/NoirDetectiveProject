@@ -24,7 +24,6 @@ public class S_Enemy_Collision : MonoBehaviour
     {
         if (!m_hinted)
         {
-            Debug.Log( "Hint ! #Aie :/" );
             m_hinted = true;
             m_renderer.color = new Color( 1, 0, 0 );
 

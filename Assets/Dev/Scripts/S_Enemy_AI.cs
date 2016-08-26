@@ -21,6 +21,9 @@ public class S_Enemy_AI : MonoBehaviour
 	
 	void Update ()
     {
+        if( Input.GetKeyDown( KeyCode.G ) )
+            S_SceneManager.Load_GameOver();
+
         if( m_state == EnemyAction.Waiting )
             Wait_AI();
         else
