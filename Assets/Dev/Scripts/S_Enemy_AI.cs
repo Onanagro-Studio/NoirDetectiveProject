@@ -11,6 +11,10 @@ public class S_Enemy_AI : MonoBehaviour
     public float RandomMoveMin = 13.0f;
     public float RandomMoveMax = 35.0f;
 
+    public float MapWidth = 124.0f;
+
+    public EnemyAction m_state;
+
     void Start ()
     {
         m_transform = GetComponent<Transform>();
@@ -36,21 +40,21 @@ public class S_Enemy_AI : MonoBehaviour
     }
 
     #region AI Waiting
-    private float WaitTimer;
+    private float m_waitTimer;
 
     private void Random_Wait(float _range)
     {
         m_state = EnemyAction.Waiting;
 
         float _waittime = Random.Range( 0.5f, _range );
-        WaitTimer = Time.realtimeSinceStartup + _waittime;
+        m_waitTimer = Time.realtimeSinceStartup + _waittime;
 
         //Debug.Log( "Waiting: " + _waittime );
     }
 
     private void Wait_AI()
     {
-        if (Time.realtimeSinceStartup > WaitTimer )
+        if (Time.realtimeSinceStartup > m_waitTimer )
         {
             Random_Walk( RandomMoveMin, RandomMoveMax );
         }
@@ -68,8 +72,11 @@ public class S_Enemy_AI : MonoBehaviour
         float _dest = Random.Range( _min, _max );
         float _dir = RandomSign();
 
-        m_walk_dest = new Vector3( m_transform.position.x + _dest * _dir, m_transform.position.y, m_transform.position.z );
+        if( Mathf.Abs( m_transform.position.x + _dest * _dir ) >= MapWidth )
+            _dir = -_dir;
 
+        m_walk_dest = new Vector3( m_transform.position.x + _dest * _dir, m_transform.position.y, m_transform.position.z );
+        
         m_walk_speed = Random.Range( WalkSpeedMin, WalkSpeedMax );
 
         if ( _dir == 1)
@@ -101,9 +108,22 @@ public class S_Enemy_AI : MonoBehaviour
     #endregion
 
     #region AI Attack
+    public void Attack_Player(Transform _m_player_transform)
+    {
+        m_player_transform = _m_player_transform;
+        m_state = EnemyAction.Attack;
+    }
+
     private void Attack_AI()
     {
-
+        if( m_transform.position.x - m_player_transform.position.x > 0 )
+        {
+            m_transform.position = new Vector3( m_transform.position.x - 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+        }
+        else
+        {
+            m_transform.position = new Vector3( m_transform.position.x + 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+        }
     }
     #endregion
 
@@ -114,11 +134,11 @@ public class S_Enemy_AI : MonoBehaviour
     }
     #endregion
 
-private Transform m_transform;
-    private EnemyAction m_state;
+    private Transform m_transform;
+    private Transform m_player_transform;
 }
 
-enum EnemyAction
+public enum EnemyAction
 {
     Waiting,
     Walk,
