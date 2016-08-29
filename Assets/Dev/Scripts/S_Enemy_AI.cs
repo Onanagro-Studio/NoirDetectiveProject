@@ -80,9 +80,9 @@ public class S_Enemy_AI : MonoBehaviour
         m_walk_speed = Random.Range( WalkSpeedMin, WalkSpeedMax );
 
         if ( _dir == 1)
-            m_transform.localScale = new Vector3( 0.75f, 0.75f, 1 );
+            m_transform.localScale = new Vector3( 1, 1, 1 );
         else
-            m_transform.localScale = new Vector3( -0.75f, 0.75f, 1 );
+            m_transform.localScale = new Vector3( -1, 1, 1 );
 
         //Debug.Log( "Range: " + _dest + " Dest: " + m_walk_dest );
     }
@@ -116,13 +116,18 @@ public class S_Enemy_AI : MonoBehaviour
 
     private void Attack_AI()
     {
-        if( m_transform.position.x - m_player_transform.position.x > 0 )
+        if ( Mathf.Abs(m_transform.position.x - m_player_transform.position.x) > 2.6f )
         {
-            m_transform.position = new Vector3( m_transform.position.x - 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
-        }
-        else
-        {
-            m_transform.position = new Vector3( m_transform.position.x + 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+            if( m_transform.position.x - m_player_transform.position.x > 0 )
+            {
+                m_transform.localScale = new Vector3( -1, 1, 1 );
+                m_transform.position = new Vector3( m_transform.position.x - 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+            }
+            else
+            {
+                m_transform.localScale = new Vector3( 1, 1, 1 );
+                m_transform.position = new Vector3( m_transform.position.x + 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+            }
         }
     }
     #endregion

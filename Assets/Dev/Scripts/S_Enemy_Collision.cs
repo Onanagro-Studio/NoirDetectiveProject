@@ -31,7 +31,7 @@ public class S_Enemy_Collision : MonoBehaviour
         if (m_life > 0)
         {
             if( m_AI.m_state != EnemyAction.Attack )
-                m_AI.Attack_Player( collision.GetComponent<Transform>() );
+                m_AI.Attack_Player( collision.transform.parent );
 
             m_hinted = true;
             m_renderer.color = new Color( 1, 0, 0 );
