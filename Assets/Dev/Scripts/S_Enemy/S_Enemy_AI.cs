@@ -8,19 +8,39 @@ public class S_Enemy_AI : MonoBehaviour
     public float WalkSpeedMin = 1.0f;
     public float WalkSpeedMax = 2.5f;
 
-    public float RandomMoveMin = 13.0f;
-    public float RandomMoveMax = 35.0f;
+    public GameObject Flags_Pool;
+    public GameObject Min_Flag;
+    public GameObject Max_Flag;
 
-    public float MapWidth = 124.0f;
+    public int MaxCountRandomWalk = 5;
 
     public EnemyAction m_state;
 
     void Start ()
     {
+        Debug.Log( "Init AI ..." );
+
         m_transform = GetComponent<Transform>();
 
-        //Debug.Log( "Init AI ...");
-        Random_Wait( RandomWaitTime );
+        m_min_flag = Min_Flag.GetComponent<Transform>().position.x;
+        m_max_flag = Max_Flag.GetComponent<Transform>().position.x;
+
+        Min_Flag.GetComponent<Transform>().parent = Flags_Pool.GetComponent<Transform>();
+        Max_Flag.GetComponent<Transform>().parent = Flags_Pool.GetComponent<Transform>();
+
+        if ( m_min_flag > m_max_flag )
+        {
+            float _min = m_min_flag;
+            m_min_flag = m_max_flag;
+            m_max_flag = _min;
+        }
+
+        float _range = Mathf.Abs(m_min_flag - m_max_flag);
+
+        m_random_move_min = _range / 5.0f;
+        m_random_move_max = _range / 1.5f;
+
+        Random_Wait( 0.1f );
     }
 	
 	void Update ()
@@ -49,14 +69,14 @@ public class S_Enemy_AI : MonoBehaviour
         float _waittime = Random.Range( 0.5f, _range );
         m_waitTimer = Time.realtimeSinceStartup + _waittime;
 
-        //Debug.Log( "Waiting: " + _waittime );
+        Debug.Log( "Waiting: " + _waittime );
     }
 
     private void Wait_AI()
     {
         if (Time.realtimeSinceStartup > m_waitTimer )
         {
-            Random_Walk( RandomMoveMin, RandomMoveMax );
+            Random_Walk( m_random_move_min, m_random_move_max );
         }
     }
     #endregion
@@ -65,26 +85,43 @@ public class S_Enemy_AI : MonoBehaviour
     private Vector3 m_walk_dest;
     private float m_walk_speed;
 
-    private void Random_Walk(float _min, float _max)
+    private void Random_Walk(float _move_min, float _move_max)
     {
         m_state = EnemyAction.Walk;
+
+        bool _correct_dest = false;
+
+        int _count = 0;
+        float _dest = 0;
+        float _dir = 0;
+
+        while( !_correct_dest && _count < MaxCountRandomWalk )
+        {
+            float _range = Random.Range( _move_min, _move_max );
+
+            _dir = RandomSign();
+            _dest = m_transform.position.x + _range * _dir;
+
+            if( _dest > m_min_flag && _dest < m_max_flag )
+                _correct_dest = true;
+
+            _count++;
+        }
         
-        float _dest = Random.Range( _min, _max );
-        float _dir = RandomSign();
+        if ( _correct_dest )
+        {
+            m_walk_dest = new Vector3( _dest, m_transform.position.y, m_transform.position.z );
+            m_walk_speed = Random.Range( WalkSpeedMin, WalkSpeedMax );
 
-        if( Mathf.Abs( m_transform.position.x + _dest * _dir ) >= MapWidth )
-            _dir = -_dir;
+            if( _dir == 1 )
+                m_transform.localScale = new Vector3( 1, 1, 1 );
+            else
+                m_transform.localScale = new Vector3( -1, 1, 1 );
 
-        m_walk_dest = new Vector3( m_transform.position.x + _dest * _dir, m_transform.position.y, m_transform.position.z );
-        
-        m_walk_speed = Random.Range( WalkSpeedMin, WalkSpeedMax );
-
-        if ( _dir == 1)
-            m_transform.localScale = new Vector3( 1, 1, 1 );
+            Debug.Log( "Move: " + _dest + ", Speed: " + m_walk_speed );
+        }
         else
-            m_transform.localScale = new Vector3( -1, 1, 1 );
-
-        //Debug.Log( "Range: " + _dest + " Dest: " + m_walk_dest );
+            Random_Wait( RandomWaitTime );
     }
 
     private void Walk_AI()
@@ -112,6 +149,8 @@ public class S_Enemy_AI : MonoBehaviour
     {
         m_player_transform = _m_player_transform;
         m_state = EnemyAction.Attack;
+
+        Debug.Log( "Attack !" );
     }
 
     private void Attack_AI()
@@ -141,6 +180,12 @@ public class S_Enemy_AI : MonoBehaviour
 
     private Transform m_transform;
     private Transform m_player_transform;
+
+    private float m_min_flag;
+    private float m_max_flag;
+
+    private float m_random_move_min;
+    private float m_random_move_max;
 }
 
 public enum EnemyAction

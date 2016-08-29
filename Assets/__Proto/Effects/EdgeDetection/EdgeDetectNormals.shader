@@ -1,5 +1,5 @@
 
-Shader "Hidden/EdgeDetect" { 
+Shader "Test/EdgeDetect" { 
 	Properties {
 		_MainTex ("Base (RGB)", 2D) = "" {}
 	}
