@@ -5,6 +5,7 @@ public class S_CharactController : MonoBehaviour
 {
     public float ZoneCam = 8.0f;
     public BoxCollider FightBox;
+    public bool IsHidden;
 
 	void Start ()
     {
@@ -16,10 +17,14 @@ public class S_CharactController : MonoBehaviour
         m_dir_L = false;
 
         FightBox.enabled = false;
+        IsHidden = false;
     }
 	
 	void Update ()
     {
+        if( Input.GetKeyDown( KeyCode.G ) )
+            S_SceneManager.Load_GameOver();
+
         float dx = Input.GetAxis("Horizontal") * 10.0f;
         m_body.velocity = new Vector3( dx, m_body.velocity.y, 0 );
         
