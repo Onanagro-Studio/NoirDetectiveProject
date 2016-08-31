@@ -15,12 +15,12 @@ public class S_Highlight_Color : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        h.ConstantOn( m_color );
-        h.SeeThroughOn();
+       
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        h.ConstantOn( m_color );
+        h.SeeThroughOn();
+    }
 }
