@@ -12,7 +12,10 @@ public class S_Enemy_AI : MonoBehaviour
         m_AI_Attack = GetComponent<S_Enemy_AI_Attack>();
         m_AI_Wait = GetComponent<S_Enemy_AI_Wait>();
         m_AI_Walk = GetComponent<S_Enemy_AI_Walk>();
+        m_AI_LookAround = GetComponent<S_Enemy_AI_LookAround>();
+        m_AI_Sleep = GetComponent<S_Enemy_AI_Sleep>();
 
+        m_AI_Wait.Init(this);
         Wait( 0.1f );
     }
 
@@ -41,10 +44,26 @@ public class S_Enemy_AI : MonoBehaviour
         m_AI_Walk.Start_Patrol();
     }
     #endregion
+    
+    #region LookAround
+    public void Start_LookAround()
+    {
+        m_AI_LookAround.Start_LookAround();
+    }
+    #endregion
+
+    #region Sleep
+    public void Start_SleepRandom()
+    {
+        m_AI_Sleep.Start_SleepRandom();
+    }
+    #endregion
 
     private S_Enemy_AI_Attack m_AI_Attack;
     private S_Enemy_AI_Wait m_AI_Wait;
     private S_Enemy_AI_Walk m_AI_Walk;
+    private S_Enemy_AI_LookAround m_AI_LookAround;
+    private S_Enemy_AI_Sleep m_AI_Sleep;
 }
 
 public enum EnemyAction
@@ -53,5 +72,6 @@ public enum EnemyAction
     Walk,
     Patrol,
     Attack,
-    LookAround
+    LookAround,
+    Sleep
 }

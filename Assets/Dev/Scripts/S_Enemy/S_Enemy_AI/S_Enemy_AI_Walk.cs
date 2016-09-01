@@ -104,7 +104,7 @@ public class S_Enemy_AI_Walk : MonoBehaviour
                 else
                     m_transform.localScale = new Vector3( -1, 1, 1 );
 
-                Debug.Log( "Move: " + _dest + ", Speed: " + m_walk_speed );
+                //Debug.Log( "Move: " + _dest + ", Speed: " + m_walk_speed );
             }
             else
             {
@@ -115,8 +115,6 @@ public class S_Enemy_AI_Walk : MonoBehaviour
 
     private void Start_Return_Area()
     {
-        Debug.Log( "Out of Area ==> return" );
-
         m_enemy_AI.m_state = EnemyAction.Walk;
 
         m_walk_dest = new Vector3( Random.Range( m_min_flag + m_random_move_min, m_max_flag - m_random_move_min ), 0, 0 );
@@ -125,6 +123,8 @@ public class S_Enemy_AI_Walk : MonoBehaviour
             m_transform.localScale = new Vector3( 1, 1, 1 );
         else
             m_transform.localScale = new Vector3( -1, 1, 1 );
+
+        //Debug.Log( "Out of Area ==> return" );
     }
 
     #region Utils

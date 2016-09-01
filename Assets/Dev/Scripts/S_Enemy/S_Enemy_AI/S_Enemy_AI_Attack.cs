@@ -10,17 +10,17 @@ public class S_Enemy_AI_Attack : MonoBehaviour
     {
         m_enemy_AI = GetComponent<S_Enemy_AI>();
         m_transform = GetComponent<Transform>();
-
-        m_lost = false;
     }
     
     void Update ()
     {
         if ( m_enemy_AI.m_state == EnemyAction.Attack )
         {
+            S_MadnessBar.progress += 0.015f * Time.deltaTime;
+
             float _dist = Mathf.Abs( m_transform.position.x - m_player_transform.position.x );
 
-            if( _dist > 2.6f && !m_lost )
+            if( _dist > 2.6f )
             {
                 if( m_transform.position.x - m_player_transform.position.x > 0 )
                 {
@@ -34,18 +34,13 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                 }
             }
 
-            if ( _dist > OutOfRange && !m_lost )
+            if ( _dist > OutOfRange )
             {
-                m_lastposx = m_player_transform.position.x;
                 Debug.Log( "Is lost !" );
-                m_lost = true;
-            }
-
-            if ( m_lost && m_enemy_AI.m_state != EnemyAction.Walk)
-            {
-                m_lost = false;
+                m_lastposx = m_player_transform.position.x;
                 ConeLight.material.color = Color.white;
-                m_enemy_AI.Start_Patrol();
+
+                m_enemy_AI.Start_LookAround();
             }
         }
     }
@@ -57,14 +52,13 @@ public class S_Enemy_AI_Attack : MonoBehaviour
         m_player_transform = _player_transform;
         m_enemy_AI.m_state = EnemyAction.Attack;
 
-        Debug.Log( "Attack !" );
+        //Debug.Log( "Attack !" );
     }
 
     private S_Enemy_AI m_enemy_AI;
 
     private Transform m_transform;
     private Transform m_player_transform;
-
-    private bool m_lost;
+    
     private float m_lastposx;
 }
