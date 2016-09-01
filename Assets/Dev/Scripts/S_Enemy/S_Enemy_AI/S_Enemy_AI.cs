@@ -5,6 +5,9 @@ public class S_Enemy_AI : MonoBehaviour
 {
     public EnemyAction m_state;
     public EnemyDirection m_direction;
+    public Color m_PatrolColor = Color.white,
+                 m_WarningColor = Color.yellow, 
+                 m_DetectColor = Color.red;
 
 
     void Start ()

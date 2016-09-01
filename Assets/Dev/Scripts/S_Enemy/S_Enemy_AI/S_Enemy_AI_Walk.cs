@@ -67,6 +67,10 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     
     public void Start_Patrol()
     {
+
+        ConeLightR.material.color = m_enemy_AI.m_PatrolColor;
+        ConeLightL.material.color = m_enemy_AI.m_PatrolColor;
+
         if( (m_transform.position.x < m_min_flag || m_transform.position.x > m_max_flag) )
         {
             Start_Return_Area();
@@ -145,4 +149,8 @@ public class S_Enemy_AI_Walk : MonoBehaviour
 
     private S_Enemy_AI m_enemy_AI;
     private Transform m_transform;
+
+    [HideInInspector]
+    public Renderer ConeLightR, ConeLightL;
+
 }

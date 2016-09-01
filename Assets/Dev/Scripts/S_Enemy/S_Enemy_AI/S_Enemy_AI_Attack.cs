@@ -3,7 +3,7 @@ using System.Collections;
 
 public class S_Enemy_AI_Attack : MonoBehaviour
 {
-    public Renderer ConeLightR, ConeLightL;
+   
     public float OutOfRange = 10.0f;
 
     void Start ()
@@ -38,8 +38,8 @@ public class S_Enemy_AI_Attack : MonoBehaviour
             {
                 Debug.Log( "Is lost !" );
                 m_lastposx = m_player_transform.position.x;
-                ConeLightR.material.color = Color.white;
-                ConeLightL.material.color = Color.white;
+                ConeLightR.material.color = m_enemy_AI.m_WarningColor;
+                ConeLightL.material.color = m_enemy_AI.m_WarningColor;
 
                 m_enemy_AI.Start_LookAround();
             }
@@ -48,8 +48,8 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
     public void Attack_Player(Transform _player_transform)
     {
-        ConeLightR.material.color = Color.red;
-        ConeLightL.material.color = Color.red;
+        ConeLightR.material.color = m_enemy_AI.m_DetectColor;
+        ConeLightL.material.color = m_enemy_AI.m_DetectColor;
 
         m_player_transform = _player_transform;
         m_enemy_AI.m_state = EnemyAction.Attack;
@@ -61,6 +61,9 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
     private Transform m_transform;
     private Transform m_player_transform;
-    
+
+    [HideInInspector]
+    public Renderer ConeLightR, ConeLightL;
+
     private float m_lastposx;
 }
