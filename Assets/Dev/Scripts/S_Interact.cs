@@ -6,7 +6,6 @@ using HighlightingSystem;
 public class S_Interact : MonoBehaviour
 {
 
-    public bool SeeThrough = false;
 
     public Color ColorBase = Color.gray;
     public Color ColorIsBehind = Color.cyan;
@@ -22,8 +21,7 @@ public class S_Interact : MonoBehaviour
         m_renderer.material.color = new Color( 1, 1, 1, 0.7f );
         m_highlighter = Props_Sprite.AddComponent<Highlighter>();
         m_highlighter.ConstantOnImmediate( ColorBase );
-        if( SeeThrough ) m_highlighter.SeeThroughOff();
-        else m_highlighter.SeeThroughOff();
+       
     }
 	
 	void Update ()
@@ -34,8 +32,8 @@ public class S_Interact : MonoBehaviour
         {
             //Debug.Log( "Interact" );
             m_highlighter.ConstantOnImmediate( ColorIsUsed );
-
-
+            m_charact_controller.m_SpriteLeft.transform.position = new Vector3( m_charact_controller.m_SpriteLeft.transform.position.x, Props_Sprite.transform.position.y, Props_Sprite.transform.position.z - .1f );
+            m_charact_controller.m_SpriteRight.transform.position = new Vector3( m_charact_controller.m_SpriteRight.transform.position.x, Props_Sprite.transform.position.y, Props_Sprite.transform.position.z - .1f);
             //m_renderer.material.color = new Color( 1, 0, 0, 1f );
         }
 	}
@@ -46,6 +44,7 @@ public class S_Interact : MonoBehaviour
             m_charact_controller = collision.gameObject.GetComponent<S_CharactController>();
 
         m_charact_controller.IsHidden = true;
+      
 
         m_canInteract = true;
         m_highlighter.ConstantOnImmediate( ColorIsBehind );
@@ -59,7 +58,9 @@ public class S_Interact : MonoBehaviour
 
         m_canInteract = false;
         m_highlighter.ConstantOnImmediate( ColorBase );
-       
+
+        m_charact_controller.m_SpriteLeft.transform.position = new Vector3( m_charact_controller.m_SpriteLeft.transform.position.x, 3, 0 );
+        m_charact_controller.m_SpriteRight.transform.position = new Vector3( m_charact_controller.m_SpriteRight.transform.position.x, 3, 0 );
         //m_renderer.material.color = new Color( 1, 1, 1, 0.7f );
     }
 
