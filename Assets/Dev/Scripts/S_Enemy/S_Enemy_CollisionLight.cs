@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class S_Enemy_Collision_Light : MonoBehaviour
+public class S_Enemy_CollisionLight : MonoBehaviour
 {
     
 	void Start ()
@@ -14,7 +14,7 @@ public class S_Enemy_Collision_Light : MonoBehaviour
 	
 	void Update ()
     {
-        if ( m_is_see && m_AI.m_state != EnemyAction.Attack && !m_player_charact_controller.IsHidden )
+        if ( m_is_see && m_AI.m_state != EnemyAction.Attack && !m_player_charact_controller.IsHidden && m_AI.m_state != EnemyAction.Sleep )
         {
             m_AI.Attack_Player( m_player_transform );
         }

@@ -19,7 +19,7 @@ public class S_Enemy_Collision : MonoBehaviour
         {
             m_hinted = false;
 
-            m_renderer.color = new Color( 1, 1, 1 );
+            m_renderer.color = Color.white;
 
             if ( m_life <= 0 )
                 Destroy( this.gameObject );
@@ -28,17 +28,20 @@ public class S_Enemy_Collision : MonoBehaviour
     
     void OnTriggerEnter(Collider collision)
     {
-        if (m_life > 0)
+        if (m_AI.m_state != EnemyAction.Sleep)
         {
             if( m_AI.m_state != EnemyAction.Attack )
-                m_AI.Attack_Player( collision.transform );
+                m_AI.Start_SleepRandom();
+            else
+            if( m_life > 0 )
+            {
+                m_hinted = true;
+                m_renderer.color = Color.red;
 
-            m_hinted = true;
-            m_renderer.color = new Color( 1, 0, 0 );
+                m_hintTimer = Time.realtimeSinceStartup + 0.1f;
 
-            m_hintTimer = Time.realtimeSinceStartup + 0.1f;
-
-            m_life--;
+                m_life--;
+            }
         }
     }
 
