@@ -2,25 +2,38 @@
 using System.Collections;
 using HighlightingSystem;
 
-public class S_Highlight_Color : MonoBehaviour {
+public class S_Highlight_Color : MonoBehaviour
+{
 
-    protected Highlighter h;
-    public Color m_color;
+
+    public GameObject m_Sprite;
+    public Color HighlightColor = Color.black;
+    public bool IsHighlighted = false;
 
     void Awake()
     {
-        h = gameObject.AddComponent<Highlighter>();
+        m_highlight = m_Sprite.AddComponent<Highlighter>();
+       
+
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
-       
+      
+
+
     }
-	
-	// Update is called once per frame
-	void Update () {
-        h.ConstantOn( m_color );
-        h.SeeThroughOn();
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if( IsHighlighted ) m_highlight.ConstantOnImmediate( HighlightColor );
+        else m_highlight.ConstantOffImmediate();
+
     }
+
+    private Highlighter m_highlight;
 }

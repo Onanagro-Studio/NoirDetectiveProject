@@ -100,9 +100,9 @@ public class S_Enemy_AI_Walk : MonoBehaviour
                 m_walk_speed = Random.Range( WalkSpeedMin, WalkSpeedMax );
 
                 if( _dir == 1 )
-                    m_transform.localScale = new Vector3( 1, 1, 1 );
+                    m_enemy_AI.SetDirection( EnemyDirection.Right );
                 else
-                    m_transform.localScale = new Vector3( -1, 1, 1 );
+                    m_enemy_AI.SetDirection( EnemyDirection.Left );
 
                 //Debug.Log( "Move: " + _dest + ", Speed: " + m_walk_speed );
             }
@@ -120,9 +120,9 @@ public class S_Enemy_AI_Walk : MonoBehaviour
         m_walk_dest = new Vector3( Random.Range( m_min_flag + m_random_move_min, m_max_flag - m_random_move_min ), 0, 0 );
         
         if( m_walk_dest.x > m_transform.position.x )
-            m_transform.localScale = new Vector3( 1, 1, 1 );
+            m_enemy_AI.SetDirection( EnemyDirection.Right );
         else
-            m_transform.localScale = new Vector3( -1, 1, 1 );
+            m_enemy_AI.SetDirection( EnemyDirection.Left );
 
         //Debug.Log( "Out of Area ==> return" );
     }

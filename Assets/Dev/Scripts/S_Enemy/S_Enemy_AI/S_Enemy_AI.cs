@@ -4,6 +4,8 @@ using System.Collections;
 public class S_Enemy_AI : MonoBehaviour
 {
     public EnemyAction m_state;
+    public EnemyDirection m_direction;
+
 
     void Start ()
     {
@@ -59,11 +61,55 @@ public class S_Enemy_AI : MonoBehaviour
     }
     #endregion
 
+    #region Direction
+
+    public void SetDirection(EnemyDirection _direction)
+    {
+        m_direction = _direction;
+
+        switch( m_direction )
+        {
+            case EnemyDirection.Left:
+                 m_SpriteLeft.SetActive( true );
+                 m_SpriteRight.SetActive( false );
+                break;
+            case EnemyDirection.Right:
+                m_SpriteRight.SetActive( true );
+                m_SpriteLeft.SetActive( false );
+                break;
+            default:
+                break;
+        }
+
+    }
+    public void InvertDirection()
+    {
+        
+
+        switch( m_direction )
+        {
+            case EnemyDirection.Left:
+                SetDirection( EnemyDirection.Right );
+                break;
+            case EnemyDirection.Right:
+                SetDirection( EnemyDirection.Left );
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    #endregion
+
     private S_Enemy_AI_Attack m_AI_Attack;
     private S_Enemy_AI_Wait m_AI_Wait;
     private S_Enemy_AI_Walk m_AI_Walk;
     private S_Enemy_AI_LookAround m_AI_LookAround;
     private S_Enemy_AI_Sleep m_AI_Sleep;
+
+    [HideInInspector]
+    public GameObject m_SpriteRight, m_SpriteLeft;
 }
 
 public enum EnemyAction
@@ -74,4 +120,11 @@ public enum EnemyAction
     Attack,
     LookAround,
     Sleep
+}
+
+public enum EnemyDirection
+{
+    Left,
+    Right
+
 }

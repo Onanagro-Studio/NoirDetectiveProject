@@ -27,13 +27,15 @@ public class S_Enemy_AI_LookAround : MonoBehaviour
             {
                 if( Time.realtimeSinceStartup > m_FlipTimer )
                 {
-                    m_transform.localScale = new Vector3( -m_transform.localScale.x, 1, 1 );
+                    m_enemy_AI.InvertDirection();
                     
                     m_FlipTimer = Time.realtimeSinceStartup + m_FlipTime;
+
+                    m_walk_speed = -m_walk_speed;
                 }
                 else
                 {
-                    m_transform.position = new Vector3( m_transform.position.x + m_walk_speed * Time.deltaTime * m_transform.localScale.x, m_transform.position.y, m_transform.position.z );
+                    m_transform.position = new Vector3( m_transform.position.x + m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
                 }
             }
         }
@@ -50,6 +52,9 @@ public class S_Enemy_AI_LookAround : MonoBehaviour
         m_FlipTimer = Time.realtimeSinceStartup + m_FlipTime;
 
         m_walk_speed = Random.Range( WalkSpeedMin, WalkSpeedMax );
+
+        if( m_enemy_AI.m_direction == EnemyDirection.Left ) m_walk_speed *= -1;
+          
 
         Debug.Log( "Look Around for: " + _looktime + ", flip time: " + m_FlipTime );
     }
