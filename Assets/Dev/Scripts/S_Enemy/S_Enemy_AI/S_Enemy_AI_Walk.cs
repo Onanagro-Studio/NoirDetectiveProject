@@ -15,7 +15,7 @@ public class S_Enemy_AI_Walk : MonoBehaviour
 
     void Start ()
     {
-        m_enemy_AI = GetComponent<S_Enemy_AI>();
+        m_enemy = GetComponent<S_Enemy>();
 
         m_transform = GetComponent<Transform>();
 
@@ -40,16 +40,16 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     
     void Update ()
     {
-        if( m_enemy_AI.m_state == EnemyAction.Walk || m_enemy_AI.m_state == EnemyAction.Patrol )
+        if( m_enemy.m_AI.m_state == Enemy_AI_State.Walk || m_enemy.m_AI.m_state == Enemy_AI_State.Patrol )
         {
-            if( (m_transform.position.x < m_min_flag || m_transform.position.x > m_max_flag) && m_enemy_AI.m_state == EnemyAction.Patrol )
+            if( (m_transform.position.x < m_min_flag || m_transform.position.x > m_max_flag) && m_enemy.m_AI.m_state == Enemy_AI_State.Patrol )
             {
                 Start_Return_Area();
             }
 
             if( Mathf.Abs( m_transform.position.x - m_walk_dest.x ) < 1.5f )
             {
-                m_enemy_AI.Wait();
+                m_enemy.m_AI.Wait();
             }
             else
             {
@@ -68,8 +68,8 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     public void Start_Patrol()
     {
 
-        ConeLightR.material.color = m_enemy_AI.m_PatrolColor;
-        ConeLightL.material.color = m_enemy_AI.m_PatrolColor;
+        ConeLightR.material.color = m_enemy.m_PatrolColor;
+        ConeLightL.material.color = m_enemy.m_PatrolColor;
 
         if( (m_transform.position.x < m_min_flag || m_transform.position.x > m_max_flag) )
         {
@@ -77,7 +77,7 @@ public class S_Enemy_AI_Walk : MonoBehaviour
         }
         else
         {
-            m_enemy_AI.m_state = EnemyAction.Patrol;
+            m_enemy.m_AI.m_state = Enemy_AI_State.Patrol;
 
             bool _correct_dest = false;
 
@@ -104,29 +104,29 @@ public class S_Enemy_AI_Walk : MonoBehaviour
                 m_walk_speed = Random.Range( WalkSpeedMin, WalkSpeedMax );
 
                 if( _dir == 1 )
-                    m_enemy_AI.SetDirection( EnemyDirection.Right );
+                    m_enemy.SetDirection( EnemyDirection.Right );
                 else
-                    m_enemy_AI.SetDirection( EnemyDirection.Left );
+                    m_enemy.SetDirection( EnemyDirection.Left );
 
                 //Debug.Log( "Move: " + _dest + ", Speed: " + m_walk_speed );
             }
             else
             {
-                m_enemy_AI.Wait();
+                m_enemy.m_AI.Wait();
             }
         }
     }
 
     private void Start_Return_Area()
     {
-        m_enemy_AI.m_state = EnemyAction.Walk;
+        m_enemy.m_AI.m_state = Enemy_AI_State.Walk;
 
         m_walk_dest = new Vector3( Random.Range( m_min_flag + m_random_move_min, m_max_flag - m_random_move_min ), 0, 0 );
         
         if( m_walk_dest.x > m_transform.position.x )
-            m_enemy_AI.SetDirection( EnemyDirection.Right );
+            m_enemy.SetDirection( EnemyDirection.Right );
         else
-            m_enemy_AI.SetDirection( EnemyDirection.Left );
+            m_enemy.SetDirection( EnemyDirection.Left );
 
         //Debug.Log( "Out of Area ==> return" );
     }
@@ -147,7 +147,7 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     private float m_random_move_min;
     private float m_random_move_max;
 
-    private S_Enemy_AI m_enemy_AI;
+    private S_Enemy m_enemy;
     private Transform m_transform;
 
     [HideInInspector]

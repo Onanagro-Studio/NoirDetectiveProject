@@ -3,18 +3,10 @@ using System.Collections;
 
 public class S_Enemy_AI : MonoBehaviour
 {
-    public EnemyAction m_state;
-    public EnemyDirection m_direction;
-    public Color m_PatrolColor = Color.white,
-                 m_WarningColor = Color.yellow, 
-                 m_DetectColor = Color.red;
-
+    public Enemy_AI_State m_state;
 
     void Start ()
     {
-        m_spriteRendererRight = m_SpriteRight.GetComponent<SpriteRenderer>();
-        m_spriteRendererLeft = m_SpriteLeft.GetComponent<SpriteRenderer>();
-
         Debug.Log( "Init AI ..." );
 
         m_AI_Attack = GetComponent<S_Enemy_AI_Attack>();
@@ -67,67 +59,16 @@ public class S_Enemy_AI : MonoBehaviour
     }
     #endregion
 
-    #region Direction
-    public void SetDirection(EnemyDirection _direction)
-    {
-        m_direction = _direction;
-
-        switch( m_direction )
-        {
-            case EnemyDirection.Left:
-                 m_SpriteLeft.SetActive( true );
-                 m_SpriteRight.SetActive( false );
-                break;
-            case EnemyDirection.Right:
-                m_SpriteRight.SetActive( true );
-                m_SpriteLeft.SetActive( false );
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void InvertDirection()
-    {
-        
-
-        switch( m_direction )
-        {
-            case EnemyDirection.Left:
-                SetDirection( EnemyDirection.Right );
-                break;
-            case EnemyDirection.Right:
-                SetDirection( EnemyDirection.Left );
-                break;
-            default:
-                break;
-        }
-
-    }
-    #endregion
-
-    #region Color
-    public void SetColor(Color _color)
-    {
-        m_spriteRendererLeft.color = _color;
-        m_spriteRendererRight.color = _color;
-    }
-    #endregion
+    
 
     private S_Enemy_AI_Attack m_AI_Attack;
     private S_Enemy_AI_Wait m_AI_Wait;
     private S_Enemy_AI_Walk m_AI_Walk;
     private S_Enemy_AI_LookAround m_AI_LookAround;
     private S_Enemy_AI_Sleep m_AI_Sleep;
-
-    private SpriteRenderer m_spriteRendererRight;
-    private SpriteRenderer m_spriteRendererLeft;
-
-    [HideInInspector]
-    public GameObject m_SpriteRight, m_SpriteLeft;
 }
 
-public enum EnemyAction
+public enum Enemy_AI_State
 {
     Waiting,
     Walk,

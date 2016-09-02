@@ -11,7 +11,7 @@ public class S_Highlight_AI_Color : MonoBehaviour {
 
     void Awake()
     {
-        m_enemy_AI = GetComponent<S_Enemy_AI>();
+        m_enemy = GetComponent<S_Enemy>();
         m_highlightRight = m_SpriteRight.AddComponent<Highlighter>();
         m_highlightLeft = m_SpriteLeft.AddComponent<Highlighter>();
 
@@ -21,15 +21,15 @@ public class S_Highlight_AI_Color : MonoBehaviour {
     void Update()
     {
 
-        if( IsHighlighted && m_enemy_AI.m_direction == EnemyDirection.Left) m_highlightLeft.ConstantOnImmediate( HighlightColor );
+        if( IsHighlighted && m_enemy.m_direction == EnemyDirection.Left) m_highlightLeft.ConstantOnImmediate( HighlightColor );
         else m_highlightLeft.ConstantOffImmediate();
 
-        if( IsHighlighted && m_enemy_AI.m_direction == EnemyDirection.Right ) m_highlightRight.ConstantOnImmediate( HighlightColor );
+        if( IsHighlighted && m_enemy.m_direction == EnemyDirection.Right ) m_highlightRight.ConstantOnImmediate( HighlightColor );
         else m_highlightRight.ConstantOffImmediate();
 
 
     }
 
-    private S_Enemy_AI m_enemy_AI;
+    private S_Enemy m_enemy;
     private Highlighter m_highlightRight, m_highlightLeft;
 }

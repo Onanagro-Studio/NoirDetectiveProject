@@ -8,27 +8,27 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
 
     void Start ()
     {
-        m_enemy_AI = GetComponent<S_Enemy_AI>();
+        m_enemy = GetComponent<S_Enemy>();
     }
 
 	void Update ()
     {
-        if (m_enemy_AI.m_state == EnemyAction.Sleep)
+        if ( m_enemy.m_AI.m_state == Enemy_AI_State.Sleep)
         {
             if( Time.realtimeSinceStartup > m_sleepTimer )
             {
-                m_enemy_AI.SetColor( Color.white );
-                m_enemy_AI.Start_Patrol();
+                m_enemy.SetColor( Color.white );
+                m_enemy.m_AI.Start_Patrol();
             }
         }
     }
 
     public void Start_Sleep(float _time)
     {
-        m_enemy_AI.m_state = EnemyAction.Sleep;
+        m_enemy.m_AI.m_state = Enemy_AI_State.Sleep;
         m_sleepTimer = Time.realtimeSinceStartup + _time;
 
-        m_enemy_AI.SetColor( Color.green );
+        m_enemy.SetColor( Color.green );
         //Debug.Log( "Sleep :" + _time );
     }
 
@@ -37,6 +37,6 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
         Start_Sleep( Random.Range( MinSleepTime, MaxSleepTime ) );
     }
 
-    private S_Enemy_AI m_enemy_AI;
+    private S_Enemy m_enemy;
     private float m_sleepTimer;
 }

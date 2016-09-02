@@ -11,23 +11,23 @@ public class S_Enemy_AI_LookAround : MonoBehaviour
 
     void Start ()
     {
-        m_enemy_AI = GetComponent<S_Enemy_AI>();
+        m_enemy = GetComponent<S_Enemy>();
         m_transform = GetComponent<Transform>();
     }
     
     void Update ()
     {
-        if ( m_enemy_AI.m_state == EnemyAction.LookAround )
+        if ( m_enemy.m_AI.m_state == Enemy_AI_State.LookAround )
         {
             if ( Time.realtimeSinceStartup > m_lookTimer )
             {
-                m_enemy_AI.Start_Patrol();
+                m_enemy.m_AI.Start_Patrol();
             }
             else
             {
                 if( Time.realtimeSinceStartup > m_FlipTimer )
                 {
-                    m_enemy_AI.InvertDirection();
+                    m_enemy.InvertDirection();
                     
                     m_FlipTimer = Time.realtimeSinceStartup + m_FlipTime;
 
@@ -43,7 +43,7 @@ public class S_Enemy_AI_LookAround : MonoBehaviour
     
     public void Start_LookAround()
     {
-        m_enemy_AI.m_state = EnemyAction.LookAround;
+        m_enemy.m_AI.m_state = Enemy_AI_State.LookAround;
 
         float _looktime = Random.Range( RandomLookTime_Min, RandomLookTime_Max );
         m_lookTimer = Time.realtimeSinceStartup + _looktime;
@@ -53,7 +53,7 @@ public class S_Enemy_AI_LookAround : MonoBehaviour
 
         m_walk_speed = Random.Range( WalkSpeedMin, WalkSpeedMax );
 
-        if( m_enemy_AI.m_direction == EnemyDirection.Left ) m_walk_speed *= -1;
+        if( m_enemy.m_direction == EnemyDirection.Left ) m_walk_speed *= -1;
           
 
         Debug.Log( "Look Around for: " + _looktime + ", flip time: " + m_FlipTime );
@@ -66,6 +66,6 @@ public class S_Enemy_AI_LookAround : MonoBehaviour
 
     private float m_walk_speed;
 
-    private S_Enemy_AI m_enemy_AI;
+    private S_Enemy m_enemy;
     private Transform m_transform;
 }

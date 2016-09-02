@@ -17,7 +17,7 @@ public class S_Enemy_AI_Wait : MonoBehaviour
     
     void Update ()
     {
-        if ( m_enemy_AI.m_state == EnemyAction.Waiting )
+        if ( m_enemy_AI.m_state == Enemy_AI_State.Waiting )
         {
             if( Time.realtimeSinceStartup > m_waitTimer )
             {
@@ -28,7 +28,7 @@ public class S_Enemy_AI_Wait : MonoBehaviour
     
     public void Wait()
     {
-        m_enemy_AI.m_state = EnemyAction.Waiting;
+        m_enemy_AI.m_state = Enemy_AI_State.Waiting;
 
         float _waittime = Random.Range( 0.5f, RandomWaitTime );
         m_waitTimer = Time.realtimeSinceStartup + _waittime;
@@ -38,7 +38,7 @@ public class S_Enemy_AI_Wait : MonoBehaviour
 
     public void Wait(float _max)
     {
-        m_enemy_AI.m_state = EnemyAction.Waiting;
+        m_enemy_AI.m_state = Enemy_AI_State.Waiting;
 
         float _waittime = Random.Range( 0.5f, _max );
         m_waitTimer = Time.realtimeSinceStartup + _waittime;
