@@ -45,7 +45,6 @@ public class S_Interact : MonoBehaviour
 
         m_charact_controller.IsHidden = true;
       
-
         m_canInteract = true;
         m_highlighter.ConstantOnImmediate( ColorIsBehind );
         

@@ -12,6 +12,9 @@ public class S_Enemy_AI : MonoBehaviour
 
     void Start ()
     {
+        m_spriteRendererRight = m_SpriteRight.GetComponent<SpriteRenderer>();
+        m_spriteRendererLeft = m_SpriteLeft.GetComponent<SpriteRenderer>();
+
         Debug.Log( "Init AI ..." );
 
         m_AI_Attack = GetComponent<S_Enemy_AI_Attack>();
@@ -65,7 +68,6 @@ public class S_Enemy_AI : MonoBehaviour
     #endregion
 
     #region Direction
-
     public void SetDirection(EnemyDirection _direction)
     {
         m_direction = _direction;
@@ -83,8 +85,8 @@ public class S_Enemy_AI : MonoBehaviour
             default:
                 break;
         }
-
     }
+
     public void InvertDirection()
     {
         
@@ -102,7 +104,14 @@ public class S_Enemy_AI : MonoBehaviour
         }
 
     }
+    #endregion
 
+    #region Color
+    public void SetColor(Color _color)
+    {
+        m_spriteRendererLeft.color = _color;
+        m_spriteRendererRight.color = _color;
+    }
     #endregion
 
     private S_Enemy_AI_Attack m_AI_Attack;
@@ -110,6 +119,9 @@ public class S_Enemy_AI : MonoBehaviour
     private S_Enemy_AI_Walk m_AI_Walk;
     private S_Enemy_AI_LookAround m_AI_LookAround;
     private S_Enemy_AI_Sleep m_AI_Sleep;
+
+    private SpriteRenderer m_spriteRendererRight;
+    private SpriteRenderer m_spriteRendererLeft;
 
     [HideInInspector]
     public GameObject m_SpriteRight, m_SpriteLeft;

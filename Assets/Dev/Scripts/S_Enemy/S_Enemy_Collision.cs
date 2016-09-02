@@ -7,7 +7,6 @@ public class S_Enemy_Collision : MonoBehaviour
 	void Start ()
     {
         m_hinted = false;
-        m_renderer = GetComponentInChildren<SpriteRenderer>();
         m_AI = GetComponent<S_Enemy_AI>();
 
         m_life = 3;
@@ -19,7 +18,7 @@ public class S_Enemy_Collision : MonoBehaviour
         {
             m_hinted = false;
 
-            m_renderer.color = Color.white;
+            m_AI.SetColor( Color.white );
 
             if ( m_life <= 0 )
                 Destroy( this.gameObject );
@@ -36,7 +35,7 @@ public class S_Enemy_Collision : MonoBehaviour
             if( m_life > 0 )
             {
                 m_hinted = true;
-                m_renderer.color = Color.red;
+                m_AI.SetColor( Color.red );
 
                 m_hintTimer = Time.realtimeSinceStartup + 0.1f;
 
@@ -48,6 +47,5 @@ public class S_Enemy_Collision : MonoBehaviour
     private int m_life;
     private float m_hintTimer;
     private bool m_hinted;
-    private SpriteRenderer m_renderer;
     private S_Enemy_AI m_AI;
 }

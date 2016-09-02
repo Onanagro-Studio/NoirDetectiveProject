@@ -9,7 +9,6 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
     void Start ()
     {
         m_enemy_AI = GetComponent<S_Enemy_AI>();
-        m_renderer = GetComponentInChildren<SpriteRenderer>();
     }
 
 	void Update ()
@@ -18,7 +17,7 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
         {
             if( Time.realtimeSinceStartup > m_sleepTimer )
             {
-                m_renderer.material.color = Color.white;
+                m_enemy_AI.SetColor( Color.white );
                 m_enemy_AI.Start_Patrol();
             }
         }
@@ -29,7 +28,7 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
         m_enemy_AI.m_state = EnemyAction.Sleep;
         m_sleepTimer = Time.realtimeSinceStartup + _time;
 
-        m_renderer.material.color = Color.green;
+        m_enemy_AI.SetColor( Color.green );
         //Debug.Log( "Sleep :" + _time );
     }
 
@@ -40,5 +39,4 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
 
     private S_Enemy_AI m_enemy_AI;
     private float m_sleepTimer;
-    private SpriteRenderer m_renderer;
 }
