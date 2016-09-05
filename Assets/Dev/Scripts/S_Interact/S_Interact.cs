@@ -2,7 +2,6 @@
 using System.Collections;
 using HighlightingSystem;
 
-
 public class S_Interact : MonoBehaviour
 {
     public Color ColorBase = Color.gray;
