@@ -11,9 +11,10 @@ public class S_Interact : MonoBehaviour
     public Color ColorIsBehind = Color.cyan;
     public Color ColorIsUsed = Color.blue;
 
-
-
     public GameObject Props_Sprite;
+
+    private Transform m_CharLeftTransform, m_CharRightTransform, m_PropsTransform;
+
 
 	void Start ()
     {
@@ -21,7 +22,8 @@ public class S_Interact : MonoBehaviour
         m_renderer.material.color = new Color( 1, 1, 1, 0.7f );
         m_highlighter = Props_Sprite.AddComponent<Highlighter>();
         m_highlighter.ConstantOnImmediate( ColorBase );
-       
+
+        m_PropsTransform = Props_Sprite.GetComponent<Transform>();
     }
 	
 	void Update ()
@@ -32,8 +34,8 @@ public class S_Interact : MonoBehaviour
         {
             //Debug.Log( "Interact" );
             m_highlighter.ConstantOnImmediate( ColorIsUsed );
-            m_charact_controller.m_SpriteLeft.transform.position = new Vector3( m_charact_controller.m_SpriteLeft.transform.position.x, Props_Sprite.transform.position.y, Props_Sprite.transform.position.z - .1f );
-            m_charact_controller.m_SpriteRight.transform.position = new Vector3( m_charact_controller.m_SpriteRight.transform.position.x, Props_Sprite.transform.position.y, Props_Sprite.transform.position.z - .1f);
+            m_CharLeftTransform.position = new Vector3( m_CharLeftTransform.position.x, m_PropsTransform.position.y, m_PropsTransform.position.z - .1f );
+            m_CharRightTransform.position = new Vector3( m_CharRightTransform.position.x, m_PropsTransform.position.y, m_PropsTransform.position.z - .1f);
             //m_renderer.material.color = new Color( 1, 0, 0, 1f );
         }
 	}
@@ -41,7 +43,11 @@ public class S_Interact : MonoBehaviour
     void OnTriggerEnter(Collider collision)
     {
         if ( !m_charact_controller )
+        {
             m_charact_controller = collision.gameObject.GetComponent<S_CharactController>();
+            m_CharLeftTransform = m_charact_controller.m_SpriteLeft.GetComponent<Transform>();
+            m_CharRightTransform = m_charact_controller.m_SpriteRight.GetComponent<Transform>();
+        }
 
         m_charact_controller.IsHidden = true;
       
@@ -58,8 +64,8 @@ public class S_Interact : MonoBehaviour
         m_canInteract = false;
         m_highlighter.ConstantOnImmediate( ColorBase );
 
-        m_charact_controller.m_SpriteLeft.transform.position = new Vector3( m_charact_controller.m_SpriteLeft.transform.position.x, 3, 0 );
-        m_charact_controller.m_SpriteRight.transform.position = new Vector3( m_charact_controller.m_SpriteRight.transform.position.x, 3, 0 );
+        m_CharLeftTransform.position = new Vector3( m_CharLeftTransform.position.x, 3, 0 );
+        m_CharRightTransform.position = new Vector3( m_CharRightTransform.position.x, 3, 0 );
         //m_renderer.material.color = new Color( 1, 1, 1, 0.7f );
     }
 
