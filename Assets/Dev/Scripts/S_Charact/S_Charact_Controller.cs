@@ -7,8 +7,9 @@ public class S_Charact_Controller : MonoBehaviour
     public float ZoneCam = 8.0f;
 
     public bool IsHidden;
-    public Color HighlightColor = Color.black;
+    public bool IsClimbing;
 
+    public Color HighlightColor = Color.black;
     public bool IsHighlighted = false;
 
     [HideInInspector]
@@ -33,18 +34,21 @@ public class S_Charact_Controller : MonoBehaviour
 
     void Update()
     {
-        float dx = Input.GetAxis("Horizontal") * 10.0f;
-        m_body.velocity = new Vector3( dx, m_body.velocity.y, 0 );
+       
+        
 
         Update_HighLight();
-        Update_Direction( dx );
+        Update_Direction();
         Update_Camera();
         Update_FightBox();
     }
 
-    private void Update_Direction(float _dx)
+    private void Update_Direction()
     {
-        if( _dx > 0.0f && !m_dir_R )
+        float dx = Input.GetAxis("Horizontal") * 10.0f;
+        float dy = Input.GetAxis("Vertical") * 10.0f;
+
+        if( dx > 0.0f && !m_dir_R )
         {
             m_dir_R = true;
             m_dir_L = false;
@@ -53,7 +57,7 @@ public class S_Charact_Controller : MonoBehaviour
             m_SpriteRight.SetActive( true );
         }
         else
-        if( _dx < 0.0f && !m_dir_L )
+        if( dx < 0.0f && !m_dir_L )
         {
             m_dir_L = true;
             m_dir_R = false;
@@ -61,6 +65,20 @@ public class S_Charact_Controller : MonoBehaviour
             m_SpriteLeft.SetActive( true );
             m_SpriteRight.SetActive( false );
         }
+
+        if(IsClimbing && dy > 0.0f )
+        {
+            m_body.useGravity = false;
+           
+        }
+        else
+        {
+            m_body.useGravity = true;
+            dy = m_body.velocity.y;
+        }
+
+        m_body.velocity = new Vector3( dx, dy, 0 );
+
     }
 
     private void Update_HighLight()
