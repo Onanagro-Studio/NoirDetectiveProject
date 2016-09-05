@@ -21,8 +21,8 @@ public class S_Interact : MonoBehaviour
     
     void OnTriggerEnter(Collider collision)
     {
-        if ( !m_charact_controller )
-            m_charact_controller = collision.gameObject.GetComponent<S_Charact_Controller>();
+        if( !m_charact_controller )
+            Get_Char_Infos( collision );
 
         m_canInteract = true;
         m_highlighter.ConstantOnImmediate( ColorIsBehind );
@@ -41,6 +41,9 @@ public class S_Interact : MonoBehaviour
     #region Interact
     protected void Interact_Init()
     {
+        m_InteractTransform = GetComponent<Transform>();
+        m_SpriteTransform = Props_Sprite.GetComponent<Transform>();
+        
         m_renderer = GetComponent<Renderer>();
         m_renderer.material.color = new Color( 1, 1, 1, 0.7f );
         m_highlighter = Props_Sprite.AddComponent<Highlighter>();
@@ -56,7 +59,23 @@ public class S_Interact : MonoBehaviour
     {
 
     }
+
+    protected void Get_Char_Infos(Collider _collision)
+    {
+        m_charact_controller = _collision.gameObject.GetComponent<S_Charact_Controller>();
+        m_CharTransform = m_charact_controller.GetComponent<Transform>();
+        m_CharSpriteLeftTransform = m_charact_controller.m_SpriteLeft.GetComponent<Transform>();
+        m_CharSpriteRightTransform = m_charact_controller.m_SpriteRight.GetComponent<Transform>();
+    }
     #endregion
+
+    protected Transform m_InteractTransform;
+    protected Transform m_SpriteTransform;
+
+    protected Transform m_CharTransform;
+
+    protected Transform m_CharSpriteLeftTransform, m_CharSpriteRightTransform;
+
 
     protected bool m_canInteract;
     protected Collider m_last_colision;
