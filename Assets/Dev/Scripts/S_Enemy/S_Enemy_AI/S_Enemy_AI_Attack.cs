@@ -43,7 +43,26 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
                 m_enemy.m_AI.Start_LookAround();
             }
+
+            float range = 50.0f;
+
+            RaycastHit[] hits;
+            hits = Physics.RaycastAll( m_transform.position - new Vector3( range / 2.0f, 0, 0), new Vector3( 1.0f, 0, 0 ), range );
+            
+            for( int i = 0; i < hits.Length; i++ )
+            {
+                if ( hits[ i ].collider.name == "Enemy")
+                {
+                    S_Enemy enemy = hits[ i ].collider.GetComponent<S_Enemy>();
+
+                    if( enemy.m_AI.m_state != Enemy_AI_State.Attack )
+                        enemy.m_AI.Attack_Player( m_player_transform );
+                }
+            }
         }
+
+
+        Debug.DrawRay( m_transform.position, new Vector3( 500.0f, 0, 0 ) );
     }
 
     public void Attack_Player(Transform _player_transform)
@@ -53,8 +72,6 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
         m_player_transform = _player_transform;
         m_enemy.m_AI.m_state = Enemy_AI_State.Attack;
-
-        //Debug.Log( "Attack !" );
     }
 
     private S_Enemy m_enemy;
