@@ -3,7 +3,7 @@ using System.Collections;
 
 public class S_MadnessBar : MonoBehaviour
 {
-    public static float progress = 0.0f;
+    public static float progress = 0.5f;
 
     public Texture2D progressBarEmpty;
     public Texture2D progressBarFull;

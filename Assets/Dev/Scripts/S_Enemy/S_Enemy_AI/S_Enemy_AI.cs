@@ -58,9 +58,7 @@ public class S_Enemy_AI : MonoBehaviour
         m_AI_Sleep.Start_SleepRandom();
     }
     #endregion
-
     
-
     private S_Enemy_AI_Attack m_AI_Attack;
     private S_Enemy_AI_Wait m_AI_Wait;
     private S_Enemy_AI_Walk m_AI_Walk;
@@ -82,5 +80,4 @@ public enum EnemyDirection
 {
     Left,
     Right
-
 }

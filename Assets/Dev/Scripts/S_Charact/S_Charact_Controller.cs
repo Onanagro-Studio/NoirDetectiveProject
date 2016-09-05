@@ -2,10 +2,10 @@
 using System.Collections;
 using HighlightingSystem;
 
-public class S_CharactController : MonoBehaviour
+public class S_Charact_Controller : MonoBehaviour
 {
     public float ZoneCam = 8.0f;
-    
+
     public bool IsHidden;
     public Color HighlightColor = Color.black;
 
@@ -33,49 +33,61 @@ public class S_CharactController : MonoBehaviour
 
     void Update()
     {
-
-        if( IsHighlighted && m_dir_L ) m_highlightLeft.ConstantOnImmediate( HighlightColor );
-        else m_highlightLeft.ConstantOffImmediate();
-        if( IsHighlighted && m_dir_R) m_highlightRight.ConstantOnImmediate( HighlightColor );
-        else m_highlightRight.ConstantOffImmediate();
-
-        if( Input.GetKeyDown( KeyCode.G ) )
-            S_SceneManager.Load_GameOver();
-
         float dx = Input.GetAxis("Horizontal") * 10.0f;
         m_body.velocity = new Vector3( dx, m_body.velocity.y, 0 );
 
-        if( dx > 0.0f && !m_dir_R )
+        Update_HighLight();
+        Update_Direction( dx );
+        Update_Camera();
+        Update_FightBox();
+    }
+
+    private void Update_Direction(float _dx)
+    {
+        if( _dx > 0.0f && !m_dir_R )
         {
             m_dir_R = true;
             m_dir_L = false;
 
             m_SpriteLeft.SetActive( false );
             m_SpriteRight.SetActive( true );
-         
         }
         else
-        if( dx < 0.0f && !m_dir_L )
+        if( _dx < 0.0f && !m_dir_L )
         {
             m_dir_L = true;
             m_dir_R = false;
 
             m_SpriteLeft.SetActive( true );
             m_SpriteRight.SetActive( false );
-
         }
+    }
 
+    private void Update_HighLight()
+    {
+        if( IsHighlighted && m_dir_L ) m_highlightLeft.ConstantOnImmediate( HighlightColor );
+        else m_highlightLeft.ConstantOffImmediate();
+        if( IsHighlighted && m_dir_R ) m_highlightRight.ConstantOnImmediate( HighlightColor );
+        else m_highlightRight.ConstantOffImmediate();
+
+    }
+
+    private void Update_Camera()
+    {
         if( m_transform.position.x > m_cam_transform.position.x + ZoneCam )
         {
-            m_cam_transform.position = new Vector3( m_transform.position.x - ZoneCam,m_cam_transform.position.y, m_cam_transform.position.z );
+            m_cam_transform.position = new Vector3( m_transform.position.x - ZoneCam, m_cam_transform.position.y, m_cam_transform.position.z );
         }
         else
         if( m_transform.position.x < m_cam_transform.position.x - ZoneCam )
         {
             m_cam_transform.position = new Vector3( m_transform.position.x + ZoneCam, m_cam_transform.position.y, m_cam_transform.position.z );
         }
+    }
 
-        if( Input.GetKeyDown( KeyCode.Q ))
+    private void Update_FightBox()
+    {
+        if( Input.GetKeyDown( KeyCode.Q ) )
         {
             if( m_SpriteLeft.activeInHierarchy ) FightBoxLeft.enabled = true;
             if( m_SpriteRight.activeInHierarchy ) FightBoxRight.enabled = true;
@@ -85,7 +97,6 @@ public class S_CharactController : MonoBehaviour
             if( m_SpriteLeft.activeInHierarchy ) FightBoxLeft.enabled = false;
             if( m_SpriteRight.activeInHierarchy ) FightBoxRight.enabled = false;
         }
-
     }
 
     private bool m_dir_R;

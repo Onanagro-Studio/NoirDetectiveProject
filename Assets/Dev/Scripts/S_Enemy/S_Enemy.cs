@@ -43,8 +43,6 @@ public class S_Enemy : MonoBehaviour
 
     public void InvertDirection()
     {
-
-
         switch( m_direction )
         {
             case EnemyDirection.Left:
@@ -56,7 +54,6 @@ public class S_Enemy : MonoBehaviour
             default:
                 break;
         }
-
     }
     #endregion
 

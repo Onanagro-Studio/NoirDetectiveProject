@@ -25,7 +25,7 @@ public class S_Enemy_CollisionLight : MonoBehaviour
         if( !m_player_transform )
         {
             m_player_transform = collision.GetComponent<Transform>();
-            m_player_charact_controller = collision.GetComponent<S_CharactController>();
+            m_player_charact_controller = collision.GetComponent<S_Charact_Controller>();
         }
 
         m_is_see = true;
@@ -38,7 +38,7 @@ public class S_Enemy_CollisionLight : MonoBehaviour
 
     private bool m_is_see;
     private Transform m_player_transform;
-    private S_CharactController m_player_charact_controller;
+    private S_Charact_Controller m_player_charact_controller;
 
     private Renderer m_renderer;
     private S_Enemy_AI m_AI;
