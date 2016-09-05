@@ -4,7 +4,13 @@ using HighlightingSystem;
 
 public class S_Charact_Controller : MonoBehaviour
 {
-    public float ZoneCam = 8.0f;
+    public float Cam_Border_X = 8.0f;
+    public float Cam_Border_Y = 8.0f;
+
+    public float Far_Cam_Y_Max = 8.0f;
+    public float Far_Cam_Y_Min = 0.0f;
+
+    public float Far_Cam_Move_Speed = 3.0f;
 
     public bool IsHidden;
     public bool IsClimbing;
@@ -34,21 +40,18 @@ public class S_Charact_Controller : MonoBehaviour
 
     void Update()
     {
-       
-        
-
-        Update_HighLight();
-        Update_Direction();
-        Update_Camera();
-        Update_FightBox();
-    }
-
-    private void Update_Direction()
-    {
         float dx = Input.GetAxis("Horizontal") * 10.0f;
         float dy = Input.GetAxis("Vertical") * 10.0f;
 
-        if( dx > 0.0f && !m_dir_R )
+        Update_HighLight();
+        Update_Direction( dx , dy);
+        Update_Camera( dx, dy );
+        Update_FightBox();
+    }
+
+    private void Update_Direction(float _dx, float _dy)
+    {
+        if( _dx > 0.0f && !m_dir_R )
         {
             m_dir_R = true;
             m_dir_L = false;
@@ -57,7 +60,7 @@ public class S_Charact_Controller : MonoBehaviour
             m_SpriteRight.SetActive( true );
         }
         else
-        if( dx < 0.0f && !m_dir_L )
+        if( _dx < 0.0f && !m_dir_L )
         {
             m_dir_L = true;
             m_dir_R = false;
@@ -65,20 +68,21 @@ public class S_Charact_Controller : MonoBehaviour
             m_SpriteLeft.SetActive( true );
             m_SpriteRight.SetActive( false );
         }
-
-        if(IsClimbing && dy > 0.0f )
+        
+        if (!Input.GetKey(KeyCode.LeftShift))
         {
-            m_body.useGravity = false;
-           
-        }
-        else
-        {
-            m_body.useGravity = true;
-            dy = m_body.velocity.y;
-        }
+            if( IsClimbing && _dy > 0.0f )
+            {
+                m_body.useGravity = false;
+            }
+            else
+            {
+                m_body.useGravity = true;
+                _dy = m_body.velocity.y;
+            }
 
-        m_body.velocity = new Vector3( dx, dy, 0 );
-
+            m_body.velocity = new Vector3( _dx, _dy, 0 );
+        }
     }
 
     private void Update_HighLight()
@@ -87,19 +91,50 @@ public class S_Charact_Controller : MonoBehaviour
         else m_highlightLeft.ConstantOffImmediate();
         if( IsHighlighted && m_dir_R ) m_highlightRight.ConstantOnImmediate( HighlightColor );
         else m_highlightRight.ConstantOffImmediate();
-
     }
 
-    private void Update_Camera()
+    private void Update_Camera(float _dx, float _dy)
     {
-        if( m_transform.position.x > m_cam_transform.position.x + ZoneCam )
+        if( Input.GetKey( KeyCode.LeftShift ) )
         {
-            m_cam_transform.position = new Vector3( m_transform.position.x - ZoneCam, m_cam_transform.position.y, m_cam_transform.position.z );
+            float new_cam_x = m_cam_transform.position.x + _dx * Time .deltaTime * Far_Cam_Move_Speed;
+            float new_cam_y = m_cam_transform.position.y + _dy * Time .deltaTime * Far_Cam_Move_Speed;
+
+            if( new_cam_x > m_transform.position.x + Cam_Border_X )
+                new_cam_x = m_transform.position.x + Cam_Border_X;
+            else
+            if ( new_cam_x < m_transform.position.x - Cam_Border_X )
+                new_cam_x = m_transform.position.x - Cam_Border_X;
+
+            if( new_cam_y > m_transform.position.y + Far_Cam_Y_Max )
+                new_cam_y = m_transform.position.y + Far_Cam_Y_Max;
+            else
+            if( new_cam_y < m_transform.position.y - Far_Cam_Y_Min )
+                new_cam_y = m_transform.position.y - Far_Cam_Y_Min;
+
+            m_cam_transform.position = new Vector3( new_cam_x, new_cam_y, m_cam_transform.position.z );
+
+            Last_Shift = true;
         }
         else
-        if( m_transform.position.x < m_cam_transform.position.x - ZoneCam )
         {
-            m_cam_transform.position = new Vector3( m_transform.position.x + ZoneCam, m_cam_transform.position.y, m_cam_transform.position.z );
+            if( Last_Shift )
+            {
+                m_cam_transform.position = new Vector3( m_cam_transform.position.x, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z);
+                Last_Shift = false;
+            }
+
+            if( m_transform.position.x > m_cam_transform.position.x + Cam_Border_X )
+            {
+                m_cam_transform.position = new Vector3( m_transform.position.x - Cam_Border_X, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z );
+            }
+            else
+            if( m_transform.position.x < m_cam_transform.position.x - Cam_Border_X )
+            {
+                m_cam_transform.position = new Vector3( m_transform.position.x + Cam_Border_X, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z );
+            }
+            else
+                m_cam_transform.position = new Vector3( m_cam_transform.position.x, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z );
         }
     }
 
@@ -119,6 +154,8 @@ public class S_Charact_Controller : MonoBehaviour
 
     private bool m_dir_R;
     private bool m_dir_L;
+
+    private bool Last_Shift;
 
     private Transform m_transform;
     private Rigidbody m_body;

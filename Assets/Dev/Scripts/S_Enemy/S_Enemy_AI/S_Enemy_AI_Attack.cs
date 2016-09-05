@@ -34,6 +34,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                 }
             }
 
+
             if ( _dist > OutOfRange )
             {
                 Debug.Log( "Is lost !" );
@@ -43,26 +44,11 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
                 m_enemy.m_AI.Start_LookAround();
             }
-
-            float range = 50.0f;
-
-            RaycastHit[] hits;
-            hits = Physics.RaycastAll( m_transform.position - new Vector3( range / 2.0f, 0, 0), new Vector3( 1.0f, 0, 0 ), range );
-            
-            for( int i = 0; i < hits.Length; i++ )
+            else
             {
-                if ( hits[ i ].collider.name == "Enemy")
-                {
-                    S_Enemy enemy = hits[ i ].collider.GetComponent<S_Enemy>();
-
-                    if( enemy.m_AI.m_state != Enemy_AI_State.Attack )
-                        enemy.m_AI.Attack_Player( m_player_transform );
-                }
+                Look_For_Friend();
             }
         }
-
-
-        Debug.DrawRay( m_transform.position, new Vector3( 500.0f, 0, 0 ) );
     }
 
     public void Attack_Player(Transform _player_transform)
@@ -72,6 +58,28 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
         m_player_transform = _player_transform;
         m_enemy.m_AI.m_state = Enemy_AI_State.Attack;
+    }
+
+    private void Look_For_Friend()
+    {
+        float range = 50.0f;
+
+        RaycastHit[] hits;
+        hits = Physics.RaycastAll( new Vector3( m_transform.position.x - range / 2.0f, m_transform.position.y, m_transform.position.z ), new Vector3( 1.0f, 0, 0 ), range );
+
+        for( int i = 0; i < hits.Length; i++ )
+        {
+            if( hits[ i ].collider.gameObject.layer == 12 )
+            {
+                S_Enemy enemy = hits[ i ].collider.GetComponent<S_Enemy>();
+
+                if( enemy.m_AI.m_state != Enemy_AI_State.Attack && enemy.m_AI.m_state != Enemy_AI_State.Sleep )
+                {
+                    enemy.m_AI.Attack_Player( m_player_transform );
+                    Debug.Log( "I help my friend !" );
+                }
+            }
+        }
     }
 
     private S_Enemy m_enemy;
