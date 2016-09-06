@@ -10,7 +10,7 @@ public class S_Charact_Controller : MonoBehaviour
     public float Far_Cam_Y_Max = 8.0f;
     public float Far_Cam_Y_Min = 0.0f;
 
-    public float Far_Cam_Move_Speed = 3.0f;
+    public float Cam_Speed = 3.0f;
 
     public bool IsHidden;
     public bool IsClimbing;
@@ -36,6 +36,7 @@ public class S_Charact_Controller : MonoBehaviour
         FightBoxLeft.enabled = false;
         FightBoxRight.enabled = false;
         IsHidden = false;
+        m_canMove = true;
     }
 
     void Update()
@@ -81,7 +82,8 @@ public class S_Charact_Controller : MonoBehaviour
                 _dy = m_body.velocity.y;
             }
 
-            m_body.velocity = new Vector3( _dx, _dy, 0 );
+            if ( m_canMove )
+                m_body.velocity = new Vector3( _dx, _dy, 0 );
         }
     }
 
@@ -97,8 +99,14 @@ public class S_Charact_Controller : MonoBehaviour
     {
         if( Input.GetKey( KeyCode.LeftShift ) )
         {
-            float new_cam_x = m_cam_transform.position.x + _dx * Time .deltaTime * Far_Cam_Move_Speed;
-            float new_cam_y = m_cam_transform.position.y + _dy * Time .deltaTime * Far_Cam_Move_Speed;
+            if( !m_lastShift )
+            {
+                m_lastCamPos = m_cam_transform.position;
+                m_lastShift = true;
+            }
+
+            float new_cam_x = m_cam_transform.position.x + _dx * Time .deltaTime * Cam_Speed;
+            float new_cam_y = m_cam_transform.position.y + _dy * Time .deltaTime * Cam_Speed;
 
             if( new_cam_x > m_transform.position.x + Cam_Border_X )
                 new_cam_x = m_transform.position.x + Cam_Border_X;
@@ -114,27 +122,40 @@ public class S_Charact_Controller : MonoBehaviour
 
             m_cam_transform.position = new Vector3( new_cam_x, new_cam_y, m_cam_transform.position.z );
 
-            Last_Shift = true;
+            m_canMove = false;
         }
         else
         {
-            if( Last_Shift )
+            if ( m_canMove )
             {
-                m_cam_transform.position = new Vector3( m_cam_transform.position.x, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z);
-                Last_Shift = false;
-            }
+                if ( Mathf.Abs(m_body.velocity.x) < 0.1f && Mathf.Abs( m_body.velocity.y) < 0.1f)
+                    m_camFollow = false;
 
-            if( m_transform.position.x > m_cam_transform.position.x + Cam_Border_X )
-            {
-                m_cam_transform.position = new Vector3( m_transform.position.x - Cam_Border_X, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z );
+                if( m_transform.position.x > m_cam_transform.position.x + Cam_Border_X || m_transform.position.x < m_cam_transform.position.x - Cam_Border_X )
+                {
+                    m_camFollow = true;
+                }
+
+                if ( m_camFollow )
+                {
+                    Vector3 newPos = new Vector3( m_transform.position.x, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z );
+
+                    m_cam_transform.position = Vector3.Lerp( m_cam_transform.position, newPos, Time.deltaTime * Cam_Speed );
+                }
             }
             else
-            if( m_transform.position.x < m_cam_transform.position.x - Cam_Border_X )
             {
-                m_cam_transform.position = new Vector3( m_transform.position.x + Cam_Border_X, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z );
+                Vector3 newPos = new Vector3( m_transform.position.x, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z );
+
+                m_cam_transform.position = Vector3.Lerp( m_cam_transform.position, newPos, Time.deltaTime * Cam_Speed );
+
+                float lenght = Vector3.Distance(m_cam_transform.position, newPos);
+
+                if( lenght < 0.5f )
+                    m_canMove = true;
             }
-            else
-                m_cam_transform.position = new Vector3( m_cam_transform.position.x, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z );
+            
+            m_lastShift = false;
         }
     }
 
@@ -155,7 +176,11 @@ public class S_Charact_Controller : MonoBehaviour
     private bool m_dir_R;
     private bool m_dir_L;
 
-    private bool Last_Shift;
+    private Vector3 m_lastCamPos;
+    private bool m_lastShift;
+    private bool m_canMove;
+
+    private bool m_camFollow;
 
     private Transform m_transform;
     private Rigidbody m_body;
