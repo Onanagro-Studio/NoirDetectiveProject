@@ -7,6 +7,7 @@ public class S_Charact_Collision : MonoBehaviour
     {
         m_charact = GetComponent<S_Charact_Controller>();
         m_hinted = false;
+        m_life = 100.0f;
     }
 
     void Update()
@@ -17,6 +18,12 @@ public class S_Charact_Collision : MonoBehaviour
             m_charact.m_renderLeft.color = Color.white;
             m_charact.m_renderRight.color = Color.white;
         }
+
+        if( m_life < 0 )
+            S_SceneManager.Load_GameOver();
+
+        if ( m_life < 100.0f)
+            m_life +=  0.005f * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider collision)
@@ -32,6 +39,10 @@ public class S_Charact_Collision : MonoBehaviour
             m_charact.m_renderLeft.color = Color.red;
             m_charact.m_renderRight.color = Color.red;
 
+            //Damage
+            float enemyDamage = collision.GetComponentInParent<S_Enemy_AI_Attack>().Damage;
+            m_life -= enemyDamage;
+
             Debug.Log( "Player is Frapped !" );
         }
     }
@@ -39,4 +50,5 @@ public class S_Charact_Collision : MonoBehaviour
     private bool m_hinted;
     private float m_hintTimer;
     private S_Charact_Controller m_charact;
+    private float m_life;
 }

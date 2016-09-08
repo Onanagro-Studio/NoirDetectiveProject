@@ -34,7 +34,7 @@ class S_SceneManager
 
     public static void Load_GameOver()
     {
-        Load_Menu();        
+        Load_Menu();    
     }
 
     public static void Load_Next()
