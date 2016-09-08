@@ -12,7 +12,7 @@ public class S_Interact : MonoBehaviour
     
     void Update ()
     {
-        if ( m_canInteract && Input.GetKeyDown(KeyCode.E))
+        if ( m_canInteract && Input.GetButtonDown( "Joy0_Interact" ) )
         {
             m_highlighter.ConstantOnImmediate( ColorIsUsed );
             On_Interact_Start( m_last_colision );

@@ -3,13 +3,19 @@ using System.Collections;
 
 public class S_Enemy_AI_Attack : MonoBehaviour
 {
-   
     public float OutOfRange = 10.0f;
+    public float TimeForPunch_Min = 0.5f, TimeForPunch_Max = 3.5f;
 
     void Start ()
     {
         m_enemy = GetComponent<S_Enemy>();
         m_transform = GetComponent<Transform>();
+
+        FightBoxRight.enabled = false;
+        FightBoxLeft.enabled = false;
+
+        TimeForPunch_Min = 0.2f;
+        TimeForPunch_Max = 2.5f;
     }
     
     void Update ()
@@ -20,19 +26,10 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
             float _dist = Mathf.Abs( m_transform.position.x - m_player_transform.position.x );
 
-            if( _dist > 2.6f )
-            {
-                if( m_transform.position.x - m_player_transform.position.x > 0 )
-                {
-                    m_enemy.SetDirection( EnemyDirection.Left );
-                    m_transform.position = new Vector3( m_transform.position.x - 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
-                }
-                else
-                {
-                    m_enemy.SetDirection( EnemyDirection.Right ); 
-                    m_transform.position = new Vector3( m_transform.position.x + 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
-                }
-            }
+            if( _dist > 2.9f )
+                Follow_Player();
+            else
+                Look_Player();
 
 
             if ( _dist > OutOfRange )
@@ -47,10 +44,11 @@ public class S_Enemy_AI_Attack : MonoBehaviour
             else
             {
                 Look_For_Friend();
+                Punch();
             }
         }
     }
-
+    
     public void Attack_Player(Transform _player_transform)
     {
         ConeLightR.material.color = m_enemy.m_DetectColor;
@@ -82,13 +80,61 @@ public class S_Enemy_AI_Attack : MonoBehaviour
         }
     }
 
+    private void Follow_Player()
+    {
+        if( m_transform.position.x - m_player_transform.position.x > 0 )
+        {
+            m_enemy.SetDirection( EnemyDirection.Left );
+            m_transform.position = new Vector3( m_transform.position.x - 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+        }
+        else
+        {
+            m_enemy.SetDirection( EnemyDirection.Right );
+            m_transform.position = new Vector3( m_transform.position.x + 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+        }
+    }
+
+    private void Look_Player()
+    {
+        if( m_transform.position.x - m_player_transform.position.x > 0 )
+            m_enemy.SetDirection( EnemyDirection.Left );
+        else
+            m_enemy.SetDirection( EnemyDirection.Right );
+    }
+
+    private void Punch()
+    {
+        if (!m_punch && Time.realtimeSinceStartup > m_punchTimer )
+        {
+            m_punch = true;
+            m_punchTimer = Time.realtimeSinceStartup + Random.Range( TimeForPunch_Min, TimeForPunch_Max );
+
+            FightBoxLeft.enabled = true;
+            FightBoxRight.enabled = true;
+
+            Debug.Log( "Enemy punch !" );
+        }
+        else
+        {
+            m_punch = false;
+
+            FightBoxLeft.enabled = false;
+            FightBoxRight.enabled = false;
+        }
+    }
+
     private S_Enemy m_enemy;
 
     private Transform m_transform;
     private Transform m_player_transform;
 
+    private float m_lastposx;
+
+    private bool m_punch;
+    private float m_punchTimer;
+
     [HideInInspector]
     public Renderer ConeLightR, ConeLightL;
-
-    private float m_lastposx;
+    [HideInInspector]
+    public BoxCollider FightBoxRight, FightBoxLeft;
 }
