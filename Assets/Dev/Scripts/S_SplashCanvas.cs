@@ -26,7 +26,15 @@ public class S_SplashCanvas : MonoBehaviour
             m_LastInput = true;
             m_InputCount++;
 
-            if( m_InputCount >= 2 )
+            if (m_InputCount == 2)
+            {
+                m_TechnociteRenderer.SetAlpha( 0.0f );
+                m_Technocite = false;
+                m_Alpha = 0;
+                m_Up = true;
+            }
+
+            if( m_InputCount >= 4 )
                 S_SceneManager.Load_Menu();
         }
 
