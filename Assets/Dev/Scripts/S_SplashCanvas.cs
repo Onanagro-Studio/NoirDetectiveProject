@@ -15,12 +15,23 @@ public class S_SplashCanvas : MonoBehaviour
         m_Technocite = true;
         m_Up = true;
         m_Alpha = -0.5f;
+
+        m_InputCount = 0;
     }
 	
 	void Update ()
     {
-        if( Input.anyKey )
-            S_SceneManager.Load_Menu();
+        if( Input.anyKey && !m_LastInput )
+        {
+            m_LastInput = true;
+            m_InputCount++;
+
+            if( m_InputCount >= 2 )
+                S_SceneManager.Load_Menu();
+        }
+
+        if ( !Input.anyKey )
+            m_LastInput = false;
 
         if( m_Up )
         {
@@ -66,4 +77,7 @@ public class S_SplashCanvas : MonoBehaviour
 
     private bool m_Up;
     private bool m_Technocite;
+
+    private bool m_LastInput;
+    private int m_InputCount;
 }
