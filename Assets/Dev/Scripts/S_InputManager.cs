@@ -46,7 +46,7 @@ public class S_InputManager : MonoBehaviour
     {
         Debug.Log( "S_InpuManager: " + _name + " added !" );
     }
-
+    
     private void OnJoystickRemove()
     {
         Debug.Log( "S_InpuManager: a joystick have been removed !" );

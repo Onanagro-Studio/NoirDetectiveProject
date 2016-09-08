@@ -5,6 +5,7 @@ public class S_SplashCanvas : MonoBehaviour
 {
     public CanvasRenderer m_LogoRenderer;
     public CanvasRenderer m_TechnociteRenderer;
+    public float m_SplashSpeed = 0.6f;
 
     void Start ()
     {
@@ -18,11 +19,14 @@ public class S_SplashCanvas : MonoBehaviour
 	
 	void Update ()
     {
+        if( Input.anyKey )
+            S_SceneManager.Load_Menu();
+
         if( m_Up )
         {
             if( m_Alpha < 1.6f )
             {
-                m_Alpha += 0.4f * Time.deltaTime;
+                m_Alpha += m_SplashSpeed * Time.deltaTime;
 
                 if( m_Technocite )
                     m_TechnociteRenderer.SetAlpha( m_Alpha );
@@ -36,7 +40,7 @@ public class S_SplashCanvas : MonoBehaviour
         {
             if( m_Alpha > -0.5f )
             {
-                m_Alpha -= 0.8f * Time.deltaTime;
+                m_Alpha -= m_SplashSpeed * 2 * Time.deltaTime;
 
                 if( m_Technocite )
                     m_TechnociteRenderer.SetAlpha( m_Alpha );

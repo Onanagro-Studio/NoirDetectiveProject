@@ -15,7 +15,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
         FightBoxLeft.enabled = false;
 
         TimeForPunch_Min = 0.2f;
-        TimeForPunch_Max = 2.5f;
+        TimeForPunch_Max = 1.2f;
     }
     
     void Update ()
