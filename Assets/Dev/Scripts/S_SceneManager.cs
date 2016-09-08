@@ -42,12 +42,10 @@ class S_SceneManager
 
     public static void Load_GameOver()
     {
-<<<<<<< HEAD
+
         CurrentMenu = MenuState.GameOver;
         Load_Menu();        
-=======
-        Load_Menu();    
->>>>>>> 194a7b71316ad5f39a198b234593d69d50f181cf
+
     }
 
     public static void Load_Next()
