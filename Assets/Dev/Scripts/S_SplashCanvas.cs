@@ -9,6 +9,8 @@ public class S_SplashCanvas : MonoBehaviour
 
     void Start ()
     {
+        S_SceneManager.Init_All();
+
         m_TechnociteRenderer.SetAlpha( 0.0f );
         m_LogoRenderer.SetAlpha( 0.0f );
 

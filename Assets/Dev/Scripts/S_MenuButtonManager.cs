@@ -58,18 +58,13 @@ public class S_MenuButtonManager : MonoBehaviour
         m_VideoSet.SetActive( true );
 
         m_Res = Screen.resolutions;
-
         m_DropdownResolutions.options.Clear();
 
         for( int i = 0; i < m_Res.Length; i++ )
         {
             m_DropdownResolutions.options.Add( new Dropdown.OptionData( m_Res[ i ].ToString() ) );
-
             m_DropdownResolutions.value = i;
         }
-
-
-
 
         Debug.Log( "Click Settings_Video" );
     }
@@ -231,24 +226,36 @@ public class S_MenuButtonManager : MonoBehaviour
 
     #endregion
 
-
-
-    public void Menu_MainMenu()
+    void Start()
     {
-        S_SceneManager.Load_Menu();
-        Debug.Log( "Load Menu" );
+        switch( S_SceneManager.CurrentMenu )
+        {
+            case MenuState.Main:
+                break;
+
+            case MenuState.Settings:
+                break;
+
+            case MenuState.SettingsAudio:
+                break;
+
+            case MenuState.SettingsVideo:
+                break;
+
+            case MenuState.SettingsInputs:
+                break;
+
+            case MenuState.Credits:
+                break;
+
+            case MenuState.GameOver:
+
+                m_Menu.SetActive( false );
+                m_GameOver.SetActive( true );
+                break;
+
+            default:
+                break;
+        }
     }
-
-    public void Menu_GameOver()
-    {
-        S_SceneManager.Load_Menu();
-
-        m_Menu.SetActive( false );
-        m_GameOver.SetActive( true );
-        Debug.Log( "Load GameOver" );
-    }
-
-
-
-
 }

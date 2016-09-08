@@ -6,9 +6,13 @@ class S_SceneManager
 {
     public static int CurrentScene = 0;
 
+    public static MenuState CurrentMenu = MenuState.Main;
+
     public static void Init_All()
     {
         S_AudioManager.Init_Vol();
+
+        S_VideoManager.Init_Video();
 
         // TODO: 
         //          Init_Video
@@ -16,9 +20,7 @@ class S_SceneManager
     }
 
     public static void Load_SplashScreen()
-    {
-        Init_All();
-
+    {           
         Load_Scene( 0 );
     }
 
@@ -32,8 +34,15 @@ class S_SceneManager
         Load_Scene( 2 );
     }
 
+    public static void Load_MainMenu()
+    {
+        CurrentMenu = MenuState.Main;
+        Load_Menu();
+    }
+
     public static void Load_GameOver()
     {
+        CurrentMenu = MenuState.GameOver;
         Load_Menu();        
     }
 
@@ -46,5 +55,17 @@ class S_SceneManager
     {
         CurrentScene = _index;
         SceneManager.LoadScene( _index );
-    }
+    } 
+
+}
+
+public enum MenuState
+{
+    Main,
+    Settings,
+    SettingsAudio,
+    SettingsVideo,
+    SettingsInputs,
+    Credits,
+    GameOver
 }
