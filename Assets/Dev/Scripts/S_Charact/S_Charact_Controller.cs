@@ -144,6 +144,12 @@ public class S_Charact_Controller : MonoBehaviour
 
                     m_cam_transform.position = Vector3.Lerp( m_cam_transform.position, newPos, Time.deltaTime * Cam_Speed );
                 }
+                else
+                {
+                    Vector3 newPos = new Vector3( m_cam_transform.position.x, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z );
+
+                    m_cam_transform.position = Vector3.Lerp( m_cam_transform.position, newPos, Time.deltaTime * Cam_Speed );
+                }
             }
             else
             {
