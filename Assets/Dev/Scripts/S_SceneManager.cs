@@ -6,39 +6,39 @@ class S_SceneManager
 {
     public static int CurrentScene = 0;
 
+    public static void Init_All()
+    {
+        S_AudioManager.Init_Vol();
+
+        // TODO: 
+        //          Init_Video
+        //          Init_Inputs
+    }
+
     public static void Load_SplashScreen()
     {
+        Init_All();
+
         Load_Scene( 0 );
     }
 
     public static void Load_Menu()
     {
+      
         Load_Scene( 1 );
-    }
-
-    public static void Load_Settings()
-    {
-        Load_Scene( 2 );
-    }
-
-    public static void Load_Credits()
-    {
-        Load_Scene( 3 );
-    }
-
-    public static void Load_GameOver()
-    {
-        Load_Scene( 4 );
     }
 
     public static void Load_Demo()
     {
-        Load_Scene( 5 );
+        Load_Scene( 2 );
     }
 
-   
+    public static void Load_GameOver()
+    {
+        Load_Menu();
 
 
+    }
 
     public static void Load_Next()
     {
