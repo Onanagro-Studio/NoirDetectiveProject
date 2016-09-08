@@ -16,7 +16,7 @@ public class S_Enemy_AI : MonoBehaviour
         m_AI_Sleep = GetComponent<S_Enemy_AI_Sleep>();
 
         m_AI_Wait.Init(this);
-        Wait( 0.1f );
+        Wait( 0.1f );                   
     }
 
     #region Attack
