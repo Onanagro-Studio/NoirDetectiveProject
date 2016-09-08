@@ -8,6 +8,9 @@ public class S_MenuButtonManager : MonoBehaviour
     public GameObject m_Menu, m_Settings, m_AudioSet, m_VideoSet, m_InputsSet, m_Credits, m_GameOver;
     public Slider m_SliderGlobal, m_SliderMusic, m_SliderFX, m_SliderDialog;
 
+    public Dropdown m_DropdownResolutions;
+    private Resolution[] m_Res;
+
     private int m_globalVol, m_musicVol, m_FXVol, m_DialogVol;
 
     #region Menu
@@ -53,6 +56,21 @@ public class S_MenuButtonManager : MonoBehaviour
     {
         m_Settings.SetActive( false );
         m_VideoSet.SetActive( true );
+
+        m_Res = Screen.resolutions;
+
+        m_DropdownResolutions.options.Clear();
+
+        for( int i = 0; i < m_Res.Length; i++ )
+        {
+            m_DropdownResolutions.options.Add( new Dropdown.OptionData( m_Res[ i ].ToString() ) );
+
+            m_DropdownResolutions.value = i;
+        }
+
+
+
+
         Debug.Log( "Click Settings_Video" );
     }
 

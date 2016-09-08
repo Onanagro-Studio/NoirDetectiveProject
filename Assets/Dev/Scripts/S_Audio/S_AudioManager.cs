@@ -4,7 +4,7 @@ using System.Collections;
 class S_AudioManager
 {
 
-    public static int GlobalVolume = 100;
+    public static int GlobalVolume = 50;
     public static int MusicVolume = 100;
     public static int FXVolume = 100;
     public static int DialogVolume = 100;

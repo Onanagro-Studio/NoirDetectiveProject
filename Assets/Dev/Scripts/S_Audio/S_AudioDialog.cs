@@ -8,12 +8,13 @@ public class S_AudioDialog : MonoBehaviour {
     void Start()
     {
         m_audioSource = GetComponent<AudioSource>();
-        m_volume = (float)S_AudioManager.GlobalVolume / 100f * (float)S_AudioManager.DialogVolume / 100f;
-        // S_AudioManager.GlobalVolume;
+       
     }
 
     void Update()
     {
+        m_volume = (float)S_AudioManager.GlobalVolume / 100f * (float)S_AudioManager.DialogVolume / 100f;
+
         m_audioSource.volume = m_volume;
     }
 
