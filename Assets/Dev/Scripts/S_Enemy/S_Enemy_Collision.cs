@@ -27,19 +27,32 @@ public class S_Enemy_Collision : MonoBehaviour
     
     void OnTriggerEnter(Collider collision)
     {
-        if ( m_enemy.m_AI.m_state != Enemy_AI_State.Sleep)
+        if ( !Input.GetButton( "Joy0_Kill" ) )
         {
-            if( m_enemy.m_AI.m_state != Enemy_AI_State.Attack )
-                m_enemy.m_AI.Start_SleepRandom();
-            else
-            if( m_life > 0 )
+            if( m_enemy.m_AI.m_state != Enemy_AI_State.Sleep )
             {
-                m_hinted = true;
-                m_enemy.SetColor( Color.red );
+                if( m_enemy.m_AI.m_state != Enemy_AI_State.Attack )
+                    m_enemy.m_AI.Start_SleepRandom();
+                else
+                if( m_life > 0 )
+                {
+                    m_hinted = true;
+                    m_enemy.SetColor( Color.red );
 
-                m_hintTimer = Time.realtimeSinceStartup + 0.1f;
+                    m_hintTimer = Time.realtimeSinceStartup + 0.1f;
 
-                m_life--;
+                    m_life--;
+                }
+            }
+        }
+        else
+        {
+            if( m_enemy.m_AI.m_state == Enemy_AI_State.Sleep )
+            {
+                S_MadnessBar.progress += 0.2f;
+                Destroy( this.gameObject );
+
+                Debug.Log( "You have kill him, you are a mad man !" );
             }
         }
     }

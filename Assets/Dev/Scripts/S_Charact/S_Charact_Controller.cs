@@ -23,6 +23,8 @@ public class S_Charact_Controller : MonoBehaviour
     [HideInInspector]
     public GameObject m_SpriteLeft, m_SpriteRight;
 
+    public SpriteRenderer m_renderLeft, m_renderRight;
+
     void Start()
     {
         m_transform = GetComponent<Transform>();
@@ -41,8 +43,8 @@ public class S_Charact_Controller : MonoBehaviour
 
     void Update()
     {
-        float dx = Input.GetAxis("Horizontal") * 10.0f;
-        float dy = Input.GetAxis("Vertical") * 10.0f;
+        float dx = Input.GetAxis("Joy0_Move_X") * 10.0f;
+        float dy = Input.GetAxis("Joy0_Move_Y") * 10.0f;
 
         Update_HighLight();
         Update_Direction( dx , dy);
@@ -161,7 +163,7 @@ public class S_Charact_Controller : MonoBehaviour
 
     private void Update_FightBox()
     {
-        if( Input.GetKeyDown( KeyCode.Q ) )
+        if( Input.GetButtonDown("Joy0_Punch") || Input.GetButtonDown( "Joy0_Kill" ) )
         {
             if( m_SpriteLeft.activeInHierarchy ) FightBoxLeft.enabled = true;
             if( m_SpriteRight.activeInHierarchy ) FightBoxRight.enabled = true;
