@@ -8,37 +8,20 @@ class S_SceneManager
 
     public static void Load_SplashScreen()
     {
+        S_AudioManager.Init_Vol();
         Load_Scene( 0 );
     }
 
     public static void Load_Menu()
     {
+        S_AudioManager.Init_Vol();
         Load_Scene( 1 );
-    }
-
-    public static void Load_Settings()
-    {
-        Load_Scene( 2 );
-    }
-
-    public static void Load_Credits()
-    {
-        Load_Scene( 3 );
-    }
-
-    public static void Load_GameOver()
-    {
-        Load_Scene( 4 );
     }
 
     public static void Load_Demo()
     {
-        Load_Scene( 5 );
+        Load_Scene( 2 );
     }
-
-   
-
-
 
     public static void Load_Next()
     {

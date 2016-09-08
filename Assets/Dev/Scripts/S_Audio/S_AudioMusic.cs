@@ -10,7 +10,7 @@ public class S_AudioMusic : MonoBehaviour
     void Start()
     {
         m_audioSource = GetComponent<AudioSource>();
-        m_volume = S_AudioManager.GlobalVolume / 100 * S_AudioManager.MusicVolume / 100;
+        m_volume = (float)S_AudioManager.GlobalVolume / 100f * (float)S_AudioManager.MusicVolume / 100f;
         // S_AudioManager.GlobalVolume;
     }
 

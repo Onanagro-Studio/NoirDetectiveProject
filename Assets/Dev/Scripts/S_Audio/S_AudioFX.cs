@@ -8,7 +8,7 @@ public class S_AudioFX : MonoBehaviour {
     void Start()
     {
         m_audioSource = GetComponent<AudioSource>();
-        m_volume = S_AudioManager.GlobalVolume / 100 * S_AudioManager.FXVolume / 100;
+        m_volume = (float)S_AudioManager.GlobalVolume / 100f * (float)S_AudioManager.FXVolume / 100f;
         // S_AudioManager.GlobalVolume;
     }
 
