@@ -42,10 +42,8 @@ class S_SceneManager
 
     public static void Load_GameOver()
     {
-
         CurrentMenu = MenuState.GameOver;
         Load_Menu();        
-
     }
 
     public static void Load_Next()

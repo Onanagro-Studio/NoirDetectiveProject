@@ -9,7 +9,10 @@ public class S_MenuButtonManager : MonoBehaviour
     public Slider m_SliderGlobal, m_SliderMusic, m_SliderFX, m_SliderDialog;
 
     public Dropdown m_DropdownResolutions;
+    public Toggle m_ToggleFullScreen, m_ToggleStats;
+
     private Resolution[] m_Res;
+    private Resolution actualRes = new Resolution();
 
     private int m_globalVol, m_musicVol, m_FXVol, m_DialogVol;
 
@@ -54,17 +57,45 @@ public class S_MenuButtonManager : MonoBehaviour
 
     public void Settings_Video()
     {
+        int defaultRes = -1;
+        
+        actualRes.width = S_VideoManager.ResolutionWidth;
+        actualRes.height = S_VideoManager.ResolutionHeight;
+        actualRes.refreshRate = S_VideoManager.ResolutionRefreshRate;
+
         m_Settings.SetActive( false );
         m_VideoSet.SetActive( true );
 
         m_Res = Screen.resolutions;
         m_DropdownResolutions.options.Clear();
 
-        for( int i = 0; i < m_Res.Length; i++ )
+
+        int count = 0;
+        for( int i = 0 ; i < m_Res.Length; i++ )
         {
+            if( m_Res[ i ].Equals( actualRes ) )
+            {
+                defaultRes = i;
+            }
+
             m_DropdownResolutions.options.Add( new Dropdown.OptionData( m_Res[ i ].ToString() ) );
             m_DropdownResolutions.value = i;
+
+            count = i;
         }
+
+        if(defaultRes != -1 )
+        {
+            m_DropdownResolutions.value = count;
+        }
+        else
+        {
+            m_DropdownResolutions.options.Add( new Dropdown.OptionData( actualRes.ToString() ) );
+            m_DropdownResolutions.value = count +1;
+        }
+
+        m_ToggleFullScreen.isOn = S_VideoManager.FullScreen;
+        m_ToggleStats.isOn = S_VideoManager.Stats;
 
         Debug.Log( "Click Settings_Video" );
     }
@@ -163,6 +194,29 @@ public class S_MenuButtonManager : MonoBehaviour
     public void VideoSet_Save()
     {
         // TODO: Save settings
+
+        int actualResCount = m_DropdownResolutions.value;
+
+        if(actualResCount < m_Res.Length )
+        {
+            S_VideoManager.ResolutionWidth = m_Res[ actualResCount ].width;
+            S_VideoManager.ResolutionHeight = m_Res[ actualResCount ].height;
+            S_VideoManager.ResolutionRefreshRate = m_Res[ actualResCount ].refreshRate;
+        }
+        else
+        {
+            S_VideoManager.ResolutionWidth = actualRes.width;
+            S_VideoManager.ResolutionHeight = actualRes.height;
+            S_VideoManager.ResolutionRefreshRate = actualRes.refreshRate;
+        }
+
+
+
+        Debug.Log( S_VideoManager.ResolutionWidth );
+
+        S_VideoManager.FullScreen = m_ToggleFullScreen.isOn;
+        S_VideoManager.Stats = m_ToggleStats.isOn;
+
         Debug.Log( "Click VideoSet_Save" );
     }
 
