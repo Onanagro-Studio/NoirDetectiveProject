@@ -31,7 +31,7 @@ public class S_Charact_Collision : MonoBehaviour
         //On player Frapped
         if (collision.gameObject.layer == 14 )
         {
-            S_MadnessBar.progress += 0.05f;
+            S_Charact_Madness.Madness += 0.05f;
 
             m_hinted = true;
             m_hintTimer = Time.realtimeSinceStartup + 0.1f;

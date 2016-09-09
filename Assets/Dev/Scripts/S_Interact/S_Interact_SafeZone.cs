@@ -12,7 +12,7 @@ public class S_Interact_SafeZone : S_Interact
 
     protected override void On_Interact_Start(Collider _collision)
     {
-        S_MadnessBar.progress = 0.0f;
+        S_Charact_Madness.Madness = 0.0f;
     }
 
     protected override void On_Interact_Leave(Collider _collision)

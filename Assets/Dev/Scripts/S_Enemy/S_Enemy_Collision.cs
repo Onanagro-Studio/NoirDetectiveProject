@@ -49,7 +49,7 @@ public class S_Enemy_Collision : MonoBehaviour
         {
             if( m_enemy.m_AI.m_state == Enemy_AI_State.Sleep )
             {
-                S_MadnessBar.progress += 0.2f;
+                S_Charact_Madness.Madness += 0.2f;
                 Destroy( this.gameObject );
 
                 Debug.Log( "You have kill him, you are a mad man !" );
