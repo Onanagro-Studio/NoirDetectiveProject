@@ -4,7 +4,7 @@ using System.Collections;
 public class S_Enemy_AI_Attack : MonoBehaviour
 {
     public float Damage = 20.0f;
-    public float OutOfRange = 10.0f;
+    public float OutOfRange = 5.0f;
     public float TimeForPunch_Min = 0.5f, TimeForPunch_Max = 3.5f;
 
     void Start ()
@@ -23,7 +23,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
     {
         if ( m_enemy.m_AI.m_state == Enemy_AI_State.Attack )
         {
-            S_MadnessBar.progress += 0.015f * Time.deltaTime;
+            S_Charact_Madness.Madness += 0.015f * Time.deltaTime;
 
             float _dist = Mathf.Abs( m_transform.position.x - m_player_transform.position.x );
 
