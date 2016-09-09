@@ -306,10 +306,30 @@ public class S_MenuButtonManager : MonoBehaviour
 
                 m_Menu.SetActive( false );
                 m_GameOver.SetActive( true );
+                m_fadeIn = true;
+                m_alpha = 0.0f;
+                m_canvasRenderer.SetAlpha( m_alpha );
+
                 break;
 
             default:
                 break;
         }
     }
+
+    void Update()
+    {
+        if ( m_fadeIn )
+        {
+            m_alpha += 0.8f * Time.deltaTime;
+            m_canvasRenderer.SetAlpha( m_alpha );
+
+            if( m_alpha > 1.0f )
+                m_fadeIn = false;
+        }
+    }
+
+    private float m_alpha;
+    public CanvasRenderer m_canvasRenderer;
+    private bool m_fadeIn;
 }
