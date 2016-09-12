@@ -31,8 +31,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                 Follow_Player();
             else
                 Look_Player();
-
-
+            
             if ( _dist > OutOfRange )
             {
                 Debug.Log( "Is lost !" );
