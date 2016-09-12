@@ -85,12 +85,12 @@ public class S_Enemy_AI_Attack : MonoBehaviour
         if( m_transform.position.x - m_player_transform.position.x > 0 )
         {
             m_enemy.SetDirection( EnemyDirection.Left );
-            m_transform.position = new Vector3( m_transform.position.x - 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+            m_transform.position = new Vector3( m_transform.position.x - 7.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
         }
         else
         {
             m_enemy.SetDirection( EnemyDirection.Right );
-            m_transform.position = new Vector3( m_transform.position.x + 5.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+            m_transform.position = new Vector3( m_transform.position.x + 7.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
         }
     }
 

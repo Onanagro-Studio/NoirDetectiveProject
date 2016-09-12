@@ -3,6 +3,9 @@ using System.Collections;
 
 public class S_Charact_Collision : MonoBehaviour
 {
+    public Texture2D progressBarEmpty;
+    public Texture2D progressBarFull;
+
     void Start()
     {
         m_charact = GetComponent<S_Charact_Controller>();
@@ -10,6 +13,12 @@ public class S_Charact_Collision : MonoBehaviour
         m_life = 100.0f;
     }
 
+    void OnGUI()
+    {
+        GUI.DrawTexture( new Rect( pos.x, pos.y, size.x, size.y ), progressBarEmpty );
+        GUI.DrawTexture( new Rect( pos.x, pos.y, size.x * m_life / 100.0f, size.y ), progressBarFull );
+    }
+    
     void Update()
     {
         if( m_hinted && Time.realtimeSinceStartup > m_hintTimer )
@@ -22,8 +31,11 @@ public class S_Charact_Collision : MonoBehaviour
         if( m_life < 0 )
             S_SceneManager.Load_GameOver();
 
-        if ( m_life < 100.0f)
-            m_life +=  0.005f * Time.deltaTime;
+        if( m_life < 0.0f )
+            m_life = 0.0f;
+
+        if( m_life < 100.0f)
+            m_life +=  5f * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider collision)
@@ -46,6 +58,9 @@ public class S_Charact_Collision : MonoBehaviour
             Debug.Log( "Player is Frapped !" );
         }
     }
+
+    private Vector2 pos = new Vector2(20,100);
+    private Vector2 size = new Vector2(250,40);
 
     private bool m_hinted;
     private float m_hintTimer;
