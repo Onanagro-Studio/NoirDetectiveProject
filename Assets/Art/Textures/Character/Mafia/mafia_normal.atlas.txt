@@ -1,0 +1,132 @@
+
+mafia_normal.png
+size: 4096,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+armback
+  rotate: true
+  xy: 3516, 341
+  size: 167, 517
+  orig: 167, 517
+  offset: 0, 0
+  index: -1
+armfront
+  rotate: true
+  xy: 2998, 191
+  size: 130, 318
+  orig: 130, 318
+  offset: 0, 0
+  index: -1
+foot-front(4)(2)
+  rotate: false
+  xy: 2199, 154
+  size: 306, 144
+  orig: 306, 144
+  offset: 0, 0
+  index: -1
+foot-front(5)
+  rotate: false
+  xy: 2199, 9
+  size: 305, 143
+  orig: 305, 143
+  offset: 0, 0
+  index: -1
+forearmback
+  rotate: false
+  xy: 2834, 25
+  size: 156, 276
+  orig: 156, 276
+  offset: 0, 0
+  index: -1
+hand-back
+  rotate: true
+  xy: 3516, 207
+  size: 132, 159
+  orig: 132, 159
+  offset: 0, 0
+  index: -1
+hand-front(2)
+  rotate: false
+  xy: 1757, 46
+  size: 103, 202
+  orig: 103, 202
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 2507, 2
+  size: 299, 325
+  orig: 299, 325
+  offset: 0, 0
+  index: -1
+item
+  rotate: false
+  xy: 2490, 303
+  size: 506, 205
+  orig: 506, 205
+  offset: 0, 0
+  index: -1
+lowarm
+  rotate: true
+  xy: 1395, 108
+  size: 140, 360
+  orig: 140, 360
+  offset: 0, 0
+  index: -1
+neck
+  rotate: true
+  xy: 2992, 43
+  size: 146, 192
+  orig: 146, 192
+  offset: 0, 0
+  index: -1
+pant
+  rotate: false
+  xy: 1862, 109
+  size: 335, 189
+  orig: 335, 189
+  offset: 0, 0
+  index: -1
+shin-back
+  rotate: true
+  xy: 847, 84
+  size: 164, 546
+  orig: 164, 546
+  offset: 0, 0
+  index: -1
+shin-front
+  rotate: true
+  xy: 1862, 300
+  size: 208, 626
+  orig: 208, 626
+  offset: 0, 0
+  index: -1
+thigh-back(2)
+  rotate: true
+  xy: 2998, 323
+  size: 185, 516
+  orig: 185, 516
+  offset: 0, 0
+  index: -1
+thigh-front(2)
+  rotate: true
+  xy: 847, 250
+  size: 258, 1013
+  orig: 258, 1013
+  offset: 0, 0
+  index: -1
+vest
+  rotate: true
+  xy: 2, 74
+  size: 434, 843
+  orig: 434, 843
+  offset: 0, 0
+  index: -1
+vestback
+  rotate: false
+  xy: 3318, 177
+  size: 163, 144
+  orig: 163, 144
+  offset: 0, 0
+  index: -1
