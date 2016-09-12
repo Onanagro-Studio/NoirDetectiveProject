@@ -3,7 +3,8 @@ using System.Collections;
 
 public class S_MoveOffset : MonoBehaviour {
 
-    public float scrollSpeed = 0.5F;
+    public float scrollSpeedX = 0.5f;
+    public float scrollSpeedY = 0.5f;
     public Renderer rend;
 
     // Use this for initialization
@@ -15,7 +16,8 @@ public class S_MoveOffset : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float offset = Time.time * scrollSpeed;
-        rend.material.SetTextureOffset( "_MainTex", new Vector2( offset, 0 ) );
+        float offsetX = Time.time * scrollSpeedX;
+        float offsetY = Time.time * scrollSpeedY;
+        rend.material.SetTextureOffset( "_MainTex", new Vector2( offsetX, offsetY ) );
     }
 }
