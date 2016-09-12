@@ -25,6 +25,8 @@ public class S_Charact_Controller : MonoBehaviour
 
     public SpriteRenderer m_renderLeft, m_renderRight;
 
+    public bool Bloquer = false;
+
     void Start()
     {
         m_transform = GetComponent<Transform>();
@@ -45,6 +47,12 @@ public class S_Charact_Controller : MonoBehaviour
     {
         float dx = Input.GetAxis("Joy0_Move_X") * 10.0f;
         float dy = Input.GetAxis("Joy0_Move_Y") * 10.0f;
+
+        if ( Bloquer )
+        {
+            dx = 0;
+            dy = 0;
+        }
 
         Update_HighLight();
         Update_Direction( dx , dy);
