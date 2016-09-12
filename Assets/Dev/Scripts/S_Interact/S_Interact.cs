@@ -9,6 +9,7 @@ public class S_Interact : MonoBehaviour
     public Color ColorIsUsed = Color.blue;
     
     public GameObject Props_Sprite;
+    public InteractType Interact_Type = InteractType.Default;
     
     void Update ()
     {
@@ -82,4 +83,10 @@ public class S_Interact : MonoBehaviour
     protected Renderer m_renderer;
     protected S_Charact_Controller m_charact_controller;
     protected Highlighter m_highlighter;
+}
+
+public enum InteractType
+{
+    Default,
+    Ladder
 }

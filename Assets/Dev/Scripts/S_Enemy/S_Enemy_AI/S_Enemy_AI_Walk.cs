@@ -13,6 +13,9 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     public float WalkSpeedMin = 1.0f;
     public float WalkSpeedMax = 2.5f;
 
+    public WalkStyle Walk_Style = WalkStyle.Random;
+    public bool CanFlip = true;
+
     void Start ()
     {
         m_enemy = GetComponent<S_Enemy>();
@@ -79,41 +82,82 @@ public class S_Enemy_AI_Walk : MonoBehaviour
         {
             m_enemy.m_AI.m_state = Enemy_AI_State.Patrol;
 
-            bool _correct_dest = false;
-
-            int _count = 0;
-            float _dest = 0;
-            float _dir = 0;
-
-            while( !_correct_dest && _count < MaxCountRandomWalk )
+            if (Walk_Style == WalkStyle.Random)
             {
-                float _range = Random.Range( m_random_move_min, m_random_move_max );
-
-                _dir = RandomSign();
-                _dest = m_transform.position.x + _range * _dir;
-
-                if( _dest > m_min_flag && _dest < m_max_flag )
-                    _correct_dest = true;
-
-                _count++;
+                Start_Random_Patrol();
             }
-
-            if( _correct_dest )
+            else
+            if (Walk_Style == WalkStyle.Defined)
             {
-                m_walk_dest = new Vector3( _dest, m_transform.position.y, m_transform.position.z );
-                m_walk_speed = Random.Range( WalkSpeedMin, WalkSpeedMax );
-
-                if( _dir == 1 )
-                    m_enemy.SetDirection( EnemyDirection.Right );
-                else
-                    m_enemy.SetDirection( EnemyDirection.Left );
-
-                //Debug.Log( "Move: " + _dest + ", Speed: " + m_walk_speed );
+                Start_Defined_Patrol();
             }
             else
             {
+                if ( CanFlip )
+                {
+                    if( m_enemy.m_direction == EnemyDirection.Left )
+                        m_enemy.SetDirection( EnemyDirection.Right );
+                    else
+                        m_enemy.SetDirection( EnemyDirection.Left );
+                }
+
                 m_enemy.m_AI.Wait();
             }
+        }
+    }
+
+    private void Start_Random_Patrol()
+    {
+        bool _correct_dest = false;
+
+        int _count = 0;
+        float _dest = 0;
+        float _dir = 0;
+
+        while( !_correct_dest && _count < MaxCountRandomWalk )
+        {
+            float _range = Random.Range( m_random_move_min, m_random_move_max );
+
+            _dir = RandomSign();
+            _dest = m_transform.position.x + _range * _dir;
+
+            if( _dest > m_min_flag && _dest < m_max_flag )
+                _correct_dest = true;
+
+            _count++;
+        }
+
+        if( _correct_dest )
+        {
+            m_walk_dest = new Vector3( _dest, m_transform.position.y, m_transform.position.z );
+            m_walk_speed = Random.Range( WalkSpeedMin, WalkSpeedMax );
+
+            if( _dir == 1 )
+                m_enemy.SetDirection( EnemyDirection.Right );
+            else
+                m_enemy.SetDirection( EnemyDirection.Left );
+
+            //Debug.Log( "Move: " + _dest + ", Speed: " + m_walk_speed );
+        }
+        else
+        {
+            m_enemy.m_AI.Wait();
+        }
+    }
+
+    private void Start_Defined_Patrol()
+    {
+        m_walk_speed = WalkSpeedMax;
+
+        if( Mathf.Abs( m_transform.position.x - m_min_flag ) < 1.5f )
+        {
+            m_walk_dest = new Vector3( m_max_flag, m_transform.position.y, m_transform.position.z );
+            m_enemy.SetDirection( EnemyDirection.Right );
+        }
+        else
+        {
+            m_walk_dest = new Vector3( m_min_flag, m_transform.position.y, m_transform.position.z );
+            m_enemy.SetDirection( EnemyDirection.Left );
         }
     }
 
@@ -127,8 +171,6 @@ public class S_Enemy_AI_Walk : MonoBehaviour
             m_enemy.SetDirection( EnemyDirection.Right );
         else
             m_enemy.SetDirection( EnemyDirection.Left );
-
-        //Debug.Log( "Out of Area ==> return" );
     }
 
     #region Utils
@@ -153,4 +195,11 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     [HideInInspector]
     public Renderer ConeLightR, ConeLightL;
 
+}
+
+public enum WalkStyle
+{
+    Random,
+    Defined,
+    Sentry
 }

@@ -3,7 +3,8 @@ using System.Collections;
 
 public class S_Enemy_AI_Wait : MonoBehaviour
 {
-    public float RandomWaitTime = 5.0f;
+    public bool RandomTime = true;
+    public float WaitTime = 5.0f;
 
     void Start()
     {
@@ -30,10 +31,15 @@ public class S_Enemy_AI_Wait : MonoBehaviour
     {
         m_enemy_AI.m_state = Enemy_AI_State.Waiting;
 
-        float _waittime = Random.Range( 0.5f, RandomWaitTime );
-        m_waitTimer = Time.realtimeSinceStartup + _waittime;
-
-        //Debug.Log( "Waiting: " + _waittime );
+        if (RandomTime)
+        {
+            float _waittime = Random.Range( 0.5f, WaitTime );
+            m_waitTimer = Time.realtimeSinceStartup + _waittime;
+        }
+        else
+        { 
+            m_waitTimer = Time.realtimeSinceStartup + WaitTime;
+        }
     }
 
     public void Wait(float _max)
@@ -42,10 +48,8 @@ public class S_Enemy_AI_Wait : MonoBehaviour
 
         float _waittime = Random.Range( 0.5f, _max );
         m_waitTimer = Time.realtimeSinceStartup + _waittime;
-
-        //Debug.Log( "Waiting: " + _waittime );
     }
-
+    
     private float m_waitTimer;
     private S_Enemy_AI m_enemy_AI;
 }

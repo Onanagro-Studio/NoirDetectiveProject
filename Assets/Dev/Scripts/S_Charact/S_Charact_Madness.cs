@@ -18,8 +18,6 @@ public class S_Charact_Madness : MonoBehaviour
 	
 	void Update ()
     {
-        Madness = Mathf.Clamp01( Madness );
-
         if( Madness > 0.0f )
             Madness -= 0.005f * Time.deltaTime;
 

@@ -8,6 +8,8 @@ public class S_MadnessBar : MonoBehaviour
 
     void OnGUI()
     {
+        S_Charact_Madness.Madness = Mathf.Clamp01( S_Charact_Madness.Madness );
+
         GUI.DrawTexture( new Rect( pos.x, pos.y, size.x, size.y ), progressBarEmpty );
         GUI.DrawTexture( new Rect( pos.x, pos.y, size.x * S_Charact_Madness.Madness, size.y ), progressBarFull );
     }
