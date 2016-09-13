@@ -18,6 +18,8 @@ public class S_Charact_Controller : MonoBehaviour
     public Color HighlightColor = Color.black;
     public bool IsHighlighted = false;
 
+    public GameObject m_SpineMechanism;
+
     [HideInInspector]
     public BoxCollider FightBoxRight, FightBoxLeft ;
     [HideInInspector]
@@ -35,12 +37,16 @@ public class S_Charact_Controller : MonoBehaviour
         m_highlightRight = m_SpriteRight.AddComponent<Highlighter>();
         m_highlightLeft = m_SpriteLeft.AddComponent<Highlighter>();
 
+
+
         m_dir_R = false;
         m_dir_L = false;
         FightBoxLeft.enabled = false;
         FightBoxRight.enabled = false;
         IsHidden = false;
         m_canMove = true;
+
+        Update_HighLight();
     }
 
     void Update()

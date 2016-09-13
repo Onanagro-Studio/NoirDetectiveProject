@@ -1,0 +1,139 @@
+
+detective.png
+size: 4096,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bras
+  rotate: true
+  xy: 3446, 847
+  size: 142, 607
+  orig: 142, 607
+  offset: 0, 0
+  index: -1
+bras-fond
+  rotate: true
+  xy: 2, 2
+  size: 228, 553
+  orig: 228, 553
+  offset: 0, 0
+  index: -1
+foot-front
+  rotate: false
+  xy: 1593, 416
+  size: 304, 142
+  orig: 304, 142
+  offset: 0, 0
+  index: -1
+foot-front(4)
+  rotate: false
+  xy: 1286, 416
+  size: 305, 142
+  orig: 305, 142
+  offset: 0, 0
+  index: -1
+hand-back
+  rotate: true
+  xy: 854, 98
+  size: 132, 158
+  orig: 132, 158
+  offset: 0, 0
+  index: -1
+hand-back2
+  rotate: true
+  xy: 1014, 100
+  size: 94, 101
+  orig: 94, 101
+  offset: 0, 0
+  index: -1
+hand-bg-back
+  rotate: false
+  xy: 2103, 493
+  size: 79, 65
+  orig: 79, 65
+  offset: 0, 0
+  index: -1
+hand-front
+  rotate: true
+  xy: 1899, 455
+  size: 103, 202
+  orig: 103, 202
+  offset: 0, 0
+  index: -1
+hand-front(2)
+  rotate: false
+  xy: 1437, 270
+  size: 100, 144
+  orig: 100, 144
+  offset: 0, 0
+  index: -1
+head-set-front
+  rotate: false
+  xy: 1014, 196
+  size: 270, 329
+  orig: 270, 329
+  offset: 0, 0
+  index: -1
+head-set-hori
+  rotate: true
+  xy: 3086, 525
+  size: 278, 322
+  orig: 278, 322
+  offset: 0, 0
+  index: -1
+neck
+  rotate: false
+  xy: 1286, 240
+  size: 149, 174
+  orig: 149, 174
+  offset: 0, 0
+  index: -1
+pant
+  rotate: false
+  xy: 557, 14
+  size: 295, 216
+  orig: 295, 216
+  offset: 0, 0
+  index: -1
+thigh-back
+  rotate: true
+  xy: 2506, 805
+  size: 184, 938
+  orig: 184, 938
+  offset: 0, 0
+  index: -1
+thigh-front
+  rotate: true
+  xy: 2, 232
+  size: 293, 1010
+  orig: 293, 1010
+  offset: 0, 0
+  index: -1
+torso
+  rotate: true
+  xy: 2506, 513
+  size: 290, 578
+  orig: 290, 578
+  offset: 0, 0
+  index: -1
+vest-back
+  rotate: true
+  xy: 2, 527
+  size: 462, 1235
+  orig: 462, 1235
+  offset: 0, 0
+  index: -1
+vest-front
+  rotate: true
+  xy: 1239, 560
+  size: 429, 1265
+  orig: 429, 1265
+  offset: 0, 0
+  index: -1
+vest-front-backside
+  rotate: false
+  xy: 854, 43
+  size: 118, 53
+  orig: 118, 53
+  offset: 0, 0
+  index: -1
