@@ -41,12 +41,27 @@ public class S_Charact_Controller : MonoBehaviour
         FightBoxRight.enabled = false;
         IsHidden = false;
         m_canMove = true;
+
+        m_madness = GetComponent<S_Charact_Madness>();
     }
 
     void Update()
     {
         float dx = Input.GetAxis("Joy0_Move_X") * 10.0f;
         float dy = Input.GetAxis("Joy0_Move_Y") * 10.0f;
+
+        if ( m_madness.ControlInverted )
+        {
+            float _dx = dx;
+            dx = dy;
+            dy = _dx;
+        }
+
+        if ( m_madness .AxisInverted )
+        {
+            dx = -dx;
+            dy = -dy;
+        }
 
         if ( Bloquer )
         {
@@ -202,4 +217,5 @@ public class S_Charact_Controller : MonoBehaviour
     private Rigidbody m_body;
     private Transform m_cam_transform;
     private Highlighter m_highlightRight, m_highlightLeft;
+    private S_Charact_Madness m_madness;
 }

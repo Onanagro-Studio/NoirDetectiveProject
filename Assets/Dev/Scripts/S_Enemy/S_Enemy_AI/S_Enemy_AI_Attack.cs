@@ -257,7 +257,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
     private bool m_climbLadder;
     private bool m_fallLadder;
     private S_Interact_Ladder m_currentLadder;
-    private List<S_Interact_Ladder> m_ladderList;
+    public List<S_Interact_Ladder> m_ladderList;
 
     [HideInInspector]
     public Renderer ConeLightR, ConeLightL;

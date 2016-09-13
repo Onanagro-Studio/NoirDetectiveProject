@@ -9,6 +9,7 @@ public class S_Charact_Collision : MonoBehaviour
     void Start()
     {
         m_charact = GetComponent<S_Charact_Controller>();
+        m_madness = GetComponent<S_Charact_Madness>();
         m_hinted = false;
         m_life = 100.0f;
     }
@@ -65,5 +66,6 @@ public class S_Charact_Collision : MonoBehaviour
     private bool m_hinted;
     private float m_hintTimer;
     private S_Charact_Controller m_charact;
+    private S_Charact_Madness m_madness;
     private float m_life;
 }

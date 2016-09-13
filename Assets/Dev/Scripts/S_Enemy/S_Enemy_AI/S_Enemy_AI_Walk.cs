@@ -19,6 +19,7 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     void Start ()
     {
         m_enemy = GetComponent<S_Enemy>();
+        m_enemyAttack = GetComponent<S_Enemy_AI_Attack>();
 
         m_transform = GetComponent<Transform>();
 
@@ -56,13 +57,48 @@ public class S_Enemy_AI_Walk : MonoBehaviour
             }
             else
             {
-                if( m_transform.position.x - m_walk_dest.x > 0 )
+                if (!m_needLadder && m_enemyAttack.m_ladderList.Count != 0)
                 {
-                    m_transform.position = new Vector3( m_transform.position.x - m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                    m_needLadder = true;
+                    m_currentLadder = m_enemyAttack.m_ladderList[ m_enemyAttack.m_ladderList.Count - 1 ];
+                    m_enemyAttack.m_ladderList.RemoveAt( m_enemyAttack.m_ladderList.Count - 1 );
+                    Debug.Log( "Doit prendre l'echelle :/" );
+                }
+                
+                if ( !m_needLadder )
+                {
+                    if( m_transform.position.x - m_walk_dest.x > 0 )
+                    {
+                        m_transform.position = new Vector3( m_transform.position.x - m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                    }
+                    else
+                    {
+                        m_transform.position = new Vector3( m_transform.position.x + m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                    }
                 }
                 else
                 {
-                    m_transform.position = new Vector3( m_transform.position.x + m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                    if( Mathf.Abs( m_transform.position.x - m_currentLadder.m_PortalTopTransform.position.x ) > 1.5f )
+                    {
+                        if( m_transform.position.x - m_currentLadder.m_PortalTopTransform.position.x > 0 )
+                        {
+                            m_enemy.SetDirection( EnemyDirection.Left );
+                            m_transform.position = new Vector3( m_transform.position.x - m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                        }
+                        else
+                        {
+                            m_enemy.SetDirection( EnemyDirection.Right );
+                            m_transform.position = new Vector3( m_transform.position.x + m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                        }
+                    }
+                    else
+                    {
+                        m_transform.position = new Vector3( m_transform.position.x, m_currentLadder.m_PortalBottomTransform.position.y + 1.0f, m_transform.position.z );
+
+                        Debug.Log( "Fall Ladder ! " );
+
+                        m_needLadder = false;
+                    }
                 }
             }
         }
@@ -70,7 +106,6 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     
     public void Start_Patrol()
     {
-
         ConeLightR.material.color = m_enemy.m_PatrolColor;
         ConeLightL.material.color = m_enemy.m_PatrolColor;
 
@@ -191,6 +226,10 @@ public class S_Enemy_AI_Walk : MonoBehaviour
 
     private S_Enemy m_enemy;
     private Transform m_transform;
+
+    private bool m_needLadder;
+    private S_Interact_Ladder m_currentLadder;
+    private S_Enemy_AI_Attack m_enemyAttack;
 
     [HideInInspector]
     public Renderer ConeLightR, ConeLightL;

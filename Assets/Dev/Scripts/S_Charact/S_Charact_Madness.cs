@@ -8,9 +8,6 @@ public class S_Charact_Madness : MonoBehaviour
     public bool ControlInverted;
     public bool AxisInverted;
 
-    public float TimeCrazy_Min = 2.0f, TimeCrazy_Max = 7.0f;
-    public float TimeSanity_Min = 40.0f, TimeSanity_Max = 120.0f;
-
     void Start ()
     {
         Madness = 0.0f;
@@ -20,18 +17,33 @@ public class S_Charact_Madness : MonoBehaviour
     {
         if( Madness > 0.0f )
             Madness -= 0.005f * Time.deltaTime;
+        if( Madness > 1.0f )
+            Madness = 1.0f;
 
-        //if ( Madness < 0.8f)
-        //{
-        //    ControlInverted = false;
-        //    AxisInverted = false;
-        //    m_isCrazy = false;
-        //}
+        if( !m_ControleLoose && Madness > 0.8f && Time.realtimeSinceStartup > m_ControleLooseTimer)
+            Start_Loose_Control( 8.0f );
+        
+        if ( m_ControleLoose && Time.realtimeSinceStartup > m_ControleLooseTimer )
+        {
+            m_ControleLoose = false;
+            ControlInverted = false;
+            AxisInverted = false;
 
-        //if( Time.realtimeSinceStartup > m_sanityTimer )
-        //{
-        //    m_sanityTimer = Time.realtimeSinceStartup + Random.Range( TimeSanity_Min, TimeSanity_Max );
-        //}
+            m_ControleLooseTimer += Random.Range( 35.0f, 55.0f );
+        }
+    }
+
+    private void Start_Loose_Control(float _time)
+    {
+        m_ControleLoose = true;
+        m_ControleLooseTimer = Time.realtimeSinceStartup + Random.Range( 4.0f, _time);
+
+        if( RandomBool() )
+            ControlInverted = true;
+        if( RandomBool() )
+            AxisInverted = true;
+
+        Debug.Log( "Loose Control" + ControlInverted + AxisInverted );
     }
 
     private bool RandomBool()
@@ -39,9 +51,6 @@ public class S_Charact_Madness : MonoBehaviour
         return Random.value < .5 ? true : false;
     }
 
-    private bool m_isCrazy;
-    private bool m_isSain;
-
-    private float m_crazyTimer;
-    private float m_sanityTimer;
+    private bool m_ControleLoose;
+    private float m_ControleLooseTimer;
 }
