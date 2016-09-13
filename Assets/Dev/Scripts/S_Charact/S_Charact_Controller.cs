@@ -46,11 +46,8 @@ public class S_Charact_Controller : MonoBehaviour
         IsHidden = false;
         m_canMove = true;
 
-<<<<<<< HEAD
         m_madness = GetComponent<S_Charact_Madness>();
-=======
         Update_HighLight();
->>>>>>> c959680377545e61c9f4f30c157d4cc791ac3c6d
     }
 
     void Update()
