@@ -61,7 +61,6 @@ public class S_Charact_Controller : MonoBehaviour
             dy = 0;
         }
 
-        WalkAnime( dx );
         Update_Direction( dx , dy);
         Update_Camera( dx, dy );
         Update_FightBox();
@@ -103,7 +102,10 @@ public class S_Charact_Controller : MonoBehaviour
             }
 
             if ( m_canMove )
+            {
                 m_body.velocity = new Vector3( _dx, _dy, 0 );
+                WalkAnime( _dx );
+            }
         }
     }
 

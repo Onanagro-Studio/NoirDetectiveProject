@@ -40,10 +40,7 @@ public class S_Charact_Collision : MonoBehaviour
                 m_highlight.m_HighlightColor = Color.white;
             }
             
-            if( m_life < 0.0f )
-                m_life = 0.0f;
-
-            if( m_life < 100.0f )
+            if( m_life < 100.0f && !m_isDead )
                 m_life += 5f * Time.deltaTime;
         }
     }

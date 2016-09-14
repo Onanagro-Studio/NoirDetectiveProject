@@ -13,6 +13,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
         m_enemy = GetComponent<S_Enemy>();
         m_transform = GetComponent<Transform>();
         m_animator = GetComponentInChildren<Animator>();
+        m_collision = GetComponent<S_Enemy_Collision>();
 
         FightBox.enabled = false;
 
@@ -238,7 +239,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
     private void Punch()
     {
-        if (!m_punch )
+        if (!m_punch && !m_collision.m_iskill)
         {
             if ( Time.realtimeSinceStartup > m_punchTimer )
             {
@@ -285,6 +286,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
     private S_Enemy m_enemy;
     private Animator m_animator;
+    private S_Enemy_Collision m_collision;
 
     private Transform m_transform;
     private Transform m_player_transform;

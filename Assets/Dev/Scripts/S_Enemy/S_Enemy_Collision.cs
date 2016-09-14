@@ -24,7 +24,7 @@ public class S_Enemy_Collision : MonoBehaviour
             m_enemy.SetColor( Color.white );
 
             if( m_life <= 0 )
-                Kill();
+                m_iskill = true;
         }
 
         //if( m_iskill && Time.realtimeSinceStartup > m_deathAnimTimer )
@@ -52,11 +52,11 @@ public class S_Enemy_Collision : MonoBehaviour
                         m_hinted = true;
                         m_enemy.SetColor( Color.red );
 
-                        m_animator.SetInteger( "TakeDamage", Random.Range( 0, 2 ) );
-                        m_animator.SetTrigger( "IsDamaged" );
-
-                        if (m_iskill)
-                            Kill();
+                        if ( !m_iskill )
+                        {
+                            m_animator.SetInteger( "TakeDamage", Random.Range( 0, 2 ) );
+                            m_animator.SetTrigger( "IsDamaged" );
+                        }
 
                         m_hintTimer = Time.realtimeSinceStartup + 0.1f;
 
@@ -73,27 +73,36 @@ public class S_Enemy_Collision : MonoBehaviour
                     S_Charact_Madness.Madness += 0.2f;
                     Debug.Log( "You have kill him, you are a mad man !" );
 
-                    Kill();
+                    m_iskill = true;
                 }
             }
+        }
+
+        if (m_iskill)
+        {
+            Kill();
         }
     }
 
     private void Kill()
     {
-        Debug.Log( "Death" );
+        if (!m_alreadyDead)
+        {
+            m_alreadyDead = true;
+            Debug.Log( "Death" );
 
-        m_enemy.SetVelocity( 0, 0 );
-        m_animator.SetTrigger( "IsDead" );
-        m_iskill = true;
-        //m_deathAnimTimer = Time.realtimeSinceStartup + 2f;
-        m_enemy.SetColor( new Color(0, 0, 0, 0) );
-        m_enemy.m_AI.m_state = Enemy_AI_State.Dead;
-        ConeLightObject.SetActive( false );
+            m_enemy.SetVelocity( 0, 0 );
+            m_animator.SetTrigger( "IsDead" );
+            //m_deathAnimTimer = Time.realtimeSinceStartup + 2f;
+            m_enemy.SetColor( new Color( 0, 0, 0, 0 ) );
+            m_enemy.m_AI.m_state = Enemy_AI_State.Dead;
+            ConeLightObject.SetActive( false );
+        }
     }
 
+    private bool m_alreadyDead;
+    public bool m_iskill;
     private float m_deathAnimTimer;
-    private bool m_iskill;
     private Animator m_animator;
     private int m_life;
     private float m_hintTimer;
