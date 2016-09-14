@@ -23,13 +23,13 @@ public class S_Interact_Building : S_Interact
         {
             m_CharTransform.position = new Vector3( m_CharTransform.position.x, m_CharTransform.position.y, m_PortalTopTransform.position.z );
 
-            m_charact_controller.HighlightColor = new Color( 0, 0, 0, 0 );
+            m_charact_controller.m_highlight.m_HighlightColor = new Color( 0, 0, 0, 0 );
         }
         else if( m_CharTransform.position.z < m_PortalBottomTransform.position.z )
         {
             m_CharTransform.position = new Vector3( m_CharTransform.position.x, m_CharTransform.position.y, m_PortalBottomTransform.position.z );
 
-            m_charact_controller.HighlightColor = new Color( 1, 1, 1, 1 );
+            m_charact_controller.m_highlight.m_HighlightColor = new Color( 1, 1, 1, 1 );
         }
     }
 

@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Prefab/Prefab_Building #1.fbm.meta
 guid: 977841b818e730a43b5f710f62f3bb99
 folderAsset: yes
 timeCreated: 1472477947
+=======
+guid: 8da9335ee0deeb845a29241ca6dca977
+folderAsset: yes
+timeCreated: 1473836449
+>>>>>>> 7f3c598bb6bb57274dc0beeb8c9e6613e2bc6c42:Assets/Prefab/Prefab_Building #1.fbm.meta
 licenseType: Free
 DefaultImporter:
   userData: 

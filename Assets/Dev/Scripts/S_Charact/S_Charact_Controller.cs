@@ -15,39 +15,24 @@ public class S_Charact_Controller : MonoBehaviour
     public bool IsHidden;
     public bool IsClimbing;
 
-    public Color HighlightColor = Color.black;
-    public bool IsHighlighted = false;
-
-    public GameObject m_SpineMechanism;
-
-    [HideInInspector]
-    public BoxCollider FightBoxRight, FightBoxLeft ;
-    [HideInInspector]
-    public GameObject m_SpriteLeft, m_SpriteRight;
-
-    public SpriteRenderer m_renderLeft, m_renderRight;
-
-    public bool Bloquer = false;
+    public BoxCollider FightBox;
 
     void Start()
     {
         m_transform = GetComponent<Transform>();
         m_body = GetComponent<Rigidbody>();
         m_cam_transform = Camera.main.transform;
-        m_highlightRight = m_SpriteRight.AddComponent<Highlighter>();
-        m_highlightLeft = m_SpriteLeft.AddComponent<Highlighter>();
-
-
 
         m_dir_R = false;
         m_dir_L = false;
-        FightBoxLeft.enabled = false;
-        FightBoxRight.enabled = false;
+        FightBox.enabled = false;
+
         IsHidden = false;
         m_canMove = true;
 
         m_madness = GetComponent<S_Charact_Madness>();
-        Update_HighLight();
+        m_highlight = GetComponent<S_HighlightObject>();
+        m_Animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -74,10 +59,15 @@ public class S_Charact_Controller : MonoBehaviour
             dy = 0;
         }
 
-        Update_HighLight();
+        WalkAnime( dx );
         Update_Direction( dx , dy);
         Update_Camera( dx, dy );
         Update_FightBox();
+    }
+
+    private void WalkAnime(float _dx)
+    {
+        m_Animator.SetFloat( "Speed", _dx * Time.deltaTime );
     }
 
     private void Update_Direction(float _dx, float _dy)
@@ -87,8 +77,7 @@ public class S_Charact_Controller : MonoBehaviour
             m_dir_R = true;
             m_dir_L = false;
 
-            m_SpriteLeft.SetActive( false );
-            m_SpriteRight.SetActive( true );
+            m_transform.localScale = new Vector3( 1, m_transform.localScale.y, m_transform.localScale.z );
         }
         else
         if( _dx < 0.0f && !m_dir_L )
@@ -96,8 +85,7 @@ public class S_Charact_Controller : MonoBehaviour
             m_dir_L = true;
             m_dir_R = false;
 
-            m_SpriteLeft.SetActive( true );
-            m_SpriteRight.SetActive( false );
+            m_transform.localScale = new Vector3( -1, m_transform.localScale.y, m_transform.localScale.z );
         }
         
         if (!Input.GetKey(KeyCode.LeftShift))
@@ -115,14 +103,6 @@ public class S_Charact_Controller : MonoBehaviour
             if ( m_canMove )
                 m_body.velocity = new Vector3( _dx, _dy, 0 );
         }
-    }
-
-    private void Update_HighLight()
-    {
-        if( IsHighlighted && m_dir_L ) m_highlightLeft.ConstantOnImmediate( HighlightColor );
-        else m_highlightLeft.ConstantOffImmediate();
-        if( IsHighlighted && m_dir_R ) m_highlightRight.ConstantOnImmediate( HighlightColor );
-        else m_highlightRight.ConstantOffImmediate();
     }
 
     private void Update_Camera(float _dx, float _dy)
@@ -197,17 +177,25 @@ public class S_Charact_Controller : MonoBehaviour
 
     private void Update_FightBox()
     {
-        if( Input.GetButtonDown("Joy0_Punch") || Input.GetButtonDown( "Joy0_Kill" ) )
+        if( (Input.GetButtonDown("Joy0_Punch") || Input.GetButtonDown( "Joy0_Kill" )) )
         {
-            if( m_SpriteLeft.activeInHierarchy ) FightBoxLeft.enabled = true;
-            if( m_SpriteRight.activeInHierarchy ) FightBoxRight.enabled = true;
+            FightBox.enabled = true;
+
+            m_Animator.SetInteger( "Attack", Random.Range( 0, 3 ) );
+            m_Animator.SetTrigger( "IsAttacking" );
         }
         else
         {
-            if( m_SpriteLeft.activeInHierarchy ) FightBoxLeft.enabled = false;
-            if( m_SpriteRight.activeInHierarchy ) FightBoxRight.enabled = false;
+            FightBox.enabled = false;
         }
     }
+
+    [HideInInspector]
+    public bool Bloquer = false;
+    [HideInInspector]
+    public S_HighlightObject m_highlight;
+    [HideInInspector]
+    public Animator m_Animator;
 
     private bool m_dir_R;
     private bool m_dir_L;

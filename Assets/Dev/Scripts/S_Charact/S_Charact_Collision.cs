@@ -25,8 +25,11 @@ public class S_Charact_Collision : MonoBehaviour
         if( m_hinted && Time.realtimeSinceStartup > m_hintTimer )
         {
             m_hinted = false;
-            m_charact.m_renderLeft.color = Color.white;
-            m_charact.m_renderRight.color = Color.white;
+
+            //Todo
+            //End Hint
+            //m_charact.m_renderLeft.color = Color.white;
+            //m_charact.m_renderRight.color = Color.white;
         }
 
         if( m_life < 0 )
@@ -49,8 +52,9 @@ public class S_Charact_Collision : MonoBehaviour
             m_hinted = true;
             m_hintTimer = Time.realtimeSinceStartup + 0.1f;
 
-            m_charact.m_renderLeft.color = Color.red;
-            m_charact.m_renderRight.color = Color.red;
+            //Todo Hinted
+            //m_charact.m_renderLeft.color = Color.red;
+            //m_charact.m_renderRight.color = Color.red;
 
             //Damage
             float enemyDamage = collision.GetComponentInParent<S_Enemy_AI_Attack>().Damage;
