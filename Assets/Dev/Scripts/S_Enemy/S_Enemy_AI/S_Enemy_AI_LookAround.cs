@@ -35,7 +35,7 @@ public class S_Enemy_AI_LookAround : MonoBehaviour
                 }
                 else
                 {
-                    m_transform.position = new Vector3( m_transform.position.x + m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                    m_enemy.SetVelocity( m_walk_speed, 0 );
                 }
             }
         }

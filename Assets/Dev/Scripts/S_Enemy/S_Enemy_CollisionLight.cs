@@ -14,7 +14,7 @@ public class S_Enemy_CollisionLight : MonoBehaviour
 	
 	void Update ()
     {
-        if ( m_is_see && m_AI.m_state != Enemy_AI_State.Attack && !m_player_charact_controller.IsHidden && m_AI.m_state != Enemy_AI_State.Sleep )
+        if ( m_is_see && m_AI.m_state != Enemy_AI_State.Attack && !m_player_charact_controller.IsHidden && m_AI.m_state != Enemy_AI_State.Sleep && m_AI.m_state != Enemy_AI_State.Dead && !S_Charact_Collision.m_isDead )
         {
             m_AI.Attack_Player( m_player_transform );
         }

@@ -7,20 +7,18 @@ public class S_Enemy : MonoBehaviour
     public Color m_PatrolColor = Color.white,
                  m_WarningColor = Color.yellow,
                  m_DetectColor = Color.red;
-    
+
+    public float SpeedDivisor = 30.0f;
+
     void Start()
     {
-        m_spriteRendererRight = m_SpriteRight.GetComponent<SpriteRenderer>();
-        m_spriteRendererLeft = m_SpriteLeft.GetComponent<SpriteRenderer>();
-
         m_AI = GetComponent<S_Enemy_AI>();
+        m_transform = GetComponent<Transform>();
+        m_highlight = GetComponent<S_HighlightObject>();
+        m_animator = GetComponentInChildren<Animator>();
+        m_body = GetComponent<Rigidbody>();
     }
 	
-    void Update()
-    {
-
-    }
-
     #region Direction
     public void SetDirection(EnemyDirection _direction)
     {
@@ -29,12 +27,10 @@ public class S_Enemy : MonoBehaviour
         switch( m_direction )
         {
             case EnemyDirection.Left:
-                m_SpriteLeft.SetActive( true );
-                m_SpriteRight.SetActive( false );
+                m_transform.localScale = new Vector3( -1, m_transform.localScale.y, m_transform.localScale.z );
                 break;
             case EnemyDirection.Right:
-                m_SpriteRight.SetActive( true );
-                m_SpriteLeft.SetActive( false );
+                m_transform.localScale = new Vector3( 1, m_transform.localScale.y, m_transform.localScale.z );
                 break;
             default:
                 break;
@@ -55,21 +51,26 @@ public class S_Enemy : MonoBehaviour
                 break;
         }
     }
+
+    public void SetVelocity(float _dx, float _dy)
+    {
+        m_body.velocity = new Vector3( _dx, _dy );
+        m_animator.SetFloat( "Speed", _dx / SpeedDivisor );
+    }
     #endregion
 
     #region Color
     public void SetColor(Color _color)
     {
-        m_spriteRendererLeft.color = _color;
-        m_spriteRendererRight.color = _color;
+        m_highlight.m_HighlightColor = _color;
     }
     #endregion
 
-    private SpriteRenderer m_spriteRendererRight;
-    private SpriteRenderer m_spriteRendererLeft;
+    private Transform m_transform;
+    private S_HighlightObject m_highlight;
+    private Rigidbody m_body;
+    private Animator m_animator;
 
     [HideInInspector]
     public S_Enemy_AI m_AI;
-    [HideInInspector]
-    public GameObject m_SpriteRight, m_SpriteLeft;
 }

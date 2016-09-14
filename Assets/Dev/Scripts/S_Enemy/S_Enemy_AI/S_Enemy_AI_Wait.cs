@@ -8,7 +8,7 @@ public class S_Enemy_AI_Wait : MonoBehaviour
 
     void Start()
     {
-
+        m_enemy = GetComponent<S_Enemy>();
     }
 
     public void Init(S_Enemy_AI _enemy_AI)
@@ -40,6 +40,8 @@ public class S_Enemy_AI_Wait : MonoBehaviour
         { 
             m_waitTimer = Time.realtimeSinceStartup + WaitTime;
         }
+
+        m_enemy.SetVelocity( 0, 0 );
     }
 
     public void Wait(float _max)
@@ -49,7 +51,8 @@ public class S_Enemy_AI_Wait : MonoBehaviour
         float _waittime = Random.Range( 0.5f, _max );
         m_waitTimer = Time.realtimeSinceStartup + _waittime;
     }
-    
+
+    private S_Enemy m_enemy;
     private float m_waitTimer;
     private S_Enemy_AI m_enemy_AI;
 }

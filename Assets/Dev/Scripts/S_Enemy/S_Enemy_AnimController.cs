@@ -48,7 +48,6 @@ public class S_Enemy_AnimController : MonoBehaviour
 
         if( Input.GetKeyDown( KeyCode.E ) )
         {
-        
             m_Animator.SetInteger( "Attack", Random.Range( 0, 2 ) );
             m_Animator.SetTrigger( "IsAttacking" );
         }

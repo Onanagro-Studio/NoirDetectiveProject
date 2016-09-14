@@ -29,7 +29,7 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
         m_sleepTimer = Time.realtimeSinceStartup + _time;
 
         m_enemy.SetColor( Color.green );
-        //Debug.Log( "Sleep :" + _time );
+        m_enemy.SetVelocity( 0, 0 );
     }
 
     public void Start_SleepRandom()

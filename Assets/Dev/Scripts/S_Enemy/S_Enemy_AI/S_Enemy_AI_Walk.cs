@@ -54,6 +54,7 @@ public class S_Enemy_AI_Walk : MonoBehaviour
             if( Mathf.Abs( m_transform.position.x - m_walk_dest.x ) < 1.5f )
             {
                 m_enemy.m_AI.Wait();
+                m_enemy.SetVelocity( 0, 0 );
             }
             else
             {
@@ -68,13 +69,9 @@ public class S_Enemy_AI_Walk : MonoBehaviour
                 if ( !m_needLadder )
                 {
                     if( m_transform.position.x - m_walk_dest.x > 0 )
-                    {
-                        m_transform.position = new Vector3( m_transform.position.x - m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
-                    }
+                        m_enemy.SetVelocity( -m_walk_speed, 0 );
                     else
-                    {
-                        m_transform.position = new Vector3( m_transform.position.x + m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
-                    }
+                        m_enemy.SetVelocity( m_walk_speed, 0 );
                 }
                 else
                 {
@@ -83,12 +80,12 @@ public class S_Enemy_AI_Walk : MonoBehaviour
                         if( m_transform.position.x - m_currentLadder.m_PortalTopTransform.position.x > 0 )
                         {
                             m_enemy.SetDirection( EnemyDirection.Left );
-                            m_transform.position = new Vector3( m_transform.position.x - m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                            m_enemy.SetVelocity( -m_walk_speed, 0 );
                         }
                         else
                         {
                             m_enemy.SetDirection( EnemyDirection.Right );
-                            m_transform.position = new Vector3( m_transform.position.x + m_walk_speed * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                            m_enemy.SetVelocity( m_walk_speed, 0 );
                         }
                     }
                     else
@@ -106,8 +103,7 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     
     public void Start_Patrol()
     {
-        ConeLightR.material.color = m_enemy.m_PatrolColor;
-        ConeLightL.material.color = m_enemy.m_PatrolColor;
+        ConeLight.material.color = m_enemy.m_PatrolColor;
 
         if( (m_transform.position.x < m_min_flag || m_transform.position.x > m_max_flag) )
         {
@@ -231,9 +227,8 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     private S_Interact_Ladder m_currentLadder;
     private S_Enemy_AI_Attack m_enemyAttack;
 
-    [HideInInspector]
-    public Renderer ConeLightR, ConeLightL;
-
+    //[HideInInspector]
+    public Renderer ConeLight;
 }
 
 public enum WalkStyle

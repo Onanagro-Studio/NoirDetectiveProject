@@ -73,7 +73,8 @@ public enum Enemy_AI_State
     Patrol,
     Attack,
     LookAround,
-    Sleep
+    Sleep,
+    Dead
 }
 
 public enum EnemyDirection

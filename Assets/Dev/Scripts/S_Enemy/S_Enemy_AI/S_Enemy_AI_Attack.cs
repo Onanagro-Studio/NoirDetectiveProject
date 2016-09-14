@@ -12,9 +12,9 @@ public class S_Enemy_AI_Attack : MonoBehaviour
     {
         m_enemy = GetComponent<S_Enemy>();
         m_transform = GetComponent<Transform>();
+        m_animator = GetComponentInChildren<Animator>();
 
-        FightBoxRight.enabled = false;
-        FightBoxLeft.enabled = false;
+        FightBox.enabled = false;
 
         TimeForPunch_Min = 0.2f;
         TimeForPunch_Max = 1.2f;
@@ -25,8 +25,15 @@ public class S_Enemy_AI_Attack : MonoBehaviour
     
     void Update ()
     {
+        UpdatePunch();
+
         if ( m_enemy.m_AI.m_state == Enemy_AI_State.Attack )
         {
+            if( S_Charact_Collision.m_isDead ) //Go awai when player dead 
+            {
+                m_enemy.m_AI.Start_Patrol();
+            }
+
             if (m_climbLadder)
             {
                 if( Mathf.Abs( m_transform.position.x - m_currentLadder.m_PortalBottomTransform.position.x ) > 1.5f )
@@ -34,12 +41,12 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                     if( m_transform.position.x - m_currentLadder.m_PortalBottomTransform.position.x > 0 )
                     {
                         m_enemy.SetDirection( EnemyDirection.Left );
-                        m_transform.position = new Vector3( m_transform.position.x - 7.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                        m_enemy.SetVelocity( -7.0f, 0 );
                     }
                     else
                     {
                         m_enemy.SetDirection( EnemyDirection.Right );
-                        m_transform.position = new Vector3( m_transform.position.x + 7.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                        m_enemy.SetVelocity( 7.0f, 0 );
                     }
                 }
                 else
@@ -59,12 +66,12 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                     if( m_transform.position.x - m_currentLadder.m_PortalTopTransform.position.x > 0 )
                     {
                         m_enemy.SetDirection( EnemyDirection.Left );
-                        m_transform.position = new Vector3( m_transform.position.x - 7.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                        m_enemy.SetVelocity( -7.0f, 0 );
                     }
                     else
                     {
                         m_enemy.SetDirection( EnemyDirection.Right );
-                        m_transform.position = new Vector3( m_transform.position.x + 7.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+                        m_enemy.SetVelocity( 7.0f, 0 );
                     }
                 }
                 else
@@ -83,8 +90,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
     
     public void Attack_Player(Transform _player_transform)
     {
-        ConeLightR.material.color = m_enemy.m_DetectColor;
-        ConeLightL.material.color = m_enemy.m_DetectColor;
+        ConeLight.material.color = m_enemy.m_DetectColor;
 
         m_player_transform = _player_transform;
         m_enemy.m_AI.m_state = Enemy_AI_State.Attack;
@@ -99,24 +105,29 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
         float _dist = new Vector2(_dx, _dy).magnitude;
 
-        if( _dx > 2.9f )
+        if( _dx > 4f )
             Follow_Player();
         else
+        {
             Look_Player();
+
+            m_enemy.SetVelocity( 0, 0 );
+
+            if( _dx < 4.5f && !S_Charact_Collision.m_isDead )
+                Punch();
+        }
 
         if( _dist > OutOfRange )
         {
             Debug.Log( "Is lost !" );
             m_lastposx = m_player_transform.position.x;
-            ConeLightR.material.color = m_enemy.m_WarningColor;
-            ConeLightL.material.color = m_enemy.m_WarningColor;
+            ConeLight.material.color = m_enemy.m_WarningColor;
 
             m_enemy.m_AI.Start_LookAround();
         }
         else
         {
             Look_For_Friend();
-            Punch();
         }
 
         if( m_player_transform.position.y - m_transform.position.y > 1.0f )
@@ -203,15 +214,17 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
     private void Follow_Player()
     {
+        m_enemy.SetVelocity( 0, 0 );
+
         if( m_transform.position.x - m_player_transform.position.x > 0 )
         {
             m_enemy.SetDirection( EnemyDirection.Left );
-            m_transform.position = new Vector3( m_transform.position.x - 7.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+            m_enemy.SetVelocity( -7.0f, 0 );
         }
         else
         {
             m_enemy.SetDirection( EnemyDirection.Right );
-            m_transform.position = new Vector3( m_transform.position.x + 7.0f * Time.deltaTime, m_transform.position.y, m_transform.position.z );
+            m_enemy.SetVelocity( 7.0f, 0 );
         }
     }
 
@@ -225,26 +238,53 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
     private void Punch()
     {
-        if (!m_punch && Time.realtimeSinceStartup > m_punchTimer )
+        if (!m_punch )
         {
-            m_punch = true;
-            m_punchTimer = Time.realtimeSinceStartup + Random.Range( TimeForPunch_Min, TimeForPunch_Max );
+            if ( Time.realtimeSinceStartup > m_punchTimer )
+            {
+                int _anim = Random.Range( 0, 2 );
 
-            FightBoxLeft.enabled = true;
-            FightBoxRight.enabled = true;
+                m_animator.SetInteger( "Attack", _anim );
+                m_animator.SetTrigger( "IsAttacking" );
 
-            Debug.Log( "Enemy punch !" );
+                m_punch = true;
+                m_punchTimer = Time.realtimeSinceStartup + 1.0f;
+
+                m_boxPunch = true;
+
+                if ( _anim == 0)
+                    m_boxPunchTimer = Time.realtimeSinceStartup + 0.85f;
+                else
+                    m_boxPunchTimer = Time.realtimeSinceStartup + 0.5f;
+            }
         }
-        else
-        {
-            m_punch = false;
+    }
 
-            FightBoxLeft.enabled = false;
-            FightBoxRight.enabled = false;
+    private void UpdatePunch()
+    {
+        if (m_punch)
+        {
+            if ( m_boxPunch && Time.realtimeSinceStartup > m_boxPunchTimer )
+            {
+                FightBox.enabled = true;
+
+                m_boxPunch = false;
+
+                m_unPunch = true;
+                m_UnpunchTimer = Time.realtimeSinceStartup + 0.1f;
+            }
+
+            if( m_unPunch && Time.realtimeSinceStartup > m_UnpunchTimer )
+            {
+                m_punch = false;
+                m_unPunch = false;
+                FightBox.enabled = false;
+            }
         }
     }
 
     private S_Enemy m_enemy;
+    private Animator m_animator;
 
     private Transform m_transform;
     private Transform m_player_transform;
@@ -253,14 +293,19 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
     private bool m_punch;
     private float m_punchTimer;
-    
+    private float m_UnpunchTimer;
+
+    private float m_boxPunchTimer;
+    private bool m_boxPunch;
+    private bool m_unPunch;
+
     private bool m_climbLadder;
     private bool m_fallLadder;
     private S_Interact_Ladder m_currentLadder;
     public List<S_Interact_Ladder> m_ladderList;
 
-    [HideInInspector]
-    public Renderer ConeLightR, ConeLightL;
-    [HideInInspector]
-    public BoxCollider FightBoxRight, FightBoxLeft;
+    //[HideInInspector]
+    public Renderer ConeLight;
+    //[HideInInspector]
+    public BoxCollider FightBox;
 }

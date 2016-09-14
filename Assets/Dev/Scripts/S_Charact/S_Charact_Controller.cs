@@ -17,6 +17,8 @@ public class S_Charact_Controller : MonoBehaviour
 
     public BoxCollider FightBox;
 
+    public float SpeedDivisor = 40.0f;
+
     void Start()
     {
         m_transform = GetComponent<Transform>();
@@ -177,16 +179,49 @@ public class S_Charact_Controller : MonoBehaviour
 
     private void Update_FightBox()
     {
-        if( (Input.GetButtonDown("Joy0_Punch") || Input.GetButtonDown( "Joy0_Kill" )) )
+        if( (Input.GetButtonDown("Joy0_Punch") || Input.GetButtonDown( "Joy0_Kill" )) && Time.realtimeSinceStartup > m_timerFightAnim && !Bloquer )
+        {
+            m_isKillKey = Input.GetButtonDown( "Joy0_Kill" );
+
+            int _anim = Random.Range( 0, 3 );
+
+            m_Animator.SetInteger( "Attack", _anim );
+            m_Animator.SetTrigger( "IsAttacking" );
+
+            if( _anim == 0 )
+            {
+                m_timerFightAnim = Time.realtimeSinceStartup + 0.667f;
+                m_timerFight = Time.realtimeSinceStartup + 0.22f;
+            }
+            else
+            if( _anim == 1 )
+            {
+                m_timerFightAnim = Time.realtimeSinceStartup + 0.333f;
+                m_timerFight = Time.realtimeSinceStartup + 0.10f;
+            }
+            else
+            {
+                m_timerFightAnim = Time.realtimeSinceStartup + 1f;
+                m_timerFight = Time.realtimeSinceStartup + 0.22f;
+            }
+
+            m_fightAnim = true;
+            m_timerFight = Time.realtimeSinceStartup + 0.1f;
+        }
+
+        if( m_fightAnim && Time.realtimeSinceStartup > m_timerFight )
         {
             FightBox.enabled = true;
+            m_fightAnim = false;
+            m_animEnd = true;
 
-            m_Animator.SetInteger( "Attack", Random.Range( 0, 3 ) );
-            m_Animator.SetTrigger( "IsAttacking" );
+            m_timerAnimEnd = Time.realtimeSinceStartup + 0.1f;
         }
-        else
+
+        if (m_animEnd && Time.realtimeSinceStartup > m_timerAnimEnd )
         {
             FightBox.enabled = false;
+            m_animEnd = false;
         }
     }
 
@@ -211,4 +246,14 @@ public class S_Charact_Controller : MonoBehaviour
     private Transform m_cam_transform;
     private Highlighter m_highlightRight, m_highlightLeft;
     private S_Charact_Madness m_madness;
+
+    private float m_timerFightAnim;
+    private float m_timerFight;
+    private float m_timerFightPunch;
+    private bool m_fightAnim;
+
+    private float m_timerAnimEnd;
+    private bool m_animEnd;
+
+    public static bool m_isKillKey;
 }
