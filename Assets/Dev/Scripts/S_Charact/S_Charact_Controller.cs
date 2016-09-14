@@ -183,30 +183,40 @@ public class S_Charact_Controller : MonoBehaviour
         {
             m_isKillKey = Input.GetButtonDown( "Joy0_Kill" );
 
-            int _anim = Random.Range( 0, 3 );
-
-            m_Animator.SetInteger( "Attack", _anim );
-            m_Animator.SetTrigger( "IsAttacking" );
-
-            if( _anim == 0 )
+            if (m_isKillKey)
             {
+                m_Animator.SetTrigger( "IsStabing" );
+
                 m_timerFightAnim = Time.realtimeSinceStartup + 0.667f;
-                m_timerFight = Time.realtimeSinceStartup + 0.22f;
-            }
-            else
-            if( _anim == 1 )
-            {
-                m_timerFightAnim = Time.realtimeSinceStartup + 0.333f;
-                m_timerFight = Time.realtimeSinceStartup + 0.10f;
+                m_timerFight = Time.realtimeSinceStartup + 0.28f;
             }
             else
             {
-                m_timerFightAnim = Time.realtimeSinceStartup + 1f;
-                m_timerFight = Time.realtimeSinceStartup + 0.22f;
+                int _anim = Random.Range( 0, 3 );
+
+                m_Animator.SetInteger( "Attack", _anim );
+                m_Animator.SetTrigger( "IsAttacking" );
+
+                if( _anim == 0 )
+                {
+                    m_timerFightAnim = Time.realtimeSinceStartup + 0.667f;
+                    m_timerFight = Time.realtimeSinceStartup + 0.22f;
+                }
+                else
+                if( _anim == 1 )
+                {
+                    m_timerFightAnim = Time.realtimeSinceStartup + 0.333f;
+                    m_timerFight = Time.realtimeSinceStartup + 0.10f;
+                }
+                else
+                {
+                    m_timerFightAnim = Time.realtimeSinceStartup + 1f;
+                    m_timerFight = Time.realtimeSinceStartup + 0.22f;
+                }
+
             }
 
             m_fightAnim = true;
-            m_timerFight = Time.realtimeSinceStartup + 0.1f;
         }
 
         if( m_fightAnim && Time.realtimeSinceStartup > m_timerFight )

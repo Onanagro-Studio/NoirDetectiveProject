@@ -54,7 +54,7 @@ public class S_Enemy : MonoBehaviour
 
     public void SetVelocity(float _dx, float _dy)
     {
-        m_body.velocity = new Vector3( _dx, _dy );
+        m_body.velocity = new Vector3( _dx, m_body.velocity.y );
         m_animator.SetFloat( "Speed", _dx / SpeedDivisor );
     }
     #endregion
