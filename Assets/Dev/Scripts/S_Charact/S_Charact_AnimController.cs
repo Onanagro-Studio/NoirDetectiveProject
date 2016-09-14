@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class S_Charact_AnimController : MonoBehaviour {
-
+public class S_Charact_AnimController : MonoBehaviour
+{
     Transform m_Transform;
     Animator m_Animator;
-
-
+    
     public GameObject m_SpineMechanism;
     public float m_SpeedX = 5f;
-
-	// Use this for initialization
-	void Start () {
+    
+	void Start ()
+    {
         m_Transform = GetComponent<Transform>();
         m_Animator = m_SpineMechanism.GetComponent<Animator>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         float moveX =  Input.GetAxis("Horizontal") * Time.deltaTime * m_SpeedX;
   
         m_Animator.SetFloat( "Speed", moveX );
@@ -27,8 +26,6 @@ public class S_Charact_AnimController : MonoBehaviour {
         else if( Input.GetAxis( "Horizontal" ) > 0 )
             m_Transform.localScale = new Vector3( 1, m_Transform.localScale.y, m_Transform.localScale.z );
         
-
-
         m_Transform.position = new Vector3( m_Transform.position.x + moveX, m_Transform.position.y, m_Transform.position.z);
 
         if(Input.GetKeyDown(KeyCode.K))
@@ -53,7 +50,5 @@ public class S_Charact_AnimController : MonoBehaviour {
         {
             m_Animator.SetTrigger( "IsStomping" );
         }
-
-
     }
 }
