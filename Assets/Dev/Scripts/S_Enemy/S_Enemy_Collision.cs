@@ -4,8 +4,10 @@ using System.Collections;
 public class S_Enemy_Collision : MonoBehaviour
 {
     public GameObject ConeLightObject;
+    public GameObject DeathIcon;
+    public GameObject StunIcon;
 
-	void Start ()
+    void Start ()
     {
         m_hinted = false;
         m_enemy = GetComponent<S_Enemy>();
@@ -87,6 +89,8 @@ public class S_Enemy_Collision : MonoBehaviour
         m_enemy.m_AI.Start_SleepRandom();
 
         m_animator.SetTrigger( "IsDead" );
+
+        StunIcon.SetActive( true );
     }
 
     private void Damage()
@@ -104,6 +108,9 @@ public class S_Enemy_Collision : MonoBehaviour
         m_enemy.SetColor( new Color(0, 0, 0, 0) );
         m_enemy.m_isDead = true;
         m_enemy.m_AI.m_state = Enemy_AI_State.Dead;
+
+        StunIcon.SetActive( false );
+        DeathIcon.SetActive( true );
     }
 
     private Animator m_animator;
