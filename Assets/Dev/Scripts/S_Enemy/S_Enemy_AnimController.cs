@@ -48,12 +48,12 @@ public class S_Enemy_AnimController : MonoBehaviour
 
         if( Input.GetKeyDown( KeyCode.E ) )
         {
-            m_Animator.SetInteger( "Attack", Random.Range( 0, 2 ) );
+            m_Animator.SetInteger( "Attack", Random.Range( 0, 1 ) );
             m_Animator.SetTrigger( "IsAttacking" );
         }
         if( Input.GetKeyDown( KeyCode.R ) )
         {
-            m_Animator.SetBool( "???", !m_Animator.GetBool("???") );
+            //m_Animator.SetBool( "???", !m_Animator.GetBool("???") );
         }
 
 

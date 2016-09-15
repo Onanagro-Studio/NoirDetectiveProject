@@ -243,13 +243,23 @@ public class S_Enemy_AI_Attack : MonoBehaviour
         {
             if ( Time.realtimeSinceStartup > m_punchTimer )
             {
-                int _anim = Random.Range( 0, 2 );
+                int _anim;
+
+                if (m_enemy.m_type == EnemyType.Mafia)
+                {
+                    _anim = Random.Range( 0, 2 );
+                    m_punchTimer = Time.realtimeSinceStartup + 1.0f;
+                }
+                else //if( m_enemy.m_type == EnemyType.Cultist )
+                {
+                    _anim = Random.Range( 0, 1 );
+                    m_punchTimer = Time.realtimeSinceStartup + 1.9f;
+                }
 
                 m_animator.SetInteger( "Attack", _anim );
                 m_animator.SetTrigger( "IsAttacking" );
 
                 m_punch = true;
-                m_punchTimer = Time.realtimeSinceStartup + 1.0f;
 
                 m_boxPunch = true;
 

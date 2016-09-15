@@ -10,6 +10,8 @@ public class S_Enemy : MonoBehaviour
 
     public float SpeedDivisor = 30.0f;
 
+    public EnemyType m_type = EnemyType.Mafia;
+
     void Start()
     {
         m_AI = GetComponent<S_Enemy_AI>();
@@ -74,4 +76,10 @@ public class S_Enemy : MonoBehaviour
     public S_Enemy_AI m_AI;
     public bool m_isKo;
     public bool m_isDead;
+}
+
+public enum EnemyType
+{
+    Mafia,
+    Cultist
 }
