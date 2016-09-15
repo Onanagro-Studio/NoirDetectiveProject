@@ -71,6 +71,7 @@ public class S_Enemy : MonoBehaviour
     private Rigidbody m_body;
     private Animator m_animator;
 
-    [HideInInspector]
     public S_Enemy_AI m_AI;
+    public bool m_isKo;
+    public bool m_isDead;
 }

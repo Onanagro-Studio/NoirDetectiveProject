@@ -239,7 +239,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
     private void Punch()
     {
-        if (!m_punch && !m_collision.m_iskill)
+        if (!m_punch && !m_enemy.m_isKo)
         {
             if ( Time.realtimeSinceStartup > m_punchTimer )
             {

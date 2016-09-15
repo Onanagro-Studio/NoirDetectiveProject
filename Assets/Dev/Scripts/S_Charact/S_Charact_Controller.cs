@@ -35,6 +35,7 @@ public class S_Charact_Controller : MonoBehaviour
         m_madness = GetComponent<S_Charact_Madness>();
         m_highlight = GetComponent<S_HighlightObject>();
         m_Animator = GetComponentInChildren<Animator>();
+        m_detect = GetComponentInChildren<S_Charact_Detect>();
     }
 
     void Update()
@@ -183,29 +184,45 @@ public class S_Charact_Controller : MonoBehaviour
     {
         if( (Input.GetButtonDown("Joy0_Punch") || Input.GetButtonDown( "Joy0_Kill" )) && Time.realtimeSinceStartup > m_timerFightAnim && !Bloquer )
         {
-            m_isKillKey = Input.GetButtonDown( "Joy0_Kill" );
+            m_isStomp = Input.GetButtonDown( "Joy0_Kill" );
 
-            if (m_isKillKey)
+            if ( m_isStomp )
             {
-                m_Animator.SetTrigger( "IsStabing" );
+                m_Animator.SetTrigger( "IsStomping" );
 
                 m_timerFightAnim = Time.realtimeSinceStartup + 0.667f;
                 m_timerFight = Time.realtimeSinceStartup + 0.28f;
             }
             else
             {
-                int _anim = Random.Range( 0, 3 );
+                if( Time.realtimeSinceStartup < m_timerFightAnim + 0.8f )
+                {
+                    m_animCount++;
 
-                m_Animator.SetInteger( "Attack", _anim );
-                m_Animator.SetTrigger( "IsAttacking" );
+                    if( m_animCount > 2 )
+                        m_animCount = 0;
+                }
+                else
+                    m_animCount = 0;
+                
+                if ( m_detect.m_AI != null && m_detect.m_AI.m_state != Enemy_AI_State.Attack )
+                {
+                    m_Animator.SetTrigger( "IsStabing" );
+                    m_animCount = 0;
+                }
+                else
+                {
+                    m_Animator.SetInteger( "Attack", m_animCount );
+                    m_Animator.SetTrigger( "IsAttacking" );
+                }
 
-                if( _anim == 0 )
+                if( m_animCount == 0 )
                 {
                     m_timerFightAnim = Time.realtimeSinceStartup + 0.667f;
                     m_timerFight = Time.realtimeSinceStartup + 0.22f;
                 }
                 else
-                if( _anim == 1 )
+                if( m_animCount == 1 )
                 {
                     m_timerFightAnim = Time.realtimeSinceStartup + 0.333f;
                     m_timerFight = Time.realtimeSinceStartup + 0.10f;
@@ -215,7 +232,6 @@ public class S_Charact_Controller : MonoBehaviour
                     m_timerFightAnim = Time.realtimeSinceStartup + 1f;
                     m_timerFight = Time.realtimeSinceStartup + 0.22f;
                 }
-
             }
 
             m_fightAnim = true;
@@ -236,7 +252,7 @@ public class S_Charact_Controller : MonoBehaviour
             m_animEnd = false;
         }
     }
-
+    
     [HideInInspector]
     public bool Bloquer = false;
     [HideInInspector]
@@ -263,9 +279,11 @@ public class S_Charact_Controller : MonoBehaviour
     private float m_timerFight;
     private float m_timerFightPunch;
     private bool m_fightAnim;
+    public int m_animCount;
 
     private float m_timerAnimEnd;
     private bool m_animEnd;
 
-    public static bool m_isKillKey;
+    public bool m_isStomp;
+    private S_Charact_Detect m_detect;
 }
