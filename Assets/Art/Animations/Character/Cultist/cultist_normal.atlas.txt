@@ -1,0 +1,132 @@
+
+cultist_normal.png
+size: 4096,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm-back
+  rotate: true
+  xy: 1060, 566
+  size: 189, 520
+  orig: 189, 520
+  offset: 0, 0
+  index: -1
+arm-front
+  rotate: true
+  xy: 2610, 884
+  size: 135, 630
+  orig: 135, 630
+  offset: 0, 0
+  index: -1
+belt
+  rotate: true
+  xy: 2610, 770
+  size: 112, 629
+  orig: 112, 629
+  offset: 0, 0
+  index: -1
+book
+  rotate: false
+  xy: 569, 31
+  size: 382, 320
+  orig: 382, 320
+  offset: 0, 0
+  index: -1
+book-2
+  rotate: true
+  xy: 2936, 531
+  size: 237, 272
+  orig: 237, 272
+  offset: 0, 0
+  index: -1
+foot-back
+  rotate: true
+  xy: 1440, 240
+  size: 324, 145
+  orig: 324, 145
+  offset: 0, 0
+  index: -1
+foot-front
+  rotate: false
+  xy: 2610, 624
+  size: 324, 144
+  orig: 324, 144
+  offset: 0, 0
+  index: -1
+hand-back
+  rotate: true
+  xy: 1233, 133
+  size: 134, 171
+  orig: 134, 171
+  offset: 0, 0
+  index: -1
+hand-back2
+  rotate: true
+  xy: 1055, 127
+  size: 140, 176
+  orig: 140, 176
+  offset: 0, 0
+  index: -1
+hand-front
+  rotate: false
+  xy: 953, 147
+  size: 100, 204
+  orig: 100, 204
+  offset: 0, 0
+  index: -1
+hand-front2
+  rotate: false
+  xy: 3952, 817
+  size: 133, 202
+  orig: 133, 202
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 1060, 269
+  size: 295, 378
+  orig: 295, 378
+  offset: 0, 0
+  index: -1
+head2
+  rotate: true
+  xy: 3242, 724
+  size: 295, 378
+  orig: 295, 378
+  offset: 0, 0
+  index: -1
+pant
+  rotate: false
+  xy: 3622, 770
+  size: 328, 249
+  orig: 328, 249
+  offset: 0, 0
+  index: -1
+robe-back
+  rotate: true
+  xy: 1639, 662
+  size: 357, 969
+  orig: 357, 969
+  offset: 0, 0
+  index: -1
+robe-front
+  rotate: true
+  xy: 2, 353
+  size: 402, 1056
+  orig: 402, 1056
+  offset: 0, 0
+  index: -1
+tentacle
+  rotate: true
+  xy: 2, 757
+  size: 262, 1635
+  orig: 262, 1635
+  offset: 0, 0
+  index: -1
+torso
+  rotate: true
+  xy: 2, 2
+  size: 349, 565
+  orig: 349, 565
+  offset: 0, 0
+  index: -1

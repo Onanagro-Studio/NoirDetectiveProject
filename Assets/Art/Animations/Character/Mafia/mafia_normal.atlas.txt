@@ -6,105 +6,126 @@ filter: Linear,Linear
 repeat: none
 armback
   rotate: true
-  xy: 3516, 341
+  xy: 2888, 341
   size: 167, 517
   orig: 167, 517
   offset: 0, 0
   index: -1
 armfront
   rotate: true
-  xy: 2998, 191
+  xy: 3498, 220
   size: 130, 318
   orig: 130, 318
   offset: 0, 0
   index: -1
 foot-front(4)(2)
   rotate: false
-  xy: 2199, 154
+  xy: 3005, 11
   size: 306, 144
   orig: 306, 144
   offset: 0, 0
   index: -1
 foot-front(5)
   rotate: false
-  xy: 2199, 9
+  xy: 3191, 196
   size: 305, 143
   orig: 305, 143
   offset: 0, 0
   index: -1
 forearmback
-  rotate: false
-  xy: 2834, 25
+  rotate: true
+  xy: 3407, 352
   size: 156, 276
   orig: 156, 276
   offset: 0, 0
   index: -1
 hand-back
   rotate: true
-  xy: 3516, 207
+  xy: 3818, 228
   size: 132, 159
   orig: 132, 159
   offset: 0, 0
   index: -1
-hand-front(2)
+hand-back2
   rotate: false
-  xy: 1757, 46
+  xy: 3796, 55
+  size: 132, 163
+  orig: 132, 163
+  offset: 0, 0
+  index: -1
+hand-front(2)
+  rotate: true
+  xy: 3879, 405
   size: 103, 202
   orig: 103, 202
   offset: 0, 0
   index: -1
 head
   rotate: true
-  xy: 2507, 2
+  xy: 2316, 2
   size: 299, 325
   orig: 299, 325
   offset: 0, 0
   index: -1
+head2
+  rotate: true
+  xy: 1983, 2
+  size: 299, 331
+  orig: 299, 331
+  offset: 0, 0
+  index: -1
 item
   rotate: false
-  xy: 2490, 303
+  xy: 1475, 43
+  size: 506, 205
+  orig: 506, 205
+  offset: 0, 0
+  index: -1
+item2
+  rotate: false
+  xy: 1862, 303
   size: 506, 205
   orig: 506, 205
   offset: 0, 0
   index: -1
 lowarm
   rotate: true
-  xy: 1395, 108
+  xy: 2643, 15
   size: 140, 360
   orig: 140, 360
   offset: 0, 0
   index: -1
 neck
   rotate: true
-  xy: 2992, 43
+  xy: 3685, 362
   size: 146, 192
   orig: 146, 192
   offset: 0, 0
   index: -1
 pant
   rotate: false
-  xy: 1862, 109
+  xy: 3313, 5
   size: 335, 189
   orig: 335, 189
   offset: 0, 0
   index: -1
 shin-back
   rotate: true
-  xy: 847, 84
+  xy: 2643, 157
   size: 164, 546
   orig: 164, 546
   offset: 0, 0
   index: -1
 shin-front
   rotate: true
-  xy: 1862, 300
+  xy: 847, 40
   size: 208, 626
   orig: 208, 626
   offset: 0, 0
   index: -1
 thigh-back(2)
   rotate: true
-  xy: 2998, 323
+  xy: 2370, 323
   size: 185, 516
   orig: 185, 516
   offset: 0, 0
@@ -124,8 +145,8 @@ vest
   offset: 0, 0
   index: -1
 vestback
-  rotate: false
-  xy: 3318, 177
+  rotate: true
+  xy: 3650, 55
   size: 163, 144
   orig: 163, 144
   offset: 0, 0
