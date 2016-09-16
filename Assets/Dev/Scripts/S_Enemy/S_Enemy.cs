@@ -12,6 +12,8 @@ public class S_Enemy : MonoBehaviour
 
     public EnemyType m_type = EnemyType.Mafia;
 
+    public GameObject m_damagesIcons;
+
     void Start()
     {
         m_AI = GetComponent<S_Enemy_AI>();
@@ -19,6 +21,7 @@ public class S_Enemy : MonoBehaviour
         m_highlight = GetComponent<S_HighlightObject>();
         m_animator = GetComponentInChildren<Animator>();
         m_body = GetComponent<Rigidbody>();
+        m_transform_Damage = m_damagesIcons.GetComponent<Transform>();
     }
 	
     #region Direction
@@ -30,9 +33,11 @@ public class S_Enemy : MonoBehaviour
         {
             case EnemyDirection.Left:
                 m_transform.localScale = new Vector3( -1, m_transform.localScale.y, m_transform.localScale.z );
+                m_transform_Damage.localScale = new Vector3( -1, m_transform_Damage.localScale.y, m_transform_Damage.localScale.z );
                 break;
             case EnemyDirection.Right:
                 m_transform.localScale = new Vector3( 1, m_transform.localScale.y, m_transform.localScale.z );
+                m_transform_Damage.localScale = new Vector3( 1, m_transform_Damage.localScale.y, m_transform_Damage.localScale.z );
                 break;
             default:
                 break;
@@ -76,6 +81,8 @@ public class S_Enemy : MonoBehaviour
     public S_Enemy_AI m_AI;
     public bool m_isKo;
     public bool m_isDead;
+
+    private Transform m_transform_Damage;
 }
 
 public enum EnemyType
