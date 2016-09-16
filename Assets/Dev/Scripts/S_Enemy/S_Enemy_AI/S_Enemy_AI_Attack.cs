@@ -317,7 +317,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
     public List<S_Interact_Ladder> m_ladderList;
 
     //[HideInInspector]
-    public Renderer ConeLight;
+    public SpriteRenderer ConeLight;
     //[HideInInspector]
     public BoxCollider FightBox;
 }
