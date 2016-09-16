@@ -204,7 +204,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
             {
                 S_Enemy enemy = hits[ i ].collider.GetComponent<S_Enemy>();
 
-                if( enemy.m_AI.m_state != Enemy_AI_State.Attack && enemy.m_AI.m_state != Enemy_AI_State.Sleep )
+                if( enemy.m_AI.m_state != Enemy_AI_State.Attack && enemy.m_AI.m_state != Enemy_AI_State.Sleep && enemy.m_AI.m_state != Enemy_AI_State.Dead )
                 {
                     enemy.m_AI.Attack_Player( m_player_transform );
                     Debug.Log( "I help my friend !" );

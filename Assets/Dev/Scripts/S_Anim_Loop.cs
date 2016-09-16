@@ -74,7 +74,7 @@ public class S_Anim_Loop : MonoBehaviour
 
                         if( m_count >= m_repeat && m_repeat != 0 )
                         {
-                            
+                            SetActive( false );
                         }
                     }
 

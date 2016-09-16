@@ -33,10 +33,7 @@ public class S_Enemy_Collision : MonoBehaviour
         if (m_hint && !m_enemy.m_isDead )
         {
             m_hint = false;
-
-            if (!m_enemy.m_isKo)
-                m_damageIconAnim[ Random.Range( 0, m_damageIconAnim.Length ) ].Restart();
-
+            
             Hint();
 
             if( m_charact.m_animCount == 2 )
@@ -58,6 +55,9 @@ public class S_Enemy_Collision : MonoBehaviour
             {
                 Damage();
             }
+            
+            if( !m_enemy.m_isKo )
+                m_damageIconAnim[ Random.Range( 0, m_damageIconAnim.Length ) ].Restart();
         }
 	}
     
