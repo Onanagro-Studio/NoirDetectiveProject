@@ -106,8 +106,11 @@ public class S_Enemy_Collision : MonoBehaviour
 
     private void Damage()
     {
-        m_animator.SetInteger( "TakeDamage", Random.Range( 0, 2 ) );
-        m_animator.SetTrigger( "IsDamaged" );
+        if ( !m_enemy.m_isKo )
+        {
+            m_animator.SetInteger( "TakeDamage", Random.Range( 0, 2 ) );
+            m_animator.SetTrigger( "IsDamaged" );
+        }
     }
 
     private void Death()
