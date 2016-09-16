@@ -6,7 +6,7 @@ public class S_Enemy_CollisionLight : MonoBehaviour
     
 	void Start ()
     {
-        m_renderer = GetComponent<Renderer>();
+        m_renderer = GetComponent<SpriteRenderer>();
         m_AI = GetComponentInParent<S_Enemy_AI>();
 
         m_is_see = false;
@@ -40,6 +40,6 @@ public class S_Enemy_CollisionLight : MonoBehaviour
     private Transform m_player_transform;
     private S_Charact_Controller m_player_charact_controller;
 
-    private Renderer m_renderer;
+    private SpriteRenderer m_renderer;
     private S_Enemy_AI m_AI;
 }

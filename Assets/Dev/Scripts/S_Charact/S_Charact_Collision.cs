@@ -95,5 +95,5 @@ public class S_Charact_Collision : MonoBehaviour
     private float m_hintTimer;
     private S_Charact_Controller m_charact;
     private S_Charact_Madness m_madness;
-    private float m_life;
+    public static float m_life;
 }

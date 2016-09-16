@@ -228,7 +228,7 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     private S_Enemy_AI_Attack m_enemyAttack;
 
     //[HideInInspector]
-    public Renderer ConeLight;
+    public SpriteRenderer ConeLight;
 }
 
 public enum WalkStyle
