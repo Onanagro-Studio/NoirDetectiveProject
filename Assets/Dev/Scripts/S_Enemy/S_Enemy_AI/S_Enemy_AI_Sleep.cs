@@ -9,6 +9,7 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
     void Start ()
     {
         m_enemy = GetComponent<S_Enemy>();
+        m_animator = GetComponentInChildren<Animator>();
     }
 
 	void Update ()
@@ -19,6 +20,7 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
             {
                 m_enemy.SetColor( Color.white );
                 m_enemy.m_isKo = false;
+                m_animator.SetTrigger( "IsWaking" );
                 m_enemy.m_AI.Start_Patrol();
             }
         }
@@ -38,6 +40,7 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
         Start_Sleep( Random.Range( MinSleepTime, MaxSleepTime ) );
     }
 
+    private Animator m_animator;
     private S_Enemy m_enemy;
     private float m_sleepTimer;
 }
