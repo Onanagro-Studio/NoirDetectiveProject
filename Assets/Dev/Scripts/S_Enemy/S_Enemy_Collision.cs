@@ -102,6 +102,8 @@ public class S_Enemy_Collision : MonoBehaviour
         m_animator.SetTrigger( "IsDead" );
 
         StunIcon.SetActive( true );
+
+        m_life = 3;
     }
 
     private void Damage()
