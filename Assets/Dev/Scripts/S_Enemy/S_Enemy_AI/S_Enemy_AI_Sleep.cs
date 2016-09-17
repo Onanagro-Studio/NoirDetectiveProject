@@ -6,6 +6,9 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
     public float MinSleepTime = 10.0f;
     public float MaxSleepTime = 20.0f;
 
+    public GameObject ConeLightObject;
+    public GameObject StunIcon;
+
     void Start ()
     {
         m_enemy = GetComponent<S_Enemy>();
@@ -22,7 +25,17 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
                 m_enemy.m_isKo = false;
                 m_animator.SetTrigger( "IsWaking" );
                 m_enemy.m_AI.Start_Patrol();
+                StunIcon.SetActive(false);
+
+                m_waitforcone = true;
+                m_coneTimer = Time.realtimeSinceStartup + 1.5f;
             }
+        }
+
+        if (m_waitforcone && Time.realtimeSinceStartup > m_coneTimer)
+        {
+            m_waitforcone = false;
+            ConeLightObject.SetActive(true);
         }
     }
 
@@ -40,6 +53,8 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
         Start_Sleep( Random.Range( MinSleepTime, MaxSleepTime ) );
     }
 
+    private bool m_waitforcone;
+    private float m_coneTimer;
     private Animator m_animator;
     private S_Enemy m_enemy;
     private float m_sleepTimer;
