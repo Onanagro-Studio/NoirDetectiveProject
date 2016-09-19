@@ -19,6 +19,7 @@ public class S_Charact_Controller : MonoBehaviour
     public float SpeedDivisor = 40.0f;
 
     public GameObject SpineObject;
+    public GameObject PunchSoundObject;
 
     void Start()
     {
@@ -37,6 +38,8 @@ public class S_Charact_Controller : MonoBehaviour
         m_highlight = GetComponent<S_HighlightObject>();
         m_Animator = GetComponentInChildren<Animator>();
         m_detect = GetComponentInChildren<S_Charact_Detect>();
+
+        m_punchAudioSources = PunchSoundObject.GetComponentsInChildren<AudioSource>();
     }
 
     void Update()
@@ -94,7 +97,7 @@ public class S_Charact_Controller : MonoBehaviour
         
         if( m_canMove )
         {
-            m_body.velocity = new Vector3( _dx, _dy, 0 );
+            m_body.velocity = new Vector3( _dx, m_body.velocity.y, 0 );
             WalkAnime( _dx );
         }
     }
@@ -232,6 +235,9 @@ public class S_Charact_Controller : MonoBehaviour
         if( m_fightAnim && Time.realtimeSinceStartup > m_timerFight )
         {
             FightBox.enabled = true;
+
+            m_punchAudioSources[ Random.Range( 0, m_punchAudioSources.Length ) ].Play();
+
             m_fightAnim = false;
             m_animEnd = true;
 
@@ -278,4 +284,5 @@ public class S_Charact_Controller : MonoBehaviour
 
     public bool m_isStomp;
     private S_Charact_Detect m_detect;
+    private AudioSource[] m_punchAudioSources;
 }
