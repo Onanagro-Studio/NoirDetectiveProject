@@ -11,11 +11,12 @@ public class S_HighlightObject : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if( m_Object )
+            m_highlighter = m_Object.AddComponent<Highlighter>();
 
-        m_highlighter = m_Object.AddComponent<Highlighter>();
-
-        if( isHighlighted )
-            m_highlighter.ConstantOnImmediate( m_HighlightColor );
+        if( m_highlighter )
+            if( isHighlighted )
+                m_highlighter.ConstantOnImmediate( m_HighlightColor );
     }
 
     // Update is called once per frame
