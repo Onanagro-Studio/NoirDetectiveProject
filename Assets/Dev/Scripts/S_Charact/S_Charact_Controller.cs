@@ -13,7 +13,6 @@ public class S_Charact_Controller : MonoBehaviour
     public float Cam_Speed = 3.0f;
 
     public bool IsHidden;
-    public bool IsClimbing;
 
     public BoxCollider FightBox;
 
@@ -92,17 +91,7 @@ public class S_Charact_Controller : MonoBehaviour
 
             m_transform.localScale = new Vector3( -1, m_transform.localScale.y, m_transform.localScale.z );
         }
-
-        if( IsClimbing && _dy > 0.0f )
-        {
-            m_body.useGravity = false;
-        }
-        else
-        {
-            m_body.useGravity = true;
-            _dy = m_body.velocity.y;
-        }
-
+        
         if( m_canMove )
         {
             m_body.velocity = new Vector3( _dx, _dy, 0 );

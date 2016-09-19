@@ -17,7 +17,6 @@ public class S_Interact_Building : S_Interact
     protected override void On_Interact_Start( Collider _collision )
     {
         m_charact_controller.IsHidden = true;
-        //m_charact_controller.IsClimbing = true;
 
         if( m_CharTransform.position.z > m_PortalTopTransform.position.z )
         {
@@ -36,7 +35,6 @@ public class S_Interact_Building : S_Interact
     protected override void On_Interact_Leave( Collider _collision )
     {
         m_charact_controller.IsHidden = false;
-        //m_charact_controller.IsClimbing = false;
     }
 
     public Transform m_PortalTopTransform, m_PortalBottomTransform;
