@@ -97,7 +97,11 @@ public class S_Charact_Controller : MonoBehaviour
         
         if( m_canMove )
         {
+<<<<<<< HEAD
             m_body.velocity = new Vector3( _dx, m_body.velocity.y, 0 );
+=======
+            m_body.velocity = new Vector3( _dx, 0, 0 );
+>>>>>>> 246b6e35fa8fcb736eba2d1371f33a0925766d7f
             WalkAnime( _dx );
         }
     }
