@@ -6,6 +6,7 @@ public class S_Interact_Toggle_Pos : S_Interact
     public GameObject m_Portal_1, m_Portal_2;
     public bool m_BloquePlayer;
     public bool m_crouchPlayer;
+    public bool m_disableGravity;
 
     void Start()
     {
@@ -27,6 +28,9 @@ public class S_Interact_Toggle_Pos : S_Interact
 
             if (m_crouchPlayer)
                 m_Char_anim.SetTrigger( "IsStanding" );
+
+            if( m_disableGravity )
+                m_charact_controller.m_body.useGravity = true;
         }
         else
         {
@@ -35,6 +39,9 @@ public class S_Interact_Toggle_Pos : S_Interact
 
             if( m_crouchPlayer )
                 m_Char_anim.SetTrigger( "IsCrouched" );
+
+            if( m_disableGravity )
+                m_charact_controller.m_body.useGravity = false;
         }
 
         if (m_used)
