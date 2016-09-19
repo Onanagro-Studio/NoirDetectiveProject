@@ -65,7 +65,7 @@ public class S_Interact : MonoBehaviour
     {
         m_charact_controller = _collision.gameObject.GetComponent<S_Charact_Controller>();
         m_CharTransform = m_charact_controller.GetComponent<Transform>();
-        m_Char_anim = m_charact_controller.GetComponent<Animator>();
+        m_Char_anim = m_charact_controller.GetComponentInChildren<Animator>();
     }
     #endregion
 

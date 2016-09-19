@@ -20,7 +20,7 @@ public class S_AudioFX : MonoBehaviour {
 
         m_audioSource.volume = m_volume * (float)m_VolumeMultiplier / 100f;
 
-        Debug.Log( m_volume + "   " + (float)S_AudioManager.GlobalVolume / 100f + "   " + (float)S_AudioManager.FXVolume / 100f + "   " + (float)m_VolumeMultiplier / 100f + "   " + m_audioSource.volume + "   "  );
+        //Debug.Log( m_volume + "   " + (float)S_AudioManager.GlobalVolume / 100f + "   " + (float)S_AudioManager.FXVolume / 100f + "   " + (float)m_VolumeMultiplier / 100f + "   " + m_audioSource.volume + "   "  );
     }
 
 
