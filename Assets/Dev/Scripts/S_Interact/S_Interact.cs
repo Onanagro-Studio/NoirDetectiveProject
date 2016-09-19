@@ -65,6 +65,7 @@ public class S_Interact : MonoBehaviour
     {
         m_charact_controller = _collision.gameObject.GetComponent<S_Charact_Controller>();
         m_CharTransform = m_charact_controller.GetComponent<Transform>();
+        m_Char_anim = m_charact_controller.GetComponent<Animator>();
     }
     #endregion
 
@@ -72,7 +73,8 @@ public class S_Interact : MonoBehaviour
     protected Transform m_SpriteTransform;
 
     protected Transform m_CharTransform;
-    
+    protected Animator m_Char_anim;
+
     protected bool m_canInteract;
     protected Collider m_last_colision;
     protected Renderer m_renderer;

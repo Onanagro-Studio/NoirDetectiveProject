@@ -3,9 +3,6 @@ using System.Collections;
 
 public class S_Charact_Collision : MonoBehaviour
 {
-    public Texture2D progressBarEmpty;
-    public Texture2D progressBarFull;
-
     void Start()
     {
         m_charact = GetComponent<S_Charact_Controller>();
@@ -18,12 +15,6 @@ public class S_Charact_Collision : MonoBehaviour
         m_life = 100.0f;
     }
 
-    void OnGUI()
-    {
-        GUI.DrawTexture( new Rect( pos.x, pos.y, size.x, size.y ), progressBarEmpty );
-        GUI.DrawTexture( new Rect( pos.x, pos.y, size.x * m_life / 100.0f, size.y ), progressBarFull );
-    }
-    
     void Update()
     {
         if ( m_isDead )

@@ -20,10 +20,29 @@ public class S_Enemy_Collision : MonoBehaviour
         Debug.Log( m_damageIconAnim.Length + " damage icons finded !" );
 
         m_life = 3;
+
+        m_currentframe = Time.frameCount;
     }
 	
 	void Update ()
     {
+        if(Time.frameCount > m_currentframe )
+        {
+            m_currentframe = Time.frameCount;
+            m_anyone_frapped = false;
+        }
+
+        if ( (m_hint && !m_enemy.m_isKo) || (m_hint && m_charact.m_isStomp))
+        {
+            if ( !m_enemy.m_isDead )
+            {
+                if( m_anyone_frapped )
+                    m_hint = false;
+                else
+                    m_anyone_frapped = true;
+            }
+        }
+
 	    if ( m_hinted && Time.realtimeSinceStartup > m_hintTimer )
         {
             m_hinted = false;
@@ -142,6 +161,9 @@ public class S_Enemy_Collision : MonoBehaviour
             m_collider.center = new Vector3( 0, m_collider.center.y, m_collider.center.z );
         }
     }
+
+    public static int m_currentframe;
+    public static bool m_anyone_frapped;
 
     private S_Anim_Loop[] m_damageIconAnim;
     private Animator m_animator;

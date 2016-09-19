@@ -56,6 +56,8 @@ public class S_Charact_Controller : MonoBehaviour
             dy = -dy;
         }
 
+        Update_Camera( dx, dy );
+
         if ( Bloquer )
         {
             dx = 0;
@@ -63,7 +65,6 @@ public class S_Charact_Controller : MonoBehaviour
         }
 
         Update_Direction( dx , dy);
-        Update_Camera( dx, dy );
         Update_FightBox();
     }
 
@@ -89,37 +90,37 @@ public class S_Charact_Controller : MonoBehaviour
 
             m_transform.localScale = new Vector3( -1, m_transform.localScale.y, m_transform.localScale.z );
         }
-        
-        if (!Input.GetKey(KeyCode.LeftShift))
-        {
-            if( IsClimbing && _dy > 0.0f )
-            {
-                m_body.useGravity = false;
-            }
-            else
-            {
-                m_body.useGravity = true;
-                _dy = m_body.velocity.y;
-            }
 
-            if ( m_canMove )
-            {
-                m_body.velocity = new Vector3( _dx, _dy, 0 );
-                WalkAnime( _dx );
-            }
+        if( IsClimbing && _dy > 0.0f )
+        {
+            m_body.useGravity = false;
+        }
+        else
+        {
+            m_body.useGravity = true;
+            _dy = m_body.velocity.y;
+        }
+
+        if( m_canMove )
+        {
+            m_body.velocity = new Vector3( _dx, _dy, 0 );
+            WalkAnime( _dx );
         }
     }
 
     private void Update_Camera(float _dx, float _dy)
     {
-        if( Input.GetKey( KeyCode.LeftShift ) )
+        if( Input.GetButton("Joy0_Shift") )
         {
+            m_body.velocity = new Vector3( 0, 0 );
+            WalkAnime( 0 );
+
             if( !m_lastShift )
             {
                 m_lastCamPos = m_cam_transform.position;
                 m_lastShift = true;
             }
-
+            
             float new_cam_x = m_cam_transform.position.x + _dx * Time .deltaTime * Cam_Speed;
             float new_cam_y = m_cam_transform.position.y + _dy * Time .deltaTime * Cam_Speed;
 
@@ -205,7 +206,7 @@ public class S_Charact_Controller : MonoBehaviour
                 else
                     m_animCount = 0;
                 
-                if ( m_detect.m_AI != null && m_detect.m_AI.m_state != Enemy_AI_State.Attack )
+                if ( m_detect.m_AI != null && m_detect.m_AI.m_state != Enemy_AI_State.Attack && !m_detect.m_enemy.m_isKo )
                 {
                     m_Animator.SetTrigger( "IsStabing" );
                     m_animCount = 0;
