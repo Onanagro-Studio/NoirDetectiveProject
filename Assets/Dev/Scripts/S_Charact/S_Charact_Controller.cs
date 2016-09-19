@@ -19,6 +19,8 @@ public class S_Charact_Controller : MonoBehaviour
 
     public float SpeedDivisor = 40.0f;
 
+    public GameObject SpineObject;
+
     void Start()
     {
         m_transform = GetComponent<Transform>();
@@ -271,7 +273,7 @@ public class S_Charact_Controller : MonoBehaviour
     private bool m_camFollow;
 
     private Transform m_transform;
-    private Rigidbody m_body;
+    public Rigidbody m_body;
     private Transform m_cam_transform;
     private Highlighter m_highlightRight, m_highlightLeft;
     private S_Charact_Madness m_madness;
