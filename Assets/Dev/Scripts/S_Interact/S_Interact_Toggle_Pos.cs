@@ -26,7 +26,7 @@ public class S_Interact_Toggle_Pos : S_Interact
             m_CharTransform.position = m_Portal_1_Transform.position;
 
             if (m_crouchPlayer)
-                m_Char_anim.SetBool( "IsCrouched", false );
+                m_Char_anim.SetTrigger( "IsStanding" );
         }
         else
         {
@@ -34,7 +34,7 @@ public class S_Interact_Toggle_Pos : S_Interact
             m_CharTransform.position = m_Portal_2_Transform.position;
 
             if( m_crouchPlayer )
-                m_Char_anim.SetBool( "IsCrouched", true );
+                m_Char_anim.SetTrigger( "IsCrouched" );
         }
 
         if (m_used)

@@ -32,6 +32,11 @@ public class S_Enemy_Collision : MonoBehaviour
             m_anyone_frapped = false;
         }
 
+        if ( m_hint && m_charact.m_isStomp && !m_enemy.m_isKo )
+        {
+            m_hint = false;
+        }
+
         if ( (m_hint && !m_enemy.m_isKo) || (m_hint && m_charact.m_isStomp))
         {
             if ( !m_enemy.m_isDead )
