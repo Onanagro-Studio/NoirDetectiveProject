@@ -4,7 +4,10 @@ using System.Collections;
 public class S_AudioMusic : MonoBehaviour
 {
 
+    [Range(0,100)]
+    public int m_VolumeMultiplier = 100;
 
+    [HideInInspector]
     public float m_volume;
 
     void Start()
@@ -14,7 +17,7 @@ public class S_AudioMusic : MonoBehaviour
 
     void Update()
     {
-        m_volume = (float)S_AudioManager.GlobalVolume / 100f * (float)S_AudioManager.MusicVolume / 100f;
+        m_volume = (float)S_AudioManager.GlobalVolume / 100f * (float)S_AudioManager.MusicVolume / 100f * (float)m_VolumeMultiplier / 100f;
 
         m_audioSource.volume = m_volume;
     }
