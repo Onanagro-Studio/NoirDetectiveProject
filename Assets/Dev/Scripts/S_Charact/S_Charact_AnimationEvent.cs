@@ -17,8 +17,6 @@ public class S_Charact_AnimationEvent : MonoBehaviour
 
     public void PrintEvent(string _event)
     {
-        Debug.Log( _event );
-
         if (_event == "FootStep" )
         {
             int _count = Random.Range( 0, m_footStepSounds.Length );
