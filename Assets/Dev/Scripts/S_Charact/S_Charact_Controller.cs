@@ -44,8 +44,8 @@ public class S_Charact_Controller : MonoBehaviour
 
     void Update()
     {
-        float dx = Input.GetAxis("Joy0_Move_X") * 10.0f;
-        float dy = Input.GetAxis("Joy0_Move_Y") * 10.0f;
+        float dx = Input.GetAxis("Joy0_Move_X") * 5.0f;
+        float dy = Input.GetAxis("Joy0_Move_Y") * 5.0f;
 
         if ( m_madness.ControlInverted )
         {
@@ -97,11 +97,8 @@ public class S_Charact_Controller : MonoBehaviour
         
         if( m_canMove )
         {
-<<<<<<< HEAD
             m_body.velocity = new Vector3( _dx, m_body.velocity.y, 0 );
-=======
-            m_body.velocity = new Vector3( _dx, 0, 0 );
->>>>>>> 246b6e35fa8fcb736eba2d1371f33a0925766d7f
+
             WalkAnime( _dx );
         }
     }
