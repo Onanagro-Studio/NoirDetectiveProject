@@ -17,8 +17,14 @@ public class S_Charact_AnimationEvent : MonoBehaviour
 
     public void PrintEvent(string _event)
     {
+        Debug.Log( _event );
+
         if (_event == "FootStep" )
-            m_footStepSounds[ Random.Range( 0, m_footStepSounds.Length ) ].Play();
+        {
+            int _count = Random.Range( 0, m_footStepSounds.Length );
+            Debug.Log( _count );
+            m_footStepSounds[ _count ].Play();
+        }
 
         if (_event == "Punch")
             m_punchAudioSources[ Random.Range( 0, m_punchAudioSources.Length ) ].Play();
