@@ -22,6 +22,8 @@ public class S_Enemy : MonoBehaviour
         m_animator = GetComponentInChildren<Animator>();
         m_body = GetComponent<Rigidbody>();
         m_transform_Damage = m_damagesIcons.GetComponent<Transform>();
+
+        SetColor( m_PatrolColor );
     }
 	
     #region Direction
@@ -67,8 +69,11 @@ public class S_Enemy : MonoBehaviour
     #endregion
 
     #region Color
+    public SpriteRenderer m_highlightConeLigth;
+
     public void SetColor(Color _color)
     {
+        m_highlightConeLigth.material.color = _color;
         m_highlight.m_HighlightColor = _color;
     }
     #endregion

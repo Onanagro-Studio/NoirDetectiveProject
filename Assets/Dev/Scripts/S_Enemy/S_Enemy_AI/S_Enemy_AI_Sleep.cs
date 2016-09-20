@@ -21,7 +21,7 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
         {
             if( Time.realtimeSinceStartup > m_sleepTimer )
             {
-                m_enemy.SetColor( Color.white );
+                m_enemy.SetColor( m_enemy.m_PatrolColor );
                 m_enemy.m_isKo = false;
                 m_animator.SetTrigger( "IsWaking" );
                 m_enemy.m_AI.Start_Patrol();
@@ -44,7 +44,7 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
         m_enemy.m_AI.m_state = Enemy_AI_State.Sleep;
         m_sleepTimer = Time.realtimeSinceStartup + _time;//Time.realtimeSinceStartup + _time;
 
-        m_enemy.SetColor( Color.green );
+        m_enemy.SetColor( new Color( 255, 128, 128));
         m_enemy.SetVelocity( 0, 0 );
     }
 

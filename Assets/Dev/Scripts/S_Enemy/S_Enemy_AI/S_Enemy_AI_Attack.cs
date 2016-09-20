@@ -91,7 +91,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
     
     public void Attack_Player(Transform _player_transform)
     {
-        ConeLight.material.color = m_enemy.m_DetectColor;
+        m_enemy.SetColor( m_enemy.m_DetectColor );
 
         m_player_transform = _player_transform;
         m_enemy.m_AI.m_state = Enemy_AI_State.Attack;
@@ -122,7 +122,8 @@ public class S_Enemy_AI_Attack : MonoBehaviour
         {
             Debug.Log( "Is lost !" );
             m_lastposx = m_player_transform.position.x;
-            ConeLight.material.color = m_enemy.m_WarningColor;
+
+            m_enemy.SetColor( m_enemy.m_WarningColor );
 
             m_enemy.m_AI.Start_LookAround();
         }

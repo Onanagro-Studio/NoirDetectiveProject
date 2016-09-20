@@ -103,7 +103,7 @@ public class S_Enemy_AI_Walk : MonoBehaviour
     
     public void Start_Patrol()
     {
-        ConeLight.material.color = m_enemy.m_PatrolColor;
+        m_enemy.SetColor( m_enemy.m_PatrolColor );
 
         if( (m_transform.position.x < m_min_flag || m_transform.position.x > m_max_flag) )
         {
