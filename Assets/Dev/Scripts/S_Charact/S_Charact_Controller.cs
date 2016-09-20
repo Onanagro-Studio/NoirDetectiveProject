@@ -43,8 +43,8 @@ public class S_Charact_Controller : MonoBehaviour
 
     void Update()
     {
-        float dx = Input.GetAxis("Joy0_Move_X") * 5.0f;
-        float dy = Input.GetAxis("Joy0_Move_Y") * 5.0f;
+        float dx = Input.GetAxis("Joy0_Move_X") * 10.0f;
+        float dy = Input.GetAxis("Joy0_Move_Y") * 10.0f;
 
         if ( m_madness.ControlInverted )
         {
