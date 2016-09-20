@@ -3,7 +3,7 @@ using System.Collections;
 
 public class S_Interact_Ladder : S_Interact
 {
-    [HideInInspector]
+   
     public GameObject m_PortalTop, m_PortalBottom;
 
     void Start()
