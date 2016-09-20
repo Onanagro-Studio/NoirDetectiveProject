@@ -249,7 +249,7 @@ public class S_Charact_Controller : MonoBehaviour
         }
     }
     
-    [HideInInspector]
+   // [HideInInspector]
     public bool Bloquer = false;
     [HideInInspector]
     public S_HighlightObject m_highlight;

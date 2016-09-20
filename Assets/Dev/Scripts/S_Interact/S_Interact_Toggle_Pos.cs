@@ -23,7 +23,9 @@ public class S_Interact_Toggle_Pos : S_Interact
         
         if ( _dist1 > _dist2 )
         {
-            m_charact_controller.Bloquer = false;
+            if(m_BloquePlayer)
+                m_charact_controller.Bloquer = false;
+
             m_CharTransform.position = m_Portal_1_Transform.position;
 
             if (m_crouchPlayer)
@@ -34,7 +36,9 @@ public class S_Interact_Toggle_Pos : S_Interact
         }
         else
         {
-            m_charact_controller.Bloquer = true;
+            if(m_BloquePlayer)
+                m_charact_controller.Bloquer = true;
+
             m_CharTransform.position = m_Portal_2_Transform.position;
 
             if( m_crouchPlayer )
