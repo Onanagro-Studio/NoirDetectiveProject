@@ -39,7 +39,6 @@ public class S_Charact_Controller : MonoBehaviour
         m_Animator = GetComponentInChildren<Animator>();
         m_detect = GetComponentInChildren<S_Charact_Detect>();
 
-        m_punchAudioSources = PunchSoundObject.GetComponentsInChildren<AudioSource>();
     }
 
     void Update()
@@ -236,9 +235,7 @@ public class S_Charact_Controller : MonoBehaviour
         if( m_fightAnim && Time.realtimeSinceStartup > m_timerFight )
         {
             FightBox.enabled = true;
-
-            m_punchAudioSources[ Random.Range( 0, m_punchAudioSources.Length ) ].Play();
-
+            
             m_fightAnim = false;
             m_animEnd = true;
 
@@ -285,5 +282,4 @@ public class S_Charact_Controller : MonoBehaviour
 
     public bool m_isStomp;
     private S_Charact_Detect m_detect;
-    private AudioSource[] m_punchAudioSources;
 }
