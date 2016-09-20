@@ -26,7 +26,7 @@ public class S_Charact_AnimationEvent : MonoBehaviour
             m_footStepSounds[ _count ].Play();
         }
 
-        if (_event == "Punch")
+        if (_event == "PunchSoft")
             m_punchAudioSources[ Random.Range( 0, m_punchAudioSources.Length ) ].Play();
     }
 

@@ -7,7 +7,6 @@ public class S_Enemy_AI_Attack : MonoBehaviour
     public float Damage = 20.0f;
     public float OutOfRange = 5.0f;
     public float TimeForPunch_Min = 0.5f, TimeForPunch_Max = 3.5f;
-    public GameObject PunchSoundObject;
 
     void Start ()
     {
@@ -23,8 +22,6 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
         m_climbLadder = false;
         m_ladderList = new List<S_Interact_Ladder>();
-
-        m_punchAudioSources = PunchSoundObject.GetComponentsInChildren<AudioSource>();
     }
     
     void Update ()
@@ -284,8 +281,6 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                 m_boxPunch = false;
                 m_unPunch = true;
 
-                m_punchAudioSources[ Random.Range( 0, m_punchAudioSources.Length ) ].Play();
-
                 m_UnpunchTimer = Time.realtimeSinceStartup + 0.1f;
             }
 
@@ -318,7 +313,6 @@ public class S_Enemy_AI_Attack : MonoBehaviour
     private bool m_climbLadder;
     private bool m_fallLadder;
     private S_Interact_Ladder m_currentLadder;
-    private AudioSource[] m_punchAudioSources;
 
     public List<S_Interact_Ladder> m_ladderList;
 
