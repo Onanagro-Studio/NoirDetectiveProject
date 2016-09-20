@@ -51,7 +51,7 @@ public class S_Enemy_Collision : MonoBehaviour
 	    if ( m_hinted && Time.realtimeSinceStartup > m_hintTimer )
         {
             m_hinted = false;
-            m_enemy.SetColor( Color.white );
+            m_enemy.SetColor( new Color(255, 127, 127) );
         }
 
         if (m_hint && !m_enemy.m_isDead )
