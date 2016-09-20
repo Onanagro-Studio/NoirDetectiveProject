@@ -43,6 +43,9 @@ public class S_Charact_Controller : MonoBehaviour
 
     void Update()
     {
+        if( Input.GetButtonDown( "Escape" ) )
+            S_SceneManager.Load_MainMenu();
+
         float dx = Input.GetAxis("Joy0_Move_X") * 10.0f;
         float dy = Input.GetAxis("Joy0_Move_Y") * 10.0f;
 
