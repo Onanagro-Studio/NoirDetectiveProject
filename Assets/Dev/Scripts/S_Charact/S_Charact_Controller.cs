@@ -140,6 +140,11 @@ public class S_Charact_Controller : MonoBehaviour
             if( new_cam_y < Cam_Min_Y )
                 new_cam_y = Cam_Min_Y;
 
+            if( new_cam_x < Cam_Min_X_Left )
+                new_cam_x = Cam_Min_X_Left;
+            if( new_cam_x > Cam_Min_X_Right )
+                new_cam_x = Cam_Min_X_Right;
+
             m_cam_transform.position = new Vector3( new_cam_x, new_cam_y, m_cam_transform.position.z );
 
             m_canMove = false;
@@ -174,6 +179,11 @@ public class S_Charact_Controller : MonoBehaviour
             if( new_cam_y < Cam_Min_Y )
                 new_cam_y = Cam_Min_Y;
 
+            if( new_cam_x < Cam_Min_X_Left )
+                new_cam_x = Cam_Min_X_Left;
+            if( new_cam_x > Cam_Min_X_Right )
+                new_cam_x = Cam_Min_X_Right;
+
             m_cam_transform.position = new Vector3( new_cam_x, new_cam_y, m_cam_transform.position.z );
 
             m_canMove = false;
@@ -193,6 +203,14 @@ public class S_Charact_Controller : MonoBehaviour
                 if ( m_camFollow )
                 {
                     Vector3 newPos = new Vector3( m_transform.position.x, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z );
+                    
+                    if( newPos.y < Cam_Min_Y )
+                        newPos = new Vector3( newPos.x, Cam_Min_Y, newPos.z );
+
+                    if( newPos.x < Cam_Min_X_Left )
+                        newPos = new Vector3( Cam_Min_X_Left, newPos.y, newPos.z );
+                    if( newPos.x > Cam_Min_X_Right )
+                        newPos = new Vector3( Cam_Min_X_Right, newPos.y, newPos.z );
 
                     m_cam_transform.position = Vector3.Lerp( m_cam_transform.position, newPos, Time.deltaTime * Cam_Speed );
                 }
@@ -206,6 +224,14 @@ public class S_Charact_Controller : MonoBehaviour
             else
             {
                 Vector3 newPos = new Vector3( m_transform.position.x, m_transform.position.y + Cam_Border_Y, m_cam_transform.position.z );
+
+                if( newPos.y < Cam_Min_Y )
+                    newPos = new Vector3( newPos.x, Cam_Min_Y, newPos.z );
+
+                if( newPos.x < Cam_Min_X_Left )
+                    newPos = new Vector3( Cam_Min_X_Left, newPos.y, newPos.z );
+                if( newPos.x > Cam_Min_X_Right )
+                    newPos = new Vector3( Cam_Min_X_Right, newPos.y, newPos.z );
 
                 m_cam_transform.position = Vector3.Lerp( m_cam_transform.position, newPos, Time.deltaTime * Cam_Speed );
 
