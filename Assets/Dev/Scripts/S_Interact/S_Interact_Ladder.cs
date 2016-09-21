@@ -20,11 +20,11 @@ public class S_Interact_Ladder : S_Interact
 
         if(m_CharTransform.position.y < m_PortalTopTransform.position.y )
         {
-            m_CharTransform.position = new Vector3( m_CharTransform.position.x, m_PortalTopTransform.position.y + 1, m_PortalTopTransform.position.z );
+            m_CharTransform.position = new Vector3( m_PortalTopTransform.position.x, m_PortalTopTransform.position.y + 1, m_PortalTopTransform.position.z );
         }
         else if( m_CharTransform.position.y > m_PortalBottomTransform.position.y )
         {
-            m_CharTransform.position = new Vector3( m_CharTransform.position.x, m_PortalBottomTransform.position.y + 1, m_PortalBottomTransform.position.z );
+            m_CharTransform.position = new Vector3( m_PortalBottomTransform.position.x, m_PortalBottomTransform.position.y + 1, m_PortalBottomTransform.position.z );
         }
     }
 
