@@ -10,6 +10,8 @@ public class S_Charact_Controller : MonoBehaviour
     public float Far_Cam_Y_Max = 8.0f;
     public float Far_Cam_Y_Min = 0.0f;
 
+    public float Cam_Min_Y = 1.0f; //Ground
+
     public float Cam_Speed = 3.0f;
 
     public bool IsHidden;
@@ -33,12 +35,12 @@ public class S_Charact_Controller : MonoBehaviour
 
         IsHidden = false;
         m_canMove = true;
+        Bloquer = true;
 
         m_madness = GetComponent<S_Charact_Madness>();
         m_highlight = GetComponent<S_HighlightObject>();
         m_Animator = GetComponentInChildren<Animator>();
         m_detect = GetComponentInChildren<S_Charact_Detect>();
-
     }
 
     void Update()
@@ -132,6 +134,43 @@ public class S_Charact_Controller : MonoBehaviour
             else
             if( new_cam_y < m_transform.position.y - Far_Cam_Y_Min )
                 new_cam_y = m_transform.position.y - Far_Cam_Y_Min;
+
+            if( new_cam_y < Cam_Min_Y )
+                new_cam_y = Cam_Min_Y;
+
+            m_cam_transform.position = new Vector3( new_cam_x, new_cam_y, m_cam_transform.position.z );
+
+            m_canMove = false;
+        }
+        else
+        if( Mathf.Abs( Input.GetAxis( "Joy0_Cam_X" ) ) > 0.1f || Mathf.Abs( Input.GetAxis( "Joy0_Cam_Y" ) ) > 0.1f )
+        {
+            m_body.velocity = new Vector3( 0, 0 );
+            WalkAnime( 0 );
+
+            if( !m_lastShift )
+            {
+                m_lastCamPos = m_cam_transform.position;
+                m_lastShift = true;
+            }
+
+            float new_cam_x = m_cam_transform.position.x + Input.GetAxis( "Joy0_Cam_X" ) * 10.0f * Time .deltaTime * Cam_Speed;
+            float new_cam_y = m_cam_transform.position.y + Input.GetAxis( "Joy0_Cam_Y" ) * -10.0f * Time .deltaTime * Cam_Speed;
+
+            if( new_cam_x > m_transform.position.x + Cam_Border_X )
+                new_cam_x = m_transform.position.x + Cam_Border_X;
+            else
+            if( new_cam_x < m_transform.position.x - Cam_Border_X )
+                new_cam_x = m_transform.position.x - Cam_Border_X;
+
+            if( new_cam_y > m_transform.position.y + Far_Cam_Y_Max )
+                new_cam_y = m_transform.position.y + Far_Cam_Y_Max;
+            else
+            if( new_cam_y < m_transform.position.y - Far_Cam_Y_Min )
+                new_cam_y = m_transform.position.y - Far_Cam_Y_Min;
+
+            if( new_cam_y < Cam_Min_Y )
+                new_cam_y = Cam_Min_Y;
 
             m_cam_transform.position = new Vector3( new_cam_x, new_cam_y, m_cam_transform.position.z );
 
@@ -253,7 +292,7 @@ public class S_Charact_Controller : MonoBehaviour
     }
     
    // [HideInInspector]
-    public bool Bloquer = false;
+    public bool Bloquer;
     [HideInInspector]
     public S_HighlightObject m_highlight;
     [HideInInspector]

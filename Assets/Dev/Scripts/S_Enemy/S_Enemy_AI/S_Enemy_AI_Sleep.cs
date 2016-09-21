@@ -24,11 +24,11 @@ public class S_Enemy_AI_Sleep : MonoBehaviour
                 m_enemy.SetColor( m_enemy.m_PatrolColor );
                 m_enemy.m_isKo = false;
                 m_animator.SetTrigger( "IsWaking" );
-                m_enemy.m_AI.Start_Patrol();
                 StunIcon.SetActive(false);
 
                 m_waitforcone = true;
                 m_coneTimer = Time.realtimeSinceStartup + 1.5f;
+                m_enemy.m_AI.Start_Patrol();
             }
         }
 

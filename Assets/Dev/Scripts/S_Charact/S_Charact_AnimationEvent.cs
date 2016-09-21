@@ -20,11 +20,13 @@ public class S_Charact_AnimationEvent : MonoBehaviour
         if (_event == "FootStep" )
         {
             int _count = Random.Range( 0, m_footStepSounds.Length );
-            Debug.Log( _count );
             m_footStepSounds[ _count ].Play();
         }
 
         if (_event == "PunchSoft")
+            m_punchAudioSources[ Random.Range( 0, m_punchAudioSources.Length ) ].Play();
+
+        if( _event == "Punch" )
             m_punchAudioSources[ Random.Range( 0, m_punchAudioSources.Length ) ].Play();
     }
 
