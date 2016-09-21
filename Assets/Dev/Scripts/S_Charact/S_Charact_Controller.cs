@@ -11,6 +11,8 @@ public class S_Charact_Controller : MonoBehaviour
     public float Far_Cam_Y_Min = 0.0f;
 
     public float Cam_Min_Y = 1.0f; //Ground
+    public float Cam_Min_X_Left = 1.0f;
+    public float Cam_Min_X_Right = 1.0f;
 
     public float Cam_Speed = 3.0f;
 
