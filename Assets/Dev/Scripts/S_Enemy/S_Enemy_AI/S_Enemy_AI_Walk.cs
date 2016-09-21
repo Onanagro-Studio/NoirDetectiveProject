@@ -90,7 +90,7 @@ public class S_Enemy_AI_Walk : MonoBehaviour
                     }
                     else
                     {
-                        m_transform.position = new Vector3( m_transform.position.x, m_currentLadder.m_PortalBottomTransform.position.y + 1.0f, m_transform.position.z );
+                        m_transform.position = new Vector3( m_currentLadder.m_PortalBottomTransform.position.x, m_currentLadder.m_PortalBottomTransform.position.y + 1.0f, m_currentLadder.m_PortalBottomTransform.position.z );
 
                         Debug.Log( "Fall Ladder ! " );
 

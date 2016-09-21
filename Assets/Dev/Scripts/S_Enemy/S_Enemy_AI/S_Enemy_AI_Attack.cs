@@ -52,9 +52,9 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                 }
                 else
                 {
-                    m_transform.position = new Vector3( m_transform.position.x, m_currentLadder.m_PortalTopTransform.position.y + 1, m_transform.position.z );
+                    m_transform.position = new Vector3( m_currentLadder.m_PortalTopTransform.position.x, m_currentLadder.m_PortalTopTransform.position.y + 1, m_currentLadder.m_PortalTopTransform.position.z );
 
-                    Debug.Log( "Climb Ladder ! " );
+                    //Debug.Log( "Climb Ladder ! " );
 
                     m_climbLadder = false;
                 }
@@ -77,9 +77,9 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                 }
                 else
                 {
-                    m_transform.position = new Vector3( m_transform.position.x, m_currentLadder.m_PortalBottomTransform.position.y + 1, m_transform.position.z );
+                    m_transform.position = new Vector3( m_currentLadder.m_PortalBottomTransform.position.x, m_currentLadder.m_PortalBottomTransform.position.y + 1, m_currentLadder.m_PortalBottomTransform.position.z );
 
-                    Debug.Log( "Fall Ladder ! " );
+                    //Debug.Log( "Fall Ladder ! " );
 
                     m_fallLadder = false;
                 }
@@ -120,7 +120,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
         if( _dist > OutOfRange )
         {
-            Debug.Log( "Is lost !" );
+            //Debug.Log( "Is lost !" );
             m_lastposx = m_player_transform.position.x;
 
             m_enemy.SetColor( m_enemy.m_WarningColor );
@@ -137,7 +137,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
             float range = 30.0f;
 
             RaycastHit[] hits;
-            hits = Physics.RaycastAll( new Vector3( m_transform.position.x - range / 2.0f, m_transform.position.y, m_transform.position.z ), new Vector3( 1.0f, 0, 0 ), range );
+            hits = Physics.RaycastAll( new Vector3( m_transform.position.x - range / 2.0f, m_transform.position.y - 1f, m_transform.position.z ), new Vector3( 1.0f, 0, 0 ), range );
 
             for( int i = 0; i < hits.Length; i++ )
             {
@@ -147,7 +147,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
                     if( _currentLadder != null && _currentLadder.Interact_Type == InteractType.Ladder )
                     {
-                        Debug.Log( "Ladder finded !" );
+                        //Debug.Log( "Ladder finded !" );
                         m_climbLadder = true;
 
                         m_currentLadder = _currentLadder;
@@ -163,7 +163,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
             float range = 30.0f;
 
             RaycastHit[] hits;
-            hits = Physics.RaycastAll( new Vector3( m_transform.position.x - range / 2.0f, m_transform.position.y, m_transform.position.z ), new Vector3( 1.0f, 0, 0 ), range );
+            hits = Physics.RaycastAll( new Vector3( m_transform.position.x - range / 2.0f, m_transform.position.y - 1f, m_transform.position.z ), new Vector3( 1.0f, 0, 0 ), range );
 
             for( int i = 0; i < hits.Length; i++ )
             {
@@ -173,7 +173,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
                     if( _currentLadder != null && _currentLadder != m_currentLadder && _currentLadder.Interact_Type == InteractType.Ladder && _currentLadder.m_PortalBottomTransform.position.y < m_transform.position.y - 2.0f )
                     {
-                        Debug.Log( "Ladder finded !" );
+                        //Debug.Log( "Ladder finded !" );
                         m_fallLadder = true;
 
                         m_currentLadder = _currentLadder;
@@ -186,7 +186,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                 m_currentLadder = m_ladderList[ m_ladderList.Count - 1 ];
                 m_ladderList.RemoveAt( m_ladderList.Count - 1 );
 
-                Debug.Log( "Last Ladder !" );
+                //Debug.Log( "Last Ladder !" );
                 m_fallLadder = true;
             }
         }
@@ -208,7 +208,6 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                 if( enemy.m_AI.m_state != Enemy_AI_State.Attack && enemy.m_AI.m_state != Enemy_AI_State.Sleep && enemy.m_AI.m_state != Enemy_AI_State.Dead )
                 {
                     enemy.m_AI.Attack_Player( m_player_transform );
-                    Debug.Log( "I help my friend !" );
                 }
             }
         }

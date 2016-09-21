@@ -20,17 +20,17 @@ public class S_Charact_Madness : MonoBehaviour
         if( Madness > 1.0f )
             Madness = 1.0f;
 
-        if( !m_ControleLoose && Madness > 0.8f && Time.realtimeSinceStartup > m_ControleLooseTimer)
-            Start_Loose_Control( 8.0f );
+        //if( !m_ControleLoose && Madness > 0.8f && Time.realtimeSinceStartup > m_ControleLooseTimer)
+        //    Start_Loose_Control( 8.0f );
         
-        if ( m_ControleLoose && Time.realtimeSinceStartup > m_ControleLooseTimer )
-        {
-            m_ControleLoose = false;
-            ControlInverted = false;
-            AxisInverted = false;
+        //if ( m_ControleLoose && Time.realtimeSinceStartup > m_ControleLooseTimer )
+        //{
+        //    m_ControleLoose = false;
+        //    ControlInverted = false;
+        //    AxisInverted = false;
 
-            m_ControleLooseTimer += Random.Range( 35.0f, 55.0f );
-        }
+        //    m_ControleLooseTimer += Random.Range( 35.0f, 55.0f );
+        //}
     }
 
     private void Start_Loose_Control(float _time)
