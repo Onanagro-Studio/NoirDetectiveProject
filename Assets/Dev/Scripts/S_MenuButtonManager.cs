@@ -34,7 +34,9 @@ public class S_MenuButtonManager : MonoBehaviour
     public void Menu_Settings()
     {
         m_Menu.SetActive( false );
-        m_Settings.SetActive( true );
+        Settings_Audio();
+
+        //m_Settings.SetActive( true );
         Debug.Log( "Click Menu_Settings" );
     }
 
@@ -153,7 +155,8 @@ public class S_MenuButtonManager : MonoBehaviour
     public void AudioSet_Back()
     {
         m_AudioSet.SetActive( false );
-        m_Settings.SetActive( true );
+        //   m_Settings.SetActive( true );
+        Settings_Back();
 
         S_AudioManager.Set_GlobalVol( m_globalVol );
         S_AudioManager.Set_MusicVol( m_musicVol  );
