@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class S_Enemy_AI_Attack : MonoBehaviour
 {
-    public float Damage = 20.0f;
+    public float Damage = 40.0f;
     public float OutOfRange = 5.0f;
     public float TimeForPunch_Min = 0.5f, TimeForPunch_Max = 3.5f;
 
