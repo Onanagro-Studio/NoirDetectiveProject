@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class S_Enemy_AI_Attack : MonoBehaviour
 {
-    public float Damage = 40.0f;
+    public float Damage = 20.0f;
     public float OutOfRange = 5.0f;
     public float TimeForPunch_Min = 0.5f, TimeForPunch_Max = 3.5f;
 
@@ -22,6 +22,19 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
         m_climbLadder = false;
         m_ladderList = new List<S_Interact_Ladder>();
+
+        if( m_enemy.m_type == EnemyType.Mafia )
+        {
+            m_attackSpeed = 8.5f;
+            Damage = 35.0f;
+            m_punchRange = 4.5f;
+        }
+        else
+        {
+            m_attackSpeed = 11.0f;
+            Damage = 45.0f;
+            m_punchRange = 2.5f;
+        }
     }
     
     void Update ()
@@ -42,12 +55,12 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                     if( m_transform.position.x - m_currentLadder.m_PortalBottomTransform.position.x > 0 )
                     {
                         m_enemy.SetDirection( EnemyDirection.Left );
-                        m_enemy.SetVelocity( -7.0f, 0 );
+                        m_enemy.SetVelocity( -m_attackSpeed, 0 );
                     }
                     else
                     {
                         m_enemy.SetDirection( EnemyDirection.Right );
-                        m_enemy.SetVelocity( 7.0f, 0 );
+                        m_enemy.SetVelocity( m_attackSpeed, 0 );
                     }
                 }
                 else
@@ -67,12 +80,12 @@ public class S_Enemy_AI_Attack : MonoBehaviour
                     if( m_transform.position.x - m_currentLadder.m_PortalTopTransform.position.x > 0 )
                     {
                         m_enemy.SetDirection( EnemyDirection.Left );
-                        m_enemy.SetVelocity( -7.0f, 0 );
+                        m_enemy.SetVelocity( -m_attackSpeed, 0 );
                     }
                     else
                     {
                         m_enemy.SetDirection( EnemyDirection.Right );
-                        m_enemy.SetVelocity( 7.0f, 0 );
+                        m_enemy.SetVelocity( m_attackSpeed, 0 );
                     }
                 }
                 else
@@ -106,7 +119,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
         float _dist = new Vector2(_dx, _dy).magnitude;
 
-        if( _dx > 4f )
+        if( _dx > m_punchRange - 0.5f )
             Follow_Player();
         else
         {
@@ -114,7 +127,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
             m_enemy.SetVelocity( 0, 0 );
 
-            if( _dx < 4.5f && !S_Charact_Collision.m_isDead )
+            if( _dx < m_punchRange && !S_Charact_Collision.m_isDead )
                 Punch();
         }
 
@@ -220,12 +233,12 @@ public class S_Enemy_AI_Attack : MonoBehaviour
         if( m_transform.position.x - m_player_transform.position.x > 0 )
         {
             m_enemy.SetDirection( EnemyDirection.Left );
-            m_enemy.SetVelocity( -7.0f, 0 );
+            m_enemy.SetVelocity( -m_attackSpeed, 0 );
         }
         else
         {
             m_enemy.SetDirection( EnemyDirection.Right );
-            m_enemy.SetVelocity( 7.0f, 0 );
+            m_enemy.SetVelocity( m_attackSpeed, 0 );
         }
     }
 
@@ -292,6 +305,9 @@ public class S_Enemy_AI_Attack : MonoBehaviour
             }
         }
     }
+
+    private float m_punchRange;
+    private float m_attackSpeed;
 
     private S_Enemy m_enemy;
     private Animator m_animator;

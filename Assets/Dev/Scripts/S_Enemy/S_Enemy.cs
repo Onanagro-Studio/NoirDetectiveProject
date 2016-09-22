@@ -22,8 +22,18 @@ public class S_Enemy : MonoBehaviour
         m_animator = GetComponentInChildren<Animator>();
         m_body = GetComponent<Rigidbody>();
         m_transform_Damage = m_damagesIcons.GetComponent<Transform>();
+        m_ConeLight = m_highlightConeLigth.GetComponent<BoxCollider>();
 
         SetColor( m_PatrolColor );
+    }
+
+    void Update()
+    {
+        if( m_flip && Time.realtimeSinceStartup > m_conelightTimer )
+        {
+            m_flip = false;
+            m_ConeLight.enabled = true;
+        }
     }
 	
     #region Direction
@@ -44,6 +54,10 @@ public class S_Enemy : MonoBehaviour
             default:
                 break;
         }
+        
+        m_ConeLight.enabled = false;
+        m_conelightTimer = Time.realtimeSinceStartup + 0.5f;
+        m_flip = true;
     }
 
     public void InvertDirection()
@@ -77,6 +91,10 @@ public class S_Enemy : MonoBehaviour
         m_highlight.m_HighlightColor = _color;
     }
     #endregion
+
+    private float m_conelightTimer;
+    private bool m_flip;
+    private BoxCollider m_ConeLight;
 
     private Transform m_transform;
     private S_HighlightObject m_highlight;

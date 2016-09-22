@@ -17,6 +17,28 @@ public class S_Charact_Collision : MonoBehaviour
 
     void Update()
     {
+        if (m_trigger)
+        {
+            m_trigger = false;
+
+            S_Charact_Madness.Madness += 0.05f;
+
+            m_hinted = true;
+            m_hintTimer = Time.realtimeSinceStartup + 0.1f;
+
+            m_highlight.m_HighlightColor = Color.red;
+
+            m_life -= enemyDamage;
+
+            if( m_life > 0 )
+            {
+                m_animator.SetInteger( "TakeDamage", Random.Range( 0, 2 ) );
+                m_animator.SetTrigger( "IsDamaged" );
+            }
+            else
+                Kill();
+        }
+
         if ( m_isDead )
         {
             if (Time.realtimeSinceStartup > m_DeadTimer )
@@ -41,24 +63,8 @@ public class S_Charact_Collision : MonoBehaviour
         //On player Frapped
         if (collision.gameObject.layer == 14 && !m_isDead)
         {
-            S_Charact_Madness.Madness += 0.05f;
-
-            m_hinted = true;
-            m_hintTimer = Time.realtimeSinceStartup + 0.1f;
-
-            m_highlight.m_HighlightColor = Color.red;
-
-            //Damage
-            float enemyDamage = collision.GetComponentInParent<S_Enemy_AI_Attack>().Damage;
-            m_life -= enemyDamage;
-
-            if ( m_life > 0 )
-            {
-                m_animator.SetInteger( "TakeDamage", Random.Range( 0, 2 ) );
-                m_animator.SetTrigger( "IsDamaged" );
-            }
-            else
-                Kill();
+            enemyDamage = collision.GetComponentInParent<S_Enemy_AI_Attack>().Damage;
+            m_trigger = true;
         }
     }
 
@@ -86,5 +92,7 @@ public class S_Charact_Collision : MonoBehaviour
     private float m_hintTimer;
     private S_Charact_Controller m_charact;
     private S_Charact_Madness m_madness;
+    private bool m_trigger;
+    private float enemyDamage;
     public static float m_life;
 }

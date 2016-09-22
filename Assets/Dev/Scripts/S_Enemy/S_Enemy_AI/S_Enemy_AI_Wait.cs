@@ -33,7 +33,7 @@ public class S_Enemy_AI_Wait : MonoBehaviour
 
         if (RandomTime)
         {
-            float _waittime = Random.Range( 0.5f, WaitTime );
+            float _waittime = Random.Range( 2f, WaitTime );
             m_waitTimer = Time.realtimeSinceStartup + _waittime;
         }
         else
