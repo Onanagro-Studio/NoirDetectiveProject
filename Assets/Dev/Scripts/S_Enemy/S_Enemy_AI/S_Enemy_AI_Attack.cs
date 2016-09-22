@@ -30,7 +30,7 @@ public class S_Enemy_AI_Attack : MonoBehaviour
 
         if ( m_enemy.m_AI.m_state == Enemy_AI_State.Attack )
         {
-            if( S_Charact_Collision.m_isDead ) //Go awai when player dead 
+            if( S_Charact_Collision.m_isDead || m_transform.position.x > 840.0f ) //Go awai when player dead 
             {
                 m_enemy.m_AI.Start_Patrol();
             }
