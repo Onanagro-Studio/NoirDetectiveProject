@@ -12,16 +12,21 @@ public class S_AudioMusic : MonoBehaviour
 
     void Start()
     {
-        m_audioSource = GetComponent<AudioSource>();
+        m_audioSource = GetComponents<AudioSource>();
     }
 
     void Update()
     {
         m_volume = (float)S_AudioManager.GlobalVolume / 100f * (float)S_AudioManager.MusicVolume / 100f * (float)m_VolumeMultiplier / 100f;
 
-        m_audioSource.volume = m_volume;
+        for( int i = 0; i < m_audioSource.Length; i++ )
+        {
+            m_audioSource[ i ].volume = m_volume;
+        }
+
+      
     }
 
 
-    private AudioSource m_audioSource;
+    private AudioSource[] m_audioSource;
 }
